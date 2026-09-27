@@ -1,0 +1,2592 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>{{TITLE}}</title>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Serif:wght@500;600&display=swap">
+<style>
+:root{
+  --bg:#F2F5F7; --surface:#FFFFFF; --surface-2:#E9EEF1; --surface-3:#DFE6EA;
+  --line:#D5DEE4; --line-strong:#BCC9D1;
+  --ink:#121A20; --ink-2:#44535E; --ink-3:#6E8090;
+  --accent:#0D6875; --accent-ink:#FFFFFF; --accent-soft:#DCEDF0; --accent-line:#8FC3CB;
+  --good:#2C7248; --good-soft:#DFF0E5;
+  --warn:#8C6212; --warn-soft:#F6EBD3;
+  --crit:#A93A38; --crit-soft:#F7E2E1;
+  --shadow:0 1px 2px rgba(18,26,32,.06),0 6px 18px -10px rgba(18,26,32,.22);
+  --radius:10px;
+  --sans:"IBM Plex Sans",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+  --serif:"IBM Plex Serif",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1317; --surface:#141D23; --surface-2:#1B262E; --surface-3:#22303A;
+    --line:#2A3945; --line-strong:#3B4D5B;
+    --ink:#E7EEF2; --ink-2:#A8B9C4; --ink-3:#7A8D9A;
+    --accent:#4BB8C7; --accent-ink:#06222A; --accent-soft:#12303A; --accent-line:#2E6875;
+    --good:#66C18C; --good-soft:#12301F;
+    --warn:#D7AB55; --warn-soft:#332813;
+    --crit:#E2817C; --crit-soft:#361D1C;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 22px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1317; --surface:#141D23; --surface-2:#1B262E; --surface-3:#22303A;
+  --line:#2A3945; --line-strong:#3B4D5B;
+  --ink:#E7EEF2; --ink-2:#A8B9C4; --ink-3:#7A8D9A;
+  --accent:#4BB8C7; --accent-ink:#06222A; --accent-soft:#12303A; --accent-line:#2E6875;
+  --good:#66C18C; --good-soft:#12301F;
+  --warn:#D7AB55; --warn-soft:#332813;
+  --crit:#E2817C; --crit-soft:#361D1C;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 22px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);font-size:15px;line-height:1.55;-webkit-text-size-adjust:100%}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:600;margin:0;text-wrap:balance;letter-spacing:-.01em}
+p{margin:0}
+button{font:inherit;color:inherit}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+
+/* ---------- shell ---------- */
+#app{display:flex;flex-direction:column;min-height:100%}
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;display:flex;gap:16px;align-items:center;justify-content:space-between;
+  background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--line);padding:10px 16px}
+.brand{display:flex;gap:11px;align-items:center;min-width:0}
+.mark{font-family:var(--mono);font-weight:600;font-size:11px;letter-spacing:.14em;background:var(--accent);color:var(--accent-ink);
+  padding:6px 8px;border-radius:6px;white-space:nowrap;border:0;cursor:pointer}
+.mark:hover{filter:brightness(1.1)}
+.brand h1{font-size:16px;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand p{font-size:11.5px;color:var(--ink-3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.topActions{display:flex;gap:8px;align-items:center;flex-shrink:0}
+.seg{display:flex;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:2px;gap:2px}
+.seg button{border:0;background:none;padding:5px 11px;border-radius:6px;font-size:13px;font-weight:500;color:var(--ink-2);cursor:pointer}
+.seg button.on{background:var(--surface);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.12)}
+.icon{border:1px solid var(--line);background:var(--surface);width:32px;height:32px;border-radius:8px;cursor:pointer;font-size:14px;display:grid;place-items:center}
+
+main{flex:1;width:100%;max-width:1140px;margin:0 auto;padding:22px 16px 56px}
+.pagefoot{border-top:1px solid var(--line);padding:14px 16px 26px;font-size:12px;color:var(--ink-3);text-align:center}
+
+/* ---------- generic ---------- */
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.card + .card{margin-top:14px}
+.row{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.spread{display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+.stack{display:flex;flex-direction:column;gap:14px}
+.muted{color:var(--ink-3)}
+.small{font-size:12.5px}
+.eyebrow{font-family:var(--mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.btn{border:1px solid var(--line-strong);background:var(--surface);padding:8px 14px;border-radius:8px;font-size:13.5px;font-weight:500;cursor:pointer}
+.btn:hover{border-color:var(--accent);color:var(--accent)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.08);color:var(--accent-ink)}
+.btn.ghost{border-color:transparent;background:transparent;color:var(--ink-2)}
+.btn.tiny{padding:4px 9px;font-size:12px;border-radius:6px}
+.btn.danger:hover{border-color:var(--crit);color:var(--crit)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+label.fld{display:flex;flex-direction:column;gap:4px;font-size:12px;color:var(--ink-2);font-weight:500;flex:1 1 180px;min-width:0}
+input[type=text],input[type=number],input[type=email],select,textarea{
+  font:inherit;font-size:14px;color:var(--ink);background:var(--surface);border:1px solid var(--line-strong);
+  border-radius:7px;padding:7px 10px;width:100%;min-width:0}
+textarea{resize:vertical;line-height:1.5}
+input:focus,select:focus,textarea:focus{outline:2px solid var(--accent);outline-offset:0;border-color:var(--accent)}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.pill{display:inline-flex;align-items:center;gap:5px;font-size:11.5px;font-weight:500;padding:2px 8px;border-radius:999px;
+  background:var(--surface-2);color:var(--ink-2);border:1px solid var(--line)}
+.pill.good{background:var(--good-soft);color:var(--good);border-color:transparent}
+.pill.warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.pill.crit{background:var(--crit-soft);color:var(--crit);border-color:transparent}
+.pill.accent{background:var(--accent-soft);color:var(--accent);border-color:transparent}
+hr.sep{border:0;border-top:1px solid var(--line);margin:16px 0}
+
+/* ---------- layout with rail ---------- */
+.shell{display:grid;grid-template-columns:minmax(0,232px) minmax(0,1fr);gap:22px;align-items:start}
+@media (max-width:860px){.shell{grid-template-columns:minmax(0,1fr)}}
+.rail{min-width:0;position:sticky;top:calc(env(safe-area-inset-top,0px) + 66px);display:flex;flex-direction:column;gap:6px}
+@media (max-width:860px){.rail{position:static}}
+.rail a{display:flex;gap:8px;align-items:baseline;text-decoration:none;color:var(--ink-2);font-size:13px;
+  padding:6px 9px;border-radius:7px;border-left:2px solid transparent}
+.rail a:hover{background:var(--surface-2);color:var(--ink)}
+.rail a.done{color:var(--ink-3)}
+.rail a .n{font-family:var(--mono);font-size:11px;color:var(--ink-3);flex-shrink:0;width:18px}
+.rail a.done .n{color:var(--good)}
+.progWrap{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 13px;margin-bottom:8px}
+.bar{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden;margin-top:8px}
+.bar i{display:block;height:100%;background:var(--accent);border-radius:99px;transition:width .3s}
+
+/* ---------- lab text ---------- */
+.doc{font-size:15px;line-height:1.68;max-width:70ch}
+.doc h2{font-size:19px;margin:24px 0 8px}
+.doc h3{font-size:16px;margin:20px 0 6px}
+.doc p{margin:0 0 12px}
+.doc ul,.doc ol{margin:0 0 12px;padding-left:22px}
+.doc li{margin:3px 0}
+.doc code{font-family:var(--mono);font-size:.9em;background:var(--surface-2);padding:1px 5px;border-radius:4px}
+.doc blockquote{margin:14px 0;padding:10px 14px;border-left:3px solid var(--accent-line);background:var(--accent-soft);border-radius:0 7px 7px 0}
+.doc blockquote p:last-child{margin:0}
+.doc hr{border:0;border-top:1px solid var(--line);margin:20px 0}
+.tableWrap{overflow-x:auto;margin:0 0 14px}
+.doc table{border-collapse:collapse;font-size:13.5px;min-width:100%}
+.doc th,.doc td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+.doc th{background:var(--surface-2);font-weight:600;font-family:var(--sans)}
+.doc td.num,.doc th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.doc pre{background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:12px;overflow-x:auto;font-family:var(--mono);font-size:12.5px}
+.doc img,.opt img,.figpick img{max-width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:8px;background:#fff;margin:2px 0}
+.doc p > img{margin:6px auto}
+.doc em{color:var(--ink-2)}
+.doc table td img{margin:0 auto}
+.imgmiss{display:inline-block;font-family:var(--mono);font-size:11.5px;color:var(--crit);background:var(--crit-soft);padding:2px 7px;border-radius:5px}
+
+/* ---------- questions ---------- */
+.q{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px 18px;scroll-margin-top:80px}
+.q + .q{margin-top:12px}
+.gq{padding:14px 0 4px;scroll-margin-top:80px}
+.gq + .gq{border-top:1px solid var(--line);margin-top:12px;padding-top:18px}
+.qhead{display:flex;gap:10px;justify-content:space-between;align-items:baseline;margin-bottom:9px}
+.qnum{font-family:var(--mono);font-size:11px;letter-spacing:.1em;color:var(--ink-3);text-transform:uppercase}
+.qtext{font-size:15px;line-height:1.6;margin-bottom:12px}
+.val{font-family:var(--mono);font-weight:600;background:var(--accent-soft);color:var(--accent);padding:1px 6px;border-radius:5px;white-space:nowrap}
+.opts{display:flex;flex-direction:column;gap:7px}
+.opts.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+@media (max-width:620px){.opts.grid{grid-template-columns:minmax(0,1fr)}}
+.opts.grid .opt{flex-wrap:wrap;align-items:center}
+.opts.grid .opt > span:last-child{flex:1 1 100%;min-width:0;margin-top:7px}
+.qrwrap{text-align:center}
+.qrwrap svg{width:min(76vw,360px);height:auto;display:block;margin:0 auto;border:1px solid var(--line);border-radius:10px;background:#fff;padding:6px}
+.qrwrap.big svg{width:min(88vw,66vh)}
+.qrwrap.small svg{width:min(60vw,190px);padding:4px}
+.qrgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
+.figitem{position:relative}
+.figitem .del{position:absolute;top:4px;right:4px;border:1px solid var(--line);background:var(--surface);border-radius:6px;
+  width:22px;height:22px;line-height:1;font-size:12px;cursor:pointer;color:var(--crit);padding:0}
+.rank{display:flex;flex-direction:column;gap:6px}
+.rankrow{display:grid;grid-template-columns:28px minmax(90px,1fr) minmax(70px,2fr) 46px 46px;gap:10px;align-items:center;
+  padding:7px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);font-size:14px}
+.rankrow.top{border-color:var(--accent);background:var(--accent-soft)}
+.rankrow .pos{font-family:var(--mono);font-size:12px;color:var(--ink-3);text-align:right}
+.rankrow.top .pos{color:var(--accent);font-weight:600}
+.rankrow .who{font-weight:500;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rankrow .barw{height:8px;background:var(--surface-3);border-radius:99px;overflow:hidden}
+.rankrow .barw i{display:block;height:100%;background:var(--accent);border-radius:99px}
+.rankrow .pctv{font-size:12.5px;color:var(--ink-2);text-align:right}
+.rankrow .notav{font-size:14px;font-weight:600;text-align:right}
+@media (max-width:560px){.rankrow{grid-template-columns:24px 1fr 44px 44px}.rankrow .barw{display:none}}
+.meter{height:6px;background:var(--surface-3);border-radius:99px;overflow:hidden;margin-top:6px}
+.meter i{display:block;height:100%;background:var(--accent)}
+.qrwrap .who{font-family:var(--mono);font-size:13px;margin-bottom:10px;color:var(--ink-2)}
+.qrwrap .after{font-size:12.5px;color:var(--ink-3);margin-top:12px;max-width:44ch;margin-left:auto;margin-right:auto}
+.linkbox{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);border:1px solid var(--line);border-radius:8px;padding:9px 11px;word-break:break-all}
+@media print{
+  body > *{display:none!important}
+  #modal{display:block!important;position:static;background:none;padding:0}
+  .modalBox{border:0;box-shadow:none;max-height:none;width:100%}
+  .modalBox > header button,.modalBox > footer{display:none}
+  .qrwrap svg{width:15cm;border:0}
+  .qrwrap.big svg{width:15cm}
+}
+.figpick{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.figpick button{border:1px solid var(--line);background:var(--surface);border-radius:9px;padding:8px;cursor:pointer;text-align:left;font-size:11px}
+.figpick button:hover{border-color:var(--accent)}
+.figpick code{font-family:var(--mono);font-size:10.5px;color:var(--ink-3);word-break:break-all}
+.opt{display:flex;gap:10px;align-items:flex-start;padding:9px 12px;border:1px solid var(--line);border-radius:8px;cursor:pointer;background:var(--surface);min-width:0}
+.opt > span{min-width:0}
+.opt:hover{border-color:var(--accent-line);background:var(--surface-2)}
+.opt input{margin:3px 0 0;accent-color:var(--accent);flex-shrink:0}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt .lt{font-family:var(--mono);font-size:12px;color:var(--ink-3);flex-shrink:0;width:14px}
+.opt.ok{border-color:var(--good);background:var(--good-soft)}
+.opt.bad{border-color:var(--crit);background:var(--crit-soft)}
+.numline{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.numline input{max-width:200px;font-family:var(--mono);font-size:15px}
+.unit{font-family:var(--mono);font-size:13px;color:var(--ink-2);background:var(--surface-2);padding:6px 9px;border-radius:6px;border:1px solid var(--line)}
+.given{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.given span{font-family:var(--mono);font-size:12.5px;background:var(--surface-2);border:1px solid var(--line);padding:3px 9px;border-radius:6px}
+.fb{margin-top:12px;padding:11px 13px;border-radius:8px;font-size:13.5px}
+.fb.ok{background:var(--good-soft);color:var(--good)}
+.fb.bad{background:var(--crit-soft);color:var(--crit)}
+.fb.note{background:var(--surface-2);color:var(--ink-2)}
+.fb b{font-weight:600}
+
+/* ---------- tables (catalog / editor) ---------- */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px}
+.tbl th{text-align:left;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-3);font-weight:600;
+  padding:8px 10px;border-bottom:1px solid var(--line-strong);white-space:nowrap}
+.tbl td{padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:middle}
+.tbl tr:last-child td{border-bottom:0}
+.tbl tbody tr:hover{background:var(--surface-2)}
+.tbl .num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums}
+.empty{text-align:center;padding:38px 16px;color:var(--ink-3);font-size:13.5px}
+
+/* ---------- editor ---------- */
+.qedit{border:1px solid var(--line);border-radius:9px;background:var(--surface-2);padding:13px;margin-top:10px}
+.qedit .qeHead{display:flex;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.optedit{display:flex;gap:7px;align-items:center;margin-top:6px}
+.optedit input[type=radio]{accent-color:var(--accent);flex-shrink:0}
+.varrow{display:grid;grid-template-columns:repeat(auto-fit,minmax(88px,1fr)) 34px;gap:7px;align-items:end;margin-top:7px}
+.tabs{display:flex;gap:3px;border-bottom:1px solid var(--line);margin-bottom:18px;overflow-x:auto}
+.tabs button{border:0;background:none;padding:9px 13px;font-size:13.5px;font-weight:500;color:var(--ink-3);cursor:pointer;
+  border-bottom:2px solid transparent;white-space:nowrap}
+.tabs button.on{color:var(--ink);border-bottom-color:var(--accent)}
+
+/* ---------- code box ---------- */
+.codebox{font-family:var(--mono);font-size:11.5px;line-height:1.45;background:var(--surface-2);border:1px solid var(--line);
+  border-radius:8px;padding:11px;word-break:break-all;max-height:150px;overflow-y:auto;color:var(--ink-2)}
+.scoreBig{font-family:var(--mono);font-size:34px;font-weight:600;line-height:1;color:var(--accent)}
+
+/* ---------- toast + modal ---------- */
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  background:var(--ink);color:var(--bg);padding:9px 16px;border-radius:99px;font-size:13px;z-index:80;box-shadow:var(--shadow);max-width:90vw}
+.modal{position:fixed;inset:0;background:rgba(8,14,18,.55);z-index:70;display:grid;place-items:center;padding:16px}
+.modalBox{background:var(--surface);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);
+  width:min(760px,100%);max-height:88vh;display:flex;flex-direction:column;overflow:hidden}
+.modalBox > header{padding:14px 18px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:12px}
+.modalBox > .body{padding:18px;overflow-y:auto}
+.modalBox > footer{padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div id="app">
+  <header class="topbar">
+    <div class="brand">
+      <button type="button" class="mark" id="profGate" title="Acces profesor">LAB</button>
+      <div style="min-width:0">
+        <h1>Caiet de Laborator</h1>
+        <p id="brandSub">Fișă de lucru, întrebări și aplicații numerice</p>
+      </div>
+    </div>
+    <div class="topActions">
+      <div class="seg" id="roleSeg" hidden>
+        <button type="button" data-role="student" class="on">Student</button>
+        <button type="button" data-role="prof">Profesor</button>
+      </div>
+      <button type="button" class="icon" id="lockBtn" title="Închide modul profesor" aria-label="Închide modul profesor" hidden>🔒</button>
+      <button type="button" class="icon" id="themeBtn" title="Schimbă tema" aria-label="Schimbă tema">◐</button>
+    </div>
+  </header>
+  <main id="main"></main>
+  <div class="pagefoot">Caiet de Laborator · aplicație offline-friendly pentru lucrări de laborator</div>
+</div>
+<div id="toast" class="toast" hidden></div>
+<div id="modal" class="modal" hidden>
+  <div class="modalBox">
+    <header><h3 id="modalTitle">&nbsp;</h3><button type="button" class="icon" id="modalX" aria-label="Închide">✕</button></header>
+    <div class="body" id="modalBody"></div>
+    <footer id="modalFoot"></footer>
+  </div>
+</div>
+
+<script>
+"use strict";
+/*PRESET-START*/window.__CL_PRESET={"v": 1, "pub": "BJeBui_BdhnRdMtWBp2mC1MqYNvN8eIQnypMpwePE0HFDUSUEUO61zHJDYQbOznO4nXVIRUBDJgGbSyJUJokhKk", "site": "auto"};/*PRESET-END*/
+/* ---- figuri livrate cu pagina (data:image/webp) ---- */
+const IMG = {{IMG}};
+/* ============================ utilitare ============================ */
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const esc = s => String(s == null ? "" : s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+const uid = (p) => (p || "id") + "-" + Math.random().toString(36).slice(2, 8) + Date.now().toString(36).slice(-3);
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) { } },
+  del(k) { try { localStorage.removeItem(k); } catch (e) { } }
+};
+/* Stocare: IndexedDB pentru lucrări și catalog (spațiu mare, suportă figuri),
+   cu revenire automată la localStorage dacă IndexedDB nu este disponibil. */
+const Store = (function () {
+  let handle, tried = false;
+  function open() {
+    return new Promise(res => {
+      if (typeof indexedDB === "undefined") return res(null);
+      let req;
+      try { req = indexedDB.open("caiet-laborator", 1); } catch (e) { return res(null); }
+      req.onupgradeneeded = () => { try { req.result.createObjectStore("kv"); } catch (e) { } };
+      req.onsuccess = () => res(req.result);
+      req.onerror = () => res(null);
+      req.onblocked = () => res(null);
+      setTimeout(() => res(null), 4000);
+    });
+  }
+  async function ready() { if (!tried) { tried = true; handle = await open(); } return handle; }
+  return {
+    available: async () => !!(await ready()),
+    async get(k, d) {
+      const h = await ready();
+      if (!h) return LS.get(k, d);
+      return new Promise(res => {
+        try {
+          const rq = h.transaction("kv", "readonly").objectStore("kv").get(k);
+          rq.onsuccess = () => res(rq.result === undefined ? LS.get(k, d) : rq.result);
+          rq.onerror = () => res(LS.get(k, d));
+        } catch (e) { res(LS.get(k, d)); }
+      });
+    },
+    async set(k, v) {
+      const h = await ready();
+      if (!h) { LS.set(k, v); return false; }
+      return new Promise(res => {
+        try {
+          const rq = h.transaction("kv", "readwrite").objectStore("kv").put(v, k);
+          rq.onsuccess = () => res(true);
+          rq.onerror = () => { LS.set(k, v); res(false); };
+        } catch (e) { LS.set(k, v); res(false); }
+      });
+    }
+  };
+})();
+const K = { labs: "cl.labs", hidden: "cl.hidden", link: "cl.link", pin: "cl.pin", keep: "cl.keepunlocked", pub: "cl.pubkey", priv: "cl.privkey", cat: "cl.catalog", stud: "cl.student", role: "cl.role", theme: "cl.theme", draft: id => "cl.draft." + id };
+
+function fmt(v, dec) {
+  if (v == null || !isFinite(v)) return "—";
+  const d = dec == null ? (Math.abs(v) >= 100 ? 1 : 2) : dec;
+  return Number(v).toFixed(d).replace(".", ",");
+}
+function parseNum(s) {
+  if (s == null) return NaN;
+  const t = String(s).trim().replace(/\s/g, "").replace(",", ".");
+  if (t === "") return NaN;
+  return Number(t);
+}
+function todayISO() { const d = new Date(); return d.toISOString().slice(0, 10); }
+function roDate(iso) {
+  if (!iso) return "—";
+  const d = new Date(iso); if (isNaN(d)) return iso;
+  return d.toLocaleDateString("ro-RO", { day: "2-digit", month: "2-digit", year: "numeric" }) +
+    (iso.length > 10 ? " " + d.toLocaleTimeString("ro-RO", { hour: "2-digit", minute: "2-digit" }) : "");
+}
+let toastT = null;
+function toast(msg) {
+  const t = $("#toast"); t.textContent = msg; t.hidden = false;
+  clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 2600);
+}
+async function copyText(txt) {
+  try { await navigator.clipboard.writeText(txt); toast("Copiat în clipboard"); return true; }
+  catch (e) {
+    const ta = document.createElement("textarea");
+    ta.value = txt; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand("copy"); } catch (e2) { }
+    ta.remove();
+    toast(ok ? "Copiat în clipboard" : "Selectează textul și copiază manual");
+    return ok;
+  }
+}
+let DL = undefined;
+/* descărcare nativă — merge în orice browser obișnuit, inclusiv din fișier local */
+function nativeSave(filename, text) {
+  try {
+    const url = URL.createObjectURL(new Blob([text], { type: "application/octet-stream" }));
+    const a = document.createElement("a");
+    a.href = url; a.download = filename; a.style.display = "none";
+    document.body.appendChild(a); a.click();
+    setTimeout(() => { try { a.remove(); URL.revokeObjectURL(url); } catch (e) { } }, 4000);
+    return true;
+  } catch (e) { return false; }
+}
+async function saveFile(filename, text) {
+  if (DL === undefined) { try { DL = await window.claude?.use?.("downloads") ?? null; } catch (e) { DL = null; } }
+  if (DL) {
+    try { await DL.save({ filename: filename, data: text }); toast("Fișier salvat: " + filename); return true; }
+    catch (e) { if (e && e.code === "declined") return false; }
+  }
+  if (nativeSave(filename, text)) { toast("Fișier descărcat: " + filename); return true; }
+  await copyText(text);
+  toast("Descărcarea nu e disponibilă aici — conținutul a fost copiat");
+  return false;
+}
+
+/* ============================ RNG determinist ============================ */
+function hashStr(s) { let h = 2166136261 >>> 0; s = String(s); for (let i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619) >>> 0; } return h >>> 0; }
+function mulberry32(a) {
+  return function () { a |= 0; a = a + 0x6D2B79F5 | 0; let t = Math.imul(a ^ a >>> 15, 1 | a); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+}
+function seedFor(name, group, labId) { return hashStr((name || "").trim().toLowerCase() + "|" + (group || "").trim().toLowerCase() + "|" + labId); }
+function genVars(q, seed) {
+  const rnd = mulberry32(hashStr(seed + "|" + q.id));
+  const out = {};
+  (q.vars || []).forEach(v => {
+    const min = Number(v.min), max = Number(v.max);
+    const step = Number(v.step) > 0 ? Number(v.step) : 1;
+    const dec = Number(v.dec) || 0;
+    if (!isFinite(min) || !isFinite(max) || max < min) { out[v.name] = isFinite(min) ? min : 0; return; }
+    const n = Math.floor((max - min) / step + 1e-9) + 1;
+    const val = min + step * Math.floor(rnd() * n);
+    out[v.name] = Number(val.toFixed(Math.max(dec, 6)));
+  });
+  return out;
+}
+function evalExpr(expr, vars) {
+  const names = Object.keys(vars);
+  try {
+    const fn = new Function(...names, '"use strict";const {abs,acos,asin,atan,atan2,cbrt,ceil,cos,cosh,exp,floor,log,log2,log10,max,min,pow,round,sign,sin,sinh,sqrt,tan,tanh,PI,E,hypot}=Math;return (' + expr + ");");
+    const r = fn(...names.map(n => vars[n]));
+    return typeof r === "number" && isFinite(r) ? r : NaN;
+  } catch (e) { return NaN; }
+}
+function subVars(text, vars, dec) {
+  return String(text || "").replace(/\{\{\s*([A-Za-z_]\w*)\s*\}\}/g, (m, n) => {
+    if (!(n in vars)) return m;
+    const v = vars[n];
+    const d = dec && dec[n] != null ? dec[n] : (Math.abs(v % 1) < 1e-9 ? 0 : 2);
+    return "«" + fmt(v, d) + "»";
+  });
+}
+
+/* ============================ generator de coduri QR ============================ */
+/* mod binar, nivel de corecție L/M; fără dependențe externe */
+var EXP = new Uint8Array(512), LOG = new Uint8Array(256);
+(function () {
+  var x = 1;
+  for (var i = 0; i < 255; i++) { EXP[i] = x; LOG[x] = i; x <<= 1; if (x & 0x100) x ^= 0x11D; }
+  for (i = 255; i < 512; i++) EXP[i] = EXP[i - 255];
+})();
+function gmul(a, b) { return (a === 0 || b === 0) ? 0 : EXP[LOG[a] + LOG[b]]; }
+
+/* polinomul generator de grad d */
+function rsPoly(d) {
+  var p = [1];
+  for (var i = 0; i < d; i++) {
+    var q = new Array(p.length + 1).fill(0);
+    for (var j = 0; j < p.length; j++) {
+      q[j] ^= gmul(p[j], 1);
+      q[j + 1] ^= gmul(p[j], EXP[i]);
+    }
+    p = q;
+  }
+  return p;
+}
+function rsEncode(data, ecLen) {
+  var gen = rsPoly(ecLen), res = new Uint8Array(data.length + ecLen);
+  res.set(data);
+  for (var i = 0; i < data.length; i++) {
+    var f = res[i];
+    if (f === 0) continue;
+    for (var j = 0; j < gen.length; j++) res[i + j] ^= gmul(gen[j], f);
+  }
+  return res.slice(data.length);
+}
+
+/* numărul total de cuvinte de cod (date + corecție) pentru o versiune */
+function totalCodewords(v) {
+  var n = 4 * v + 17, m = n * n;
+  m -= 3 * 64;                 /* trei pătrate de reper, cu separator */
+  m -= 2 * (n - 16);           /* cele două linii de sincronizare */
+  if (v > 1) {
+    var a = Math.floor(v / 7) + 2;
+    m -= (a * a - 3) * 25;     /* pătratele de aliniere */
+    m += (a - 2) * 2 * 5;      /* suprapunerea lor peste liniile de sincronizare */
+  }
+  m -= 31;                     /* informația de format + modulul întunecat */
+  if (v >= 7) m -= 36;         /* informația de versiune */
+  return Math.floor(m / 8);
+}
+
+/* corecție pe bloc / număr de blocuri, pe versiuni 1..40 */
+var ECB = {
+  L: [[7,1],[10,1],[15,1],[20,1],[26,1],[18,2],[20,2],[24,2],[30,2],[18,4],[20,4],[24,4],[26,4],[30,4],[22,6],[24,6],[28,6],[30,6],[28,7],[28,8],[28,8],[28,9],[30,9],[30,10],[26,12],[28,12],[30,12],[30,13],[30,14],[30,15],[30,16],[30,17],[30,18],[30,19],[30,19],[30,20],[30,21],[30,22],[30,24],[30,25]],
+  M: [[10,1],[16,1],[26,1],[18,2],[24,2],[16,4],[18,4],[22,4],[22,5],[26,5],[30,5],[22,8],[22,9],[24,9],[24,10],[28,10],[28,11],[26,13],[26,14],[26,16],[26,17],[28,17],[28,18],[28,20],[28,21],[28,23],[28,25],[28,26],[28,28],[28,29],[28,31],[28,33],[28,35],[28,37],[28,38],[28,40],[28,43],[28,45],[28,47],[28,49]]
+};
+var ECBITS = { L: 1, M: 0, Q: 3, H: 2 };
+
+function dataCodewords(v, ec) { return totalCodewords(v) - ECB[ec][v - 1][0] * ECB[ec][v - 1][1]; }
+
+function alignPositions(v) {
+  if (v === 1) return [];
+  var n = Math.floor(v / 7) + 2, size = 4 * v + 17, first = 6, last = size - 7;
+  var step = v === 32 ? 26 : Math.ceil((last - first) / (n - 1) / 2) * 2;
+  var pos = [first];
+  for (var i = n - 2; i >= 1; i--) pos.push(last - i * step);
+  pos.push(last);
+  return pos;
+}
+
+function bchFormat(x) {
+  var d = x << 10;
+  for (var i = 14; i >= 10; i--) if (d & (1 << i)) d ^= 0x537 << (i - 10);
+  return ((x << 10) | d) ^ 0x5412;
+}
+function bchVersion(v) {
+  var d = v << 12;
+  for (var i = 17; i >= 12; i--) if (d & (1 << i)) d ^= 0x1F25 << (i - 12);
+  return (v << 12) | d;
+}
+
+function utf8(str) {
+  if (typeof TextEncoder === "function") return new TextEncoder().encode(str);
+  var out = [], s = unescape(encodeURIComponent(str));
+  for (var i = 0; i < s.length; i++) out.push(s.charCodeAt(i));
+  return new Uint8Array(out);
+}
+
+/* construiește matricea de module; întoarce {size, modules, version} */
+function qrEncode(text, opts) {
+  opts = opts || {};
+  var ec = opts.ec || "L";
+  var bytes = typeof text === "string" ? utf8(text) : text;
+  var minV = opts.minVersion || 1, v = 0;
+  for (var i = Math.max(1, minV); i <= 40; i++) {
+    var cap = dataCodewords(i, ec) - 2 - (i >= 10 ? 1 : 0);
+    if (bytes.length <= cap) { v = i; break; }
+  }
+  if (!v) throw new Error("Textul este prea lung pentru un cod QR (" + bytes.length + " octeți).");
+
+  /* fluxul de biți: mod binar + lungime + date */
+  var bits = [];
+  function put(val, len) { for (var b = len - 1; b >= 0; b--) bits.push((val >> b) & 1); }
+  put(4, 4);
+  put(bytes.length, v < 10 ? 8 : 16);
+  for (i = 0; i < bytes.length; i++) put(bytes[i], 8);
+
+  var totalData = dataCodewords(v, ec);
+  var cap = totalData * 8;
+  for (i = 0; i < 4 && bits.length < cap; i++) bits.push(0);
+  while (bits.length % 8) bits.push(0);
+  var dataBytes = [];
+  for (i = 0; i < bits.length; i += 8) {
+    var b8 = 0; for (var k = 0; k < 8; k++) b8 = (b8 << 1) | bits[i + k];
+    dataBytes.push(b8);
+  }
+  var padA = 0xEC, padB = 0x11, t = 0;
+  while (dataBytes.length < totalData) { dataBytes.push(t++ % 2 ? padB : padA); }
+
+  /* împărțirea în blocuri și corecția de erori */
+  var ecLen = ECB[ec][v - 1][0], nBlocks = ECB[ec][v - 1][1];
+  var shortLen = Math.floor(totalData / nBlocks), nLong = totalData % nBlocks, nShort = nBlocks - nLong;
+  var dBlocks = [], eBlocks = [], off = 0;
+  for (i = 0; i < nBlocks; i++) {
+    var len = shortLen + (i >= nShort ? 1 : 0);
+    var blk = Uint8Array.from(dataBytes.slice(off, off + len)); off += len;
+    dBlocks.push(blk); eBlocks.push(rsEncode(blk, ecLen));
+  }
+  var out = [];
+  for (i = 0; i < shortLen + 1; i++) for (k = 0; k < nBlocks; k++) if (i < dBlocks[k].length) out.push(dBlocks[k][i]);
+  for (i = 0; i < ecLen; i++) for (k = 0; k < nBlocks; k++) out.push(eBlocks[k][i]);
+
+  /* matricea */
+  var size = 4 * v + 17;
+  var m = [], fn = [];
+  for (i = 0; i < size; i++) { m.push(new Uint8Array(size)); fn.push(new Uint8Array(size)); }
+  function set(x, y, val) { if (x >= 0 && y >= 0 && x < size && y < size) { m[y][x] = val; fn[y][x] = 1; } }
+
+  function finder(cx, cy) {
+    for (var dy = -4; dy <= 4; dy++) for (var dx = -4; dx <= 4; dx++) {
+      var d = Math.max(Math.abs(dx), Math.abs(dy));
+      set(cx + dx, cy + dy, (d !== 2 && d !== 4) ? 1 : 0);
+    }
+  }
+  finder(3, 3); finder(size - 4, 3); finder(3, size - 4);
+
+  for (i = 0; i < size; i++) {
+    if (!fn[6][i]) { m[6][i] = i % 2 === 0 ? 1 : 0; fn[6][i] = 1; }
+    if (!fn[i][6]) { m[i][6] = i % 2 === 0 ? 1 : 0; fn[i][6] = 1; }
+  }
+
+  var ap = alignPositions(v);
+  for (i = 0; i < ap.length; i++) for (k = 0; k < ap.length; k++) {
+    var cx = ap[k], cy = ap[i];
+    if ((cx <= 8 && cy <= 8) || (cx <= 8 && cy >= size - 9) || (cx >= size - 9 && cy <= 8)) continue;
+    for (var dy2 = -2; dy2 <= 2; dy2++) for (var dx2 = -2; dx2 <= 2; dx2++) {
+      var dd = Math.max(Math.abs(dx2), Math.abs(dy2));
+      set(cx + dx2, cy + dy2, dd !== 1 ? 1 : 0);
+    }
+  }
+
+  /* zonele rezervate pentru format și versiune */
+  for (i = 0; i <= 8; i++) { if (i !== 6) { fn[8][i] = 1; fn[i][8] = 1; } }
+  fn[8][6] = 1; fn[6][8] = 1;
+  for (i = 0; i < 8; i++) { fn[8][size - 1 - i] = 1; fn[size - 1 - i][8] = 1; }
+  set(8, size - 8, 1);
+  if (v >= 7) for (i = 0; i < 6; i++) for (k = 0; k < 3; k++) { fn[i][size - 11 + k] = 1; fn[size - 11 + k][i] = 1; }
+
+  /* așezarea datelor în zigzag */
+  var bit = 0, total = out.length * 8;
+  function dataBit(n) { return n < total ? (out[n >> 3] >> (7 - (n & 7))) & 1 : 0; }
+  var up = true;
+  for (var col = size - 1; col > 0; col -= 2) {
+    if (col === 6) col = 5;
+    for (var r = 0; r < size; r++) {
+      var y = up ? size - 1 - r : r;
+      for (var c = 0; c < 2; c++) {
+        var x = col - c;
+        if (fn[y][x]) continue;
+        m[y][x] = dataBit(bit++);
+      }
+    }
+    up = !up;
+  }
+
+  /* masca */
+  function maskFn(k, x, y) {
+    switch (k) {
+      case 0: return (x + y) % 2 === 0;
+      case 1: return y % 2 === 0;
+      case 2: return x % 3 === 0;
+      case 3: return (x + y) % 3 === 0;
+      case 4: return (Math.floor(y / 2) + Math.floor(x / 3)) % 2 === 0;
+      case 5: return (x * y) % 2 + (x * y) % 3 === 0;
+      case 6: return ((x * y) % 2 + (x * y) % 3) % 2 === 0;
+      default: return ((x + y) % 2 + (x * y) % 3) % 2 === 0;
+    }
+  }
+  function applyFormat(grid, mask) {
+    var f = bchFormat((ECBITS[ec] << 3) | mask);
+    for (var i2 = 0; i2 < 15; i2++) {
+      var b = (f >> i2) & 1;
+      if (i2 < 6) grid[i2][8] = b; else if (i2 < 8) grid[i2 + 1][8] = b;
+      else if (i2 === 8) grid[8][7] = b; else grid[8][14 - i2] = b;
+      if (i2 < 8) grid[8][size - 1 - i2] = b; else grid[size - 15 + i2][8] = b;
+    }
+    grid[size - 8][8] = 1;
+    if (v >= 7) {
+      var vb = bchVersion(v);
+      for (i2 = 0; i2 < 18; i2++) {
+        var b2 = (vb >> i2) & 1, a = Math.floor(i2 / 3), c2 = i2 % 3;
+        grid[a][size - 11 + c2] = b2;
+        grid[size - 11 + c2][a] = b2;
+      }
+    }
+  }
+  function penalty(g) {
+    var p = 0, i2, j2, run, last, dark = 0;
+    for (i2 = 0; i2 < size; i2++) {
+      run = 1; last = -1;
+      for (j2 = 0; j2 < size; j2++) {
+        if (g[i2][j2] === last) { run++; if (run === 5) p += 3; else if (run > 5) p += 1; }
+        else { last = g[i2][j2]; run = 1; }
+        if (g[i2][j2]) dark++;
+      }
+      run = 1; last = -1;
+      for (j2 = 0; j2 < size; j2++) {
+        if (g[j2][i2] === last) { run++; if (run === 5) p += 3; else if (run > 5) p += 1; }
+        else { last = g[j2][i2]; run = 1; }
+      }
+    }
+    for (i2 = 0; i2 < size - 1; i2++) for (j2 = 0; j2 < size - 1; j2++) {
+      var s = g[i2][j2] + g[i2][j2 + 1] + g[i2 + 1][j2] + g[i2 + 1][j2 + 1];
+      if (s === 0 || s === 4) p += 3;
+    }
+    var pat1 = [1, 0, 1, 1, 1, 0, 1, 0, 0, 0, 0], pat2 = [0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1];
+    function scan(get) {
+      for (i2 = 0; i2 < size; i2++) for (j2 = 0; j2 + 11 <= size; j2++) {
+        var ok1 = true, ok2 = true;
+        for (var q = 0; q < 11; q++) { var vv = get(i2, j2 + q); if (vv !== pat1[q]) ok1 = false; if (vv !== pat2[q]) ok2 = false; }
+        if (ok1) p += 40; if (ok2) p += 40;
+      }
+    }
+    scan(function (a, b) { return g[a][b]; });
+    scan(function (a, b) { return g[b][a]; });
+    var pct = dark * 100 / (size * size);
+    p += Math.floor(Math.abs(pct - 50) / 5) * 10;
+    return p;
+  }
+
+  var best = null, bestP = Infinity;
+  var mkFrom = opts.mask == null ? 0 : opts.mask, mkTo = opts.mask == null ? 7 : opts.mask;
+  for (var mk = mkFrom; mk <= mkTo; mk++) {
+    var g = m.map(function (row) { return Uint8Array.from(row); });
+    for (var yy = 0; yy < size; yy++) for (var xx = 0; xx < size; xx++)
+      if (!fn[yy][xx] && maskFn(mk, xx, yy)) g[yy][xx] ^= 1;
+    applyFormat(g, mk);
+    var pp = penalty(g);
+    if (pp < bestP) { bestP = pp; best = g; }
+  }
+  return { size: size, modules: best, version: v, ec: ec };
+}
+
+/* desenează codul ca SVG */
+function qrSvg(text, opts) {
+  opts = opts || {};
+  var q = opts.quiet == null ? 4 : opts.quiet;
+  var r = qrEncode(text, opts);
+  var n = r.size, tot = n + 2 * q;
+  var d = "";
+  for (var y = 0; y < n; y++) {
+    var x = 0;
+    while (x < n) {
+      if (!r.modules[y][x]) { x++; continue; }
+      var w = 0;
+      while (x + w < n && r.modules[y][x + w]) w++;
+      d += "M" + (x + q) + " " + (y + q) + "h" + w + "v1h-" + w + "z";
+      x += w;
+    }
+  }
+  return '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ' + tot + " " + tot + '" shape-rendering="crispEdges" role="img" aria-label="' +
+    (opts.label || "cod QR") + '"><rect width="' + tot + '" height="' + tot + '" fill="#ffffff"/><path d="' + d + '" fill="#000000"/></svg>';
+}
+
+
+/* ============================ figuri ============================ */
+/* IMG conține figurile livrate împreună cu pagina; un laborator poate aduce
+   figuri proprii în l.images (chei -> data: URI). */
+function imgSrc(key) {
+  const k = String(key || "").trim();
+  if (/^(data:|https?:|\/)/i.test(k)) return k;
+  if (S.edit && S.edit.images && S.edit.images[k]) return S.edit.images[k];
+  const l = lab();
+  if (l && l.images && l.images[k]) return l.images[k];
+  return IMG[k] || "";
+}
+function ownKeys(l) { return l && l.images ? Object.keys(l.images).sort() : []; }
+function figKeys(l) {
+  const own = ownKeys(l || S.edit || lab());
+  return own.concat(Object.keys(IMG).filter(k => own.indexOf(k) < 0).sort());
+}
+/* dimensiunea figurilor proprii unei lucrări, în KB */
+function imgWeight(l) {
+  let n = 0;
+  Object.values((l && l.images) || {}).forEach(v => { n += String(v).length; });
+  return Math.round(n * 0.75 / 1024);
+}
+
+/* ============================ markdown minimal ============================ */
+function inl(s) {
+  s = esc(s);
+  /* figurile se extrag întâi, ca data:URI să nu fie atins de restul regulilor */
+  const figs = [];
+  s = s.replace(/!\[([^\]]*)\]\(([^)\s]+)\)/g, (m, alt, key) => {
+    const src = imgSrc(key);
+    figs.push(src
+      ? '<img src="' + src + '" alt="' + alt + '">'
+      : '<span class="imgmiss">[figura „' + esc(key) + '” lipsește]</span>');
+    return "\u0000F" + (figs.length - 1) + "\u0000";
+  });
+  s = s.replace(/«([^»]*)»/g, '<span class="val">$1</span>');
+  s = s.replace(/`([^`]+)`/g, "<code>$1</code>");
+  s = s.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
+  s = s.replace(/(^|[^*\w])\*([^*\n]+)\*/g, "$1<em>$2</em>");
+  s = s.replace(/\^\{([^}]+)\}/g, "<sup>$1</sup>").replace(/\^(-?\w)/g, "<sup>$1</sup>");
+  s = s.replace(/_\{([^}]+)\}/g, "<sub>$1</sub>");
+  s = s.replace(/\u0000F(\d+)\u0000/g, (m, i) => figs[Number(i)]);
+  return s;
+}
+function renderMd(src) {
+  const lines = String(src || "").replace(/\r/g, "").split("\n");
+  let out = "", i = 0;
+  const isTbl = l => /^\s*\|.*\|\s*$/.test(l);
+  while (i < lines.length) {
+    let l = lines[i];
+    if (!l.trim()) { i++; continue; }
+    if (/^\s*(---|___|\*\*\*)\s*$/.test(l)) { out += "<hr>"; i++; continue; }
+    let m = l.match(/^(#{2,4})\s+(.*)$/);
+    if (m) { const lvl = Math.min(m[1].length, 4); out += "<h" + lvl + ">" + inl(m[2]) + "</h" + lvl + ">"; i++; continue; }
+    if (isTbl(l)) {
+      const rows = []; while (i < lines.length && isTbl(lines[i])) { rows.push(lines[i]); i++; }
+      const cells = r => r.trim().replace(/^\|/, "").replace(/\|$/, "").split("|").map(c => c.trim());
+      let head = null, body = rows;
+      if (rows.length > 1 && /^[\s|:\-]+$/.test(rows[1])) { head = cells(rows[0]); body = rows.slice(2); }
+      out += '<div class="tableWrap"><table>';
+      if (head) out += "<thead><tr>" + head.map(c => "<th>" + inl(c) + "</th>").join("") + "</tr></thead>";
+      out += "<tbody>" + body.map(r => "<tr>" + cells(r).map(c => {
+        const num = c.trim() !== "" && /^[-+]?[\d.,\s]+(?:\s*[-–…]{1,3}\s*[\d.,\s]+)?$/.test(c);
+        return '<td class="' + (num ? "num" : "") + '">' + inl(c) + "</td>";
+      }).join("") + "</tr>").join("") + "</tbody></table></div>";
+      continue;
+    }
+    if (/^\s*>\s?/.test(l)) {
+      const buf = []; while (i < lines.length && /^\s*>\s?/.test(lines[i])) { buf.push(lines[i].replace(/^\s*>\s?/, "")); i++; }
+      out += "<blockquote>" + renderMd(buf.join("\n")) + "</blockquote>"; continue;
+    }
+    if (/^\s*[-*+]\s+/.test(l)) {
+      const buf = []; while (i < lines.length && /^\s*[-*+]\s+/.test(lines[i])) { buf.push(lines[i].replace(/^\s*[-*+]\s+/, "")); i++; }
+      out += "<ul>" + buf.map(b => "<li>" + inl(b) + "</li>").join("") + "</ul>"; continue;
+    }
+    if (/^\s*\d+[.)]\s+/.test(l)) {
+      const buf = []; while (i < lines.length && /^\s*\d+[.)]\s+/.test(lines[i])) { buf.push(lines[i].replace(/^\s*\d+[.)]\s+/, "")); i++; }
+      out += "<ol>" + buf.map(b => "<li>" + inl(b) + "</li>").join("") + "</ol>"; continue;
+    }
+    const par = []; while (i < lines.length && lines[i].trim() && !/^\s*(#{2,4}\s|[-*+]\s|\d+[.)]\s|>|\|)/.test(lines[i])) { par.push(lines[i]); i++; }
+    out += "<p>" + inl(par.join(" ")) + "</p>";
+  }
+  return out;
+}
+
+/* ============================ platforma de eLearning (SCORM) ============================ */
+/* Când aplicația rulează într-un curs Moodle, ia numele studentului din platformă
+   și raportează înapoi finalizarea lucrării. În afara platformei, totul e inactiv. */
+const LMS = (function () {
+  let api = null, started = false, tried = false;
+  function find() {
+    let w = window, n = 0;
+    while (w && n++ < 12) {
+      try { if (w.API) return w.API; } catch (e) { }
+      try { w = (w.parent && w.parent !== w) ? w.parent : null; } catch (e) { w = null; }
+    }
+    try { if (window.opener && window.opener.API) return window.opener.API; } catch (e) { }
+    return null;
+  }
+  function get() { if (!tried) { tried = true; api = find(); } return api; }
+  return {
+    present() { return !!get(); },
+    init() {
+      const a = get(); if (!a || started) return false;
+      try { started = a.LMSInitialize("") === "true" || a.LMSInitialize("") === true; } catch (e) { started = false; }
+      return started;
+    },
+    student() {
+      const a = get(); if (!a) return null;
+      try {
+        const raw = a.LMSGetValue("cmi.core.student_name") || "";
+        const id = a.LMSGetValue("cmi.core.student_id") || "";
+        const nume = String(raw).replace(/,/g, " ").replace(/\s+/g, " ").trim();
+        return nume ? { name: nume, id: String(id) } : null;
+      } catch (e) { return null; }
+    },
+    done(procent) {
+      const a = get(); if (!a) return;
+      try {
+        a.LMSSetValue("cmi.core.lesson_status", "completed");
+        if (isFinite(procent)) {
+          a.LMSSetValue("cmi.core.score.raw", String(Math.round(procent)));
+          a.LMSSetValue("cmi.core.score.min", "0");
+          a.LMSSetValue("cmi.core.score.max", "100");
+        }
+        a.LMSCommit("");
+      } catch (e) { }
+    },
+    finish() { const a = get(); if (!a || !started) return; try { a.LMSFinish(""); } catch (e) { } }
+  };
+})();
+
+/* ============================ criptare ============================ */
+/* Fișele studenților se închid cu o pereche de chei: cheia publică ajunge la
+   studenți (prin codul QR), cheia privată rămâne doar la cadrul didactic.
+   Un student nu poate deschide codul altui student. */
+const Crypt = {
+  ok() { try { return !!(typeof crypto !== "undefined" && crypto.subtle && crypto.subtle.deriveBits); } catch (e) { return false; } },
+  async genPair() {
+    const kp = await crypto.subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, true, ["deriveBits"]);
+    return {
+      pub: b64enc(new Uint8Array(await crypto.subtle.exportKey("raw", kp.publicKey))),
+      priv: await crypto.subtle.exportKey("jwk", kp.privateKey)
+    };
+  },
+  async aesFrom(bits) {
+    return crypto.subtle.importKey("raw", await crypto.subtle.digest("SHA-256", bits), { name: "AES-GCM" }, false, ["encrypt", "decrypt"]);
+  },
+  async encrypt(bytes, pubB64) {
+    const teacher = await crypto.subtle.importKey("raw", b64dec(pubB64), { name: "ECDH", namedCurve: "P-256" }, false, []);
+    const eph = await crypto.subtle.generateKey({ name: "ECDH", namedCurve: "P-256" }, true, ["deriveBits"]);
+    const bits = await crypto.subtle.deriveBits({ name: "ECDH", public: teacher }, eph.privateKey, 256);
+    const key = await Crypt.aesFrom(bits);
+    const iv = crypto.getRandomValues(new Uint8Array(12));
+    const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv: iv }, key, bytes));
+    const ep = new Uint8Array(await crypto.subtle.exportKey("raw", eph.publicKey));
+    const out = new Uint8Array(ep.length + 12 + ct.length);
+    out.set(ep, 0); out.set(iv, ep.length); out.set(ct, ep.length + 12);
+    return out;
+  },
+  async decrypt(bytes, privJwk) {
+    const ep = bytes.slice(0, 65), iv = bytes.slice(65, 77), ct = bytes.slice(77);
+    const priv = await crypto.subtle.importKey("jwk", privJwk, { name: "ECDH", namedCurve: "P-256" }, false, ["deriveBits"]);
+    const pub = await crypto.subtle.importKey("raw", ep, { name: "ECDH", namedCurve: "P-256" }, false, []);
+    const bits = await crypto.subtle.deriveBits({ name: "ECDH", public: pub }, priv, 256);
+    const key = await Crypt.aesFrom(bits);
+    return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: iv }, key, ct));
+  },
+  /* amprentă scurtă, ca să recunoști cheia */
+  fingerprint(pubB64) {
+    if (!pubB64) return "";
+    const h = hashStr(pubB64).toString(36).toUpperCase();
+    return (h + "000000").slice(0, 6);
+  }
+};
+let PRIV = undefined;
+async function privKey() {
+  if (PRIV === undefined) PRIV = await Store.get(K.priv, null);
+  return PRIV;
+}
+function pubKey() { return LS.get(K.pub, "") || ""; }
+function cryptReady() { return !!(pubKey() && Crypt.ok()); }
+
+/* ============================ codec cod de predare ============================ */
+function b64enc(bytes) {
+  let s = ""; const CH = 0x8000;
+  for (let i = 0; i < bytes.length; i += CH) s += String.fromCharCode.apply(null, bytes.subarray(i, i + CH));
+  return btoa(s).replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+}
+function b64dec(str) {
+  let s = str.replace(/-/g, "+").replace(/_/g, "/"); while (s.length % 4) s += "=";
+  const bin = atob(s); const out = new Uint8Array(bin.length);
+  for (let i = 0; i < bin.length; i++) out[i] = bin.charCodeAt(i);
+  return out;
+}
+/* varianta compactă, pentru codul QR: valorile generate se recalculează din seed */
+function compactSub(sub) {
+  return { v: 2, l: sub.labId, t: sub.labTitle, n: sub.name, g: sub.group, s: sub.seed, d: sub.submittedAt, a: sub.answers };
+}
+function normalizeSub(o) {
+  if (o && typeof o === "object" && o.v === 2 && o.a && o.l)
+    return { v: 2, labId: o.l, labTitle: o.t, name: o.n, group: o.g, seed: o.s, submittedAt: o.d, answers: o.a, __enc: o.__enc };
+  return o;
+}
+async function deflate(bytes) {
+  if (typeof CompressionStream !== "function") return null;
+  try {
+    const cs = new CompressionStream("deflate-raw");
+    return new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(cs)).arrayBuffer());
+  } catch (e) { return null; }
+}
+async function inflate(bytes) {
+  const ds = new DecompressionStream("deflate-raw");
+  return new Uint8Array(await new Response(new Blob([bytes]).stream().pipeThrough(ds)).arrayBuffer());
+}
+/* LAB0 simplu · LAB1 comprimat · LAB2 comprimat+criptat · LAB3 criptat */
+async function encodePayload(obj) {
+  const raw = new TextEncoder().encode(JSON.stringify(obj));
+  const packed = await deflate(raw);
+  const body = packed || raw;
+  const tagPlain = packed ? "LAB1." : "LAB0.";
+  const pub = pubKey();
+  if (pub && Crypt.ok()) {
+    try {
+      const enc = await Crypt.encrypt(body, pub);
+      return (packed ? "LAB2." : "LAB3.") + b64enc(enc);
+    } catch (e) { }
+  }
+  return tagPlain + b64enc(body);
+}
+async function decodePayload(code) {
+  const s = String(code || "").trim().replace(/\s+/g, "");
+  const i = s.indexOf(".");
+  if (i < 0) throw new Error("Cod invalid");
+  const tag = s.slice(0, i), data = s.slice(i + 1);
+  let bytes = b64dec(data), enc = false;
+  if (tag === "LAB2" || tag === "LAB3") {
+    if (!Crypt.ok()) throw new Error("Browserul nu poate descifra coduri criptate.");
+    const pk = await privKey();
+    if (!pk) throw new Error("Cod criptat: lipsește cheia privată. Importă cheia în fila „Acces studenți”.");
+    try { bytes = await Crypt.decrypt(bytes, pk); }
+    catch (e) { throw new Error("Cod criptat cu altă cheie decât a ta."); }
+    enc = true;
+  } else if (tag !== "LAB0" && tag !== "LAB1") {
+    throw new Error("Format necunoscut: " + tag);
+  }
+  if (tag === "LAB1" || tag === "LAB2") bytes = await inflate(bytes);
+  const o = JSON.parse(new TextDecoder().decode(bytes));
+  if (o && typeof o === "object") o.__enc = enc;
+  return o;
+}
+function csvCell(v) { const s = String(v == null ? "" : v); return /[";\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s; }
+function toCSV(rows) { return "﻿" + rows.map(r => r.map(csvCell).join(";")).join("\r\n"); }
+
+/* ============================ laboratoare demonstrative ============================ */
+const BUILTIN = {{LABS}};
+
+/* ============================ stare ============================ */
+const S = {
+  role: LS.get(K.role, "student"),
+  labs: [],
+  labId: null,
+  student: LS.get(K.stud, { name: "", group: "" }),
+  ans: {},
+  result: null,
+  catalog: [],
+  tab: "labs",
+  edit: null,
+  openSub: null,
+  rankNames: false,
+  unlocked: false,
+  fromLMS: false
+};
+
+/* ============================ acces profesor ============================ */
+/* Modul profesor este închis cu un cod ales de cadrul didactic. Codul nu se
+   păstrează niciodată în clar — se compară o amprentă a lui. */
+const PIN_SALT = "caiet-laborator|";
+async function hashPin(pin) {
+  const txt = PIN_SALT + String(pin);
+  try {
+    if (typeof crypto !== "undefined" && crypto.subtle && crypto.subtle.digest) {
+      const buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(txt));
+      return "h" + Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+  } catch (e) { }
+  /* pagina deschisă direct de pe disc nu are funcții criptografice */
+  return "s" + hashStr(txt).toString(36) + hashStr(txt + "|2" + pin).toString(36);
+}
+function pinSet() { return !!LS.get(K.pin, ""); }
+function sessUnlocked() {
+  try { return sessionStorage.getItem("cl.unlocked") === "1"; } catch (e) { return false; }
+}
+function setUnlocked(v, keep) {
+  S.unlocked = v;
+  try { v ? sessionStorage.setItem("cl.unlocked", "1") : sessionStorage.removeItem("cl.unlocked"); } catch (e) { }
+  if (keep === true) LS.set(K.keep, true);
+  if (keep === false || !v) LS.del(K.keep);
+}
+function lockProf() {
+  setUnlocked(false, false);
+  S.role = "student"; LS.set(K.role, "student");
+  S.edit = null; S.tab = "labs";
+  render(); window.scrollTo(0, 0);
+  toast("Modul profesor a fost închis");
+}
+function openGate() {
+  const first = !pinSet();
+  const body = first
+    ? '<p class="small muted" style="margin-bottom:12px;max-width:58ch">Alege un cod cu care vei intra \u00een modul profesor de pe acest calculator. F\u0103r\u0103 el, cine deschide linkul vede doar fi\u0219a de student.</p>' +
+      '<div class="row"><label class="fld"><span>Cod nou</span><input type="password" id="pin1" autocomplete="new-password"></label>' +
+      '<label class="fld"><span>Repet\u0103 codul</span><input type="password" id="pin2" autocomplete="new-password"></label></div>' +
+      '<div id="pinMsg" class="fb bad" style="display:none"></div>'
+    : '<p class="small muted" style="margin-bottom:12px">Introdu codul de profesor.</p>' +
+      '<label class="fld" style="max-width:260px"><span>Cod</span><input type="password" id="pin1" autocomplete="current-password"></label>' +
+      '<label class="row small" style="gap:7px;margin-top:12px;cursor:pointer"><input type="checkbox" id="pinKeep" style="width:auto;accent-color:var(--accent)">' +
+      '<span>\u021aine minte pe acest calculator (nu bifa pe calculatoarele din laborator)</span></label>' +
+      '<div id="pinMsg" class="fb bad" style="display:none;margin-top:10px"></div>' +
+      '<p class="small muted" style="margin-top:14px">Ai uitat codul? <button type="button" class="btn tiny danger" id="pinReset">Reseteaz\u0103 codul</button></p>';
+  openModal(first ? "Setează codul de profesor" : "Acces profesor", body,
+    '<button type="button" class="btn" data-mclose>Renun\u021b\u0103</button>' +
+    '<button type="button" class="btn primary" id="pinGo">' + (first ? "Salveaz\u0103 codul" : "Intr\u0103") + "</button>");
+  setTimeout(() => { const i = $("#pin1"); if (i) i.focus(); }, 60);
+}
+function pinError(msg) {
+  const el = $("#pinMsg"); if (!el) return;
+  el.textContent = msg; el.style.display = "";
+}
+async function submitGate() {
+  const first = !pinSet();
+  const v1 = ($("#pin1") || {}).value || "";
+  if (first) {
+    const v2 = ($("#pin2") || {}).value || "";
+    if (v1.length < 4) return pinError("Codul trebuie să aibă cel puțin 4 caractere.");
+    if (v1 !== v2) return pinError("Cele două coduri nu coincid.");
+    LS.set(K.pin, await hashPin(v1));
+    setUnlocked(true, false);
+    closeModal(); S.role = "prof"; LS.set(K.role, "prof"); S.tab = "labs"; render();
+    toast("Cod salvat — modul profesor este deschis");
+    return;
+  }
+  const want = LS.get(K.pin, "");
+  if ((await hashPin(v1)) !== want) return pinError("Cod greșit.");
+  const keep = !!(($("#pinKeep") || {}).checked);
+  setUnlocked(true, keep);
+  closeModal(); S.role = "prof"; LS.set(K.role, "prof"); S.tab = "labs"; render(); window.scrollTo(0, 0);
+}
+async function resetPin() {
+  const ok = await confirmModal("Resetezi codul de profesor?",
+    "Ca să nu poată intra altcineva, resetarea șterge din acest browser și catalogul cu fișele primite, și lucrările create sau modificate de tine. Lucrările livrate cu pagina rămân. Fă asta doar dacă ai copiile exportate.",
+    "Șterge și resetează");
+  if (!ok) return;
+  LS.del(K.pin); LS.del(K.keep);
+  USER_LABS = []; HIDDEN = []; S.catalog = [];
+  await persistLabs(); await Store.set(K.cat, []);
+  setUnlocked(false, false);
+  rebuildLabs(); S.role = "student"; LS.set(K.role, "student"); render();
+  toast("Codul și datele de profesor au fost șterse");
+}
+/* Lucrările livrate cu pagina (BUILTIN) rămân în pagină. În browser se salvează
+   doar lucrările create sau modificate de profesor — acestea pot avea figuri proprii. */
+let USER_LABS = [], HIDDEN = [];
+function rebuildLabs() {
+  const byId = {};
+  USER_LABS.forEach(l => { if (l && l.id) byId[l.id] = l; });
+  const out = [];
+  BUILTIN.forEach(b => {
+    if (HIDDEN.indexOf(b.id) >= 0) return;
+    out.push(byId[b.id] ? byId[b.id] : JSON.parse(JSON.stringify(b)));
+  });
+  USER_LABS.forEach(l => { if (!BUILTIN.some(b => b.id === l.id) && HIDDEN.indexOf(l.id) < 0) out.push(l); });
+  S.labs = out;
+  if (!S.labId || !S.labs.some(l => l.id === S.labId)) S.labId = S.labs[0] ? S.labs[0].id : null;
+}
+let saveErr = false;
+async function persistLabs() {
+  const ok1 = await Store.set(K.labs, USER_LABS);
+  await Store.set(K.hidden, HIDDEN);
+  if (!ok1 && !saveErr) { saveErr = true; toast("Spațiu de salvare limitat — exportă pachetul de lucrări ca siguranță"); }
+}
+function storeLab(l) {
+  const copy = JSON.parse(JSON.stringify(l));
+  const i = USER_LABS.findIndex(x => x.id === copy.id);
+  if (i >= 0) USER_LABS[i] = copy; else USER_LABS.push(copy);
+  HIDDEN = HIDDEN.filter(id => id !== copy.id);
+  rebuildLabs(); persistLabs();
+}
+function removeLab(id) {
+  USER_LABS = USER_LABS.filter(x => x.id !== id);
+  if (HIDDEN.indexOf(id) < 0) HIDDEN.push(id);
+  rebuildLabs(); persistLabs();
+}
+function restoreBuiltins() { HIDDEN = []; rebuildLabs(); persistLabs(); }
+/* O lucrare livrată cu pagina, dar salvată (modificată sau importată) în acest browser:
+   copia locală are prioritate, inclusiv la corectare. */
+function localCopyOf(id) { return isBuiltin(id) ? USER_LABS.find(x => x && x.id === id) || null : null; }
+function differsFromBuiltin(id) {
+  const c = localCopyOf(id), b = BUILTIN.find(x => x.id === id);
+  if (!c || !b) return false;
+  return c.title !== b.title || c.body !== b.body || JSON.stringify(c.questions) !== JSON.stringify(b.questions);
+}
+function resetToBuiltin(id) {
+  USER_LABS = USER_LABS.filter(x => !(x && x.id === id));
+  HIDDEN = HIDDEN.filter(x => x !== id);
+  rebuildLabs(); persistLabs();
+}
+function isBuiltin(id) { return BUILTIN.some(b => b.id === id); }
+function saveCat() { Store.set(K.cat, S.catalog); }
+function lab() { return S.labs.find(l => l.id === S.labId) || null; }
+function totalPts(l) { return (l.questions || []).reduce((a, q) => a + (Number(q.points) || 0), 0); }
+function autoPts(l) { return (l.questions || []).filter(q => q.type !== "open").reduce((a, q) => a + (Number(q.points) || 0), 0); }
+function mySeed() { const l = lab(); return l ? seedFor(S.student.name, S.student.group, l.id) : 0; }
+function identOK() { return (S.student.name || "").trim().length > 2 && (S.student.group || "").trim().length > 0; }
+
+function stripLab(l) {
+  const c = JSON.parse(JSON.stringify(l));
+  c.stripped = true;
+  (c.questions || []).forEach(q => {
+    delete q.explain; delete q.model; delete q.solution;
+    if (!l.selfCheck) { delete q.correct; delete q.expr; delete q.tolPct; delete q.tolAbs; }
+  });
+  if (!l.selfCheck) c.selfCheck = false;
+  return c;
+}
+/* corectare automată; `full` = laboratorul cu răspunsuri (la profesor) */
+function givenFor(q, sub) {
+  if (q.type !== "num") return {};
+  if (sub.given && sub.given[q.id]) return sub.given[q.id];
+  if (sub.seed != null) return genVars(q, sub.seed);
+  return {};
+}
+function gradeSub(full, sub) {
+  const res = { items: [], auto: 0, autoMax: 0, openMax: 0 };
+  (full.questions || []).forEach(q => {
+    const pts = Number(q.points) || 0;
+    const given = givenFor(q, sub);
+    const a = sub.answers ? sub.answers[q.id] : undefined;
+    const it = { id: q.id, type: q.type, points: pts, answer: a, given: given, ok: null, earned: 0, correct: null };
+    if (q.type === "mcq") {
+      res.autoMax += pts;
+      if (typeof q.correct === "number") { it.correct = q.correct; it.ok = Number(a) === q.correct; it.earned = it.ok ? pts : 0; res.auto += it.earned; }
+    } else if (q.type === "num") {
+      res.autoMax += pts;
+      if (q.expr) {
+        const cv = evalExpr(q.expr, given);
+        it.correct = cv;
+        const av = parseNum(a);
+        const tol = Math.max(Number(q.tolAbs) || 0, (Number(q.tolPct) || 0) / 100 * Math.abs(cv));
+        it.ok = isFinite(av) && isFinite(cv) && Math.abs(av - cv) <= (tol || Math.abs(cv) * 0.02);
+        it.earned = it.ok ? pts : 0; res.auto += it.earned;
+      }
+    } else { res.openMax += pts; }
+    res.items.push(it);
+  });
+  return res;
+}
+
+/* ============================ vizualizare student ============================ */
+function qGiven(q) { return q.type === "num" ? genVars(q, mySeed()) : {}; }
+function answeredCount(l) {
+  return (l.questions || []).filter(q => {
+    const v = S.ans[q.id];
+    return v !== undefined && v !== null && String(v).trim() !== "";
+  }).length;
+}
+/* Toate grilele unei lucrări formează un singur test „Grilă”, afișat în locul primei grile.
+   Numerotarea urmează ordinea afișată (aceeași cu ordinea din JSON când grilele sunt una după alta). */
+function qBlocks(l) {
+  const qs = l.questions || [], mcqs = qs.filter(q => q.type === "mcq"), out = [];
+  let n = 0;
+  qs.forEach(q => {
+    if (q.type !== "mcq") { out.push({ q: q, i: n++ }); return; }
+    if (q === mcqs[0]) out.push({ grila: true, items: mcqs.map(m => ({ q: m, i: n++ })) });
+  });
+  return out;
+}
+function isAnswered(q) { const v = S.ans[q.id]; return v !== undefined && v !== null && String(v).trim() !== ""; }
+function renderQList(l, ready, submitted) {
+  return qBlocks(l).map(b => b.grila ? renderGrila(b.items, ready, submitted) : renderQ(b.q, b.i, ready, submitted)).join("");
+}
+function renderGrila(items, ready, submitted) {
+  const pts = items.reduce((a, x) => a + (Number(x.q.points) || 0), 0);
+  return '<section class="q grila" id="grila">' +
+    '<div class="qhead"><span class="qnum">Grilă · ' + items.length + (items.length === 1 ? " întrebare" : " întrebări") + '</span><span class="pill">' + pts + " p</span></div>" +
+    '<p class="small muted" style="margin:-3px 0 2px">Alege un singur răspuns la fiecare întrebare.</p>' +
+    items.map(x => renderQ(x.q, x.i, ready, submitted, true)).join("") + "</section>";
+}
+function railLinks(l) {
+  return qBlocks(l).map(b => {
+    if (b.grila) {
+      const n = b.items.length, d = b.items.filter(x => isAnswered(x.q)).length;
+      return '<a href="#grila" class="qlink' + (d === n ? " done" : "") + '" data-qg="1"><span class="n">' + (d === n ? "✓" : "▢") + "</span><span>Grilă · " + n +
+        (n === 1 ? " întrebare" : " întrebări") + ' <span class="muted" data-qgc>(' + d + "/" + n + ")</span></span></a>";
+    }
+    const q = b.q, dn = isAnswered(q);
+    return '<a href="#' + q.id + '" class="qlink' + (dn ? " done" : "") + '" data-ql="' + q.id + '"><span class="n">' + (dn ? "✓" : (b.i + 1)) + '</span><span>' +
+      esc((q.type === "num" ? "Aplicație " : "Răspuns liber ") + (b.i + 1)) + "</span></a>";
+  }).join("");
+}
+function renderStudent() {
+  const l = lab();
+  if (!l) return emptyLabState();
+  const ready = identOK();
+  const seed = mySeed();
+  const nQ = (l.questions || []).length;
+  const done = answeredCount(l);
+  const submitted = !!S.result;
+
+  const rail = '<div class="rail">' +
+    '<div class="progWrap"><div class="eyebrow">Progres</div>' +
+    '<div class="row" style="justify-content:space-between;margin-top:2px"><b class="mono" id="progTxt">' + done + "/" + nQ + '</b><span class="small muted" id="savedTag">' + totalPts(l) + " p</span></div>" +
+    '<div class="bar"><i id="progBar" style="width:' + (nQ ? Math.round(done / nQ * 100) : 0) + '%"></i></div></div>' +
+    '<a href="#labdoc"><span class="n">§</span><span>Descrierea lucrării</span></a>' +
+    railLinks(l) + "</div>";
+
+  let main = "";
+
+  /* identitate */
+  main += '<div class="card" id="identCard">' +
+    '<div class="spread" style="margin-bottom:12px"><div><div class="eyebrow">Pasul 1</div><h3 style="font-size:16px">Cine completează fișa</h3>' +
+    '<button type="button" class="btn tiny ghost" id="btnNewStudent" style="margin-top:4px;padding-left:0"' + (identOK() && !S.fromLMS ? "" : " hidden") + ">Nu ești tu? Șterge și începe altă fișă</button></div>" +
+    (S.labs.length > 1 ? '<label class="fld" style="flex:0 1 250px"><span>Laborator</span><select id="labPick">' +
+      S.labs.map(x => '<option value="' + esc(x.id) + '"' + (x.id === l.id ? " selected" : "") + ">" + esc(x.title) + "</option>").join("") + "</select></label>" : "") +
+    "</div>" +
+    '<div class="row">' +
+    '<label class="fld"><span>Nume și prenume' + (S.fromLMS ? " · din platformă" : "") + '</span><input type="text" id="sName" data-ident="name" value="' + esc(S.student.name) + '" placeholder="Popescu Ioana" autocomplete="name"' + (submitted || S.fromLMS ? " disabled" : "") + "></label>" +
+    '<label class="fld" style="flex:0 1 160px"><span>Grupa</span><input type="text" id="sGroup" data-ident="group" value="' + esc(S.student.group) + '" placeholder="1234A"' + (submitted ? " disabled" : "") + "></label>" +
+    "</div>" +
+    identNoteHtml() + "</div>";
+
+  /* fișă începută, salvată automat */
+  if (!submitted && done > 0) {
+    main += '<div class="card" style="margin-top:14px;border-color:var(--accent-line);background:var(--accent-soft)">' +
+      '<div class="spread"><div><b style="font-size:14px">Fișă începută — salvată automat</b>' +
+      '<div class="small" style="color:var(--ink-2);margin-top:3px">Ai completat ' + done + " din " + nQ +
+      " întrebări. Poți închide pagina și continua mai târziu, de pe același dispozitiv.</div></div>" +
+      '<button type="button" class="btn tiny" id="btnClear">Începe din nou</button></div></div>';
+  }
+
+  /* antetul lucrării */
+  main += '<div class="card" id="labdoc" style="margin-top:14px">' +
+    '<div class="eyebrow">' + esc(l.course || "Laborator") + "</div>" +
+    '<h2 style="font-size:23px;margin:4px 0 10px">' + esc(l.title) + "</h2>" +
+    '<div class="row small" style="gap:7px">' +
+    (l.teacher ? '<span class="pill">' + esc(l.teacher) + "</span>" : "") +
+    (l.duration ? '<span class="pill">⏱ ' + esc(l.duration) + "</span>" : "") +
+    (l.date ? '<span class="pill">' + roDate(l.date) + "</span>" : "") +
+    '<span class="pill accent">' + nQ + " întrebări · " + totalPts(l) + " puncte</span>" +
+    "</div>" +
+    ((l.objectives || []).length ? '<hr class="sep"><div class="eyebrow">Obiective</div><ul class="doc" style="margin-top:6px">' +
+      l.objectives.map(o => "<li>" + inl(o) + "</li>").join("") + "</ul>" : "") +
+    '<hr class="sep"><div class="doc">' + renderMd(l.body) + "</div>" +
+    "</div>";
+
+  /* întrebări */
+  main += '<h3 style="font-size:18px;margin:26px 0 12px">Întrebări și aplicații</h3>';
+  main += '<div id="qlist">' + renderQList(l, ready, submitted) + "</div>";
+
+  /* predare */
+  main += renderSubmitCard(l, ready, submitted, done, nQ);
+
+  return '<div class="shell">' + rail + "<div>" + main + "</div></div>";
+}
+
+function identNoteHtml() {
+  return identOK()
+    ? '<p class="small muted" id="identNote" style="margin-top:9px">Cod de date: <b class="mono">#' + mySeed().toString(36).toUpperCase().slice(0, 6) + "</b> — valorile numerice de mai jos sunt generate pentru tine și rămân aceleași la fiecare deschidere.</p>"
+    : '<p class="small" id="identNote" style="margin-top:9px;color:var(--warn)">Completează numele și grupa: aplicațiile numerice primesc date individuale, diferite de la student la student.</p>';
+}
+function refreshIdentity() {
+  const l = lab(); if (!l || S.role !== "student") return;
+  const seed = mySeed(), ready = identOK();
+  const note = $("#identNote"); if (note) note.outerHTML = identNoteHtml();
+  const b = $("#btnSubmit"); if (b) b.disabled = !ready;
+  const ns = $("#btnNewStudent"); if (ns && !S.result) ns.hidden = !ready || S.fromLMS;
+  const h = $("#submitHint");
+  if (h) h.textContent = answeredCount(l) + " din " + (l.questions || []).length + " întrebări completate" + (ready ? "" : " · completează numele și grupa");
+  /* lista de întrebări se reconstruiește doar când chiar se schimbă datele generate */
+  if (S.renderedSeed !== seed || S.renderedReady !== ready) {
+    const ql = $("#qlist");
+    if (ql) ql.innerHTML = renderQList(l, ready, !!S.result);
+    S.renderedSeed = seed; S.renderedReady = ready;
+  }
+  updateProgress();
+}
+let identT = null;
+function refreshIdentitySoon() { clearTimeout(identT); identT = setTimeout(refreshIdentity, 220); }
+function renderQ(q, i, ready, submitted, inGrila) {
+  const given = q.type === "num" ? qGiven(q) : {};
+  const decMap = {}; (q.vars || []).forEach(v => decMap[v.name] = Number(v.dec) || 0);
+  const label = q.type === "num" ? "Aplicație numerică" : q.type === "open" ? "Răspuns liber" : "Întrebare grilă";
+  const val = S.ans[q.id];
+  let inner = "";
+
+  if (q.type === "mcq") {
+    const hasFig = (q.options || []).some(o => /!\[[^\]]*\]\(/.test(String(o)));
+    inner = '<div class="opts' + (hasFig ? " grid" : "") + '">' + (q.options || []).map((o, k) => {
+      let cls = "opt" + (Number(val) === k ? " sel" : "");
+      if (submitted && S.result) {
+        const it = S.result.items.find(x => x.id === q.id);
+        if (it && it.correct != null) { if (k === it.correct) cls += " ok"; else if (Number(val) === k) cls += " bad"; }
+      }
+      return '<label class="' + cls + '"><input type="radio" name="opt-' + esc(q.id) + '" value="' + k + '" data-q="' + esc(q.id) + '"' +
+        (Number(val) === k ? " checked" : "") + (submitted ? " disabled" : "") + '><span class="lt">' + "abcdefgh"[k] + ")</span><span>" + inl(o) + "</span></label>";
+    }).join("") + "</div>";
+  } else if (q.type === "num") {
+    inner = (ready && (q.vars || []).length ? '<div class="given">' + (q.vars || []).map(v =>
+      "<span>" + esc(v.name) + " = " + fmt(given[v.name], Number(v.dec) || 0) + (v.unit ? " " + esc(v.unit) : "") + "</span>").join("") + "</div>" : "") +
+      '<div class="numline"><input type="text" inputmode="decimal" data-q="' + esc(q.id) + '" value="' + esc(val == null ? "" : val) + '" placeholder="' + (ready ? "valoarea calculată" : "completează întâi numele") + '"' + (submitted || !ready ? " disabled" : "") + ">" +
+      (q.unit ? '<span class="unit">' + esc(q.unit) + "</span>" : "") + "</div>";
+  } else {
+    inner = '<textarea data-q="' + esc(q.id) + '" rows="' + (Number(q.rows) || 4) + '" placeholder="Scrie răspunsul tău…"' + (submitted ? " disabled" : "") + ">" + esc(val == null ? "" : val) + "</textarea>";
+  }
+
+  let fb = "";
+  if (submitted && S.result) {
+    const it = S.result.items.find(x => x.id === q.id);
+    if (it) {
+      if (q.type === "open") fb = '<div class="fb note"><b>Se evaluează de către cadrul didactic.</b>' + (q.model ? " Reper: " + inl(q.model) : "") + "</div>";
+      else if (it.ok === true) fb = '<div class="fb ok"><b>Corect</b> · ' + it.earned + " p" + (q.explain ? " — " + inl(q.explain) : "") + "</div>";
+      else if (it.ok === false) fb = '<div class="fb bad"><b>Greșit</b> · 0 din ' + it.points + " p" +
+        (q.type === "num" && it.correct != null ? " — valoarea corectă: <b>" + fmt(it.correct, q.dec == null ? 2 : q.dec) + " " + esc(q.unit || "") + "</b>" : "") +
+        (q.solution ? "<br>" + inl(subVars(q.solution, it.given, decMap)) : (q.explain ? " — " + inl(q.explain) : "")) + "</div>";
+      else fb = '<div class="fb note">Răspuns înregistrat. Corectarea se face de către cadrul didactic.</div>';
+    }
+  }
+
+  const tag = inGrila ? "div" : "section";
+  return "<" + tag + ' class="' + (inGrila ? "gq" : "q") + '" id="' + esc(q.id) + '">' +
+    '<div class="qhead"><span class="qnum">' + (inGrila ? "Întrebarea " + (i + 1) : (i + 1) + " · " + label) + '</span><span class="pill">' + (Number(q.points) || 0) + " p</span></div>" +
+    '<div class="qtext">' + inl(subVars(q.text, given, decMap)) + "</div>" + inner + fb + "</" + tag + ">";
+}
+
+function renderSubmitCard(l, ready, submitted, done, nQ) {
+  if (!submitted) {
+    return '<div class="card" style="margin-top:20px">' +
+      '<div class="eyebrow">Final</div><h3 style="font-size:17px;margin:3px 0 8px">Predarea fișei</h3>' +
+      '<p class="small muted" style="max-width:62ch">La apăsarea butonului se generează un <b>cod de predare</b> pe care îl trimiți cadrului didactic (copiat în clipboard, descărcat ca fișier sau trimis pe e-mail). După predare răspunsurile nu mai pot fi modificate.</p>' +
+      '<div class="row" style="margin-top:14px">' +
+      '<button type="button" class="btn primary" id="btnSubmit"' + (ready ? "" : " disabled") + ">Finalizează și generează codul</button>" +
+      '<span class="small muted" id="submitHint">' + done + " din " + nQ + " întrebări completate" + (ready ? "" : " · completează numele și grupa") + "</span>" +
+      "</div></div>";
+  }
+  const r = S.result;
+  const proc = r.autoMax ? Math.round(r.auto / r.autoMax * 100) : 0;
+  const showScore = l.selfCheck && r.autoMax > 0;
+  return '<div class="card" style="margin-top:20px;border-color:var(--accent-line)">' +
+    '<div class="eyebrow">Fișă predată · ' + roDate(r.submittedAt) + "</div>" +
+    '<h3 style="font-size:18px;margin:4px 0 12px">' + esc(S.student.name) + " · grupa " + esc(S.student.group) + "</h3>" +
+    (showScore ? '<div class="row" style="gap:20px;align-items:flex-end;margin-bottom:14px">' +
+      '<div><div class="scoreBig">' + fmt(r.auto, r.auto % 1 ? 1 : 0) + "<span style='font-size:18px;color:var(--ink-3)'>/" + r.autoMax + "</span></div>" +
+      '<div class="small muted">punctaj automat (' + proc + "%)</div></div>" +
+      (r.openMax ? '<div><div class="mono" style="font-size:20px">' + r.openMax + ' p</div><div class="small muted">întrebări deschise, evaluate manual</div></div>' : "") +
+      "</div>"
+      : '<p class="small muted" style="margin-bottom:12px">Punctajul va fi comunicat după corectare.</p>') +
+    (r.enc
+      ? '<div class="fb ok" style="margin:0 0 12px"><b>Cod criptat.</b> Numai cadrul didactic îl poate deschide — nici tu, nici colegii tăi.</div>'
+      : '<div class="fb note" style="margin:0 0 12px">Codul nu este criptat. Dacă ai deschis fișa altfel decât prin codul QR al cadrului didactic, spune-i.</div>') +
+    '<p class="small muted" style="margin-bottom:12px;max-width:60ch">Trimite răspunsurile cadrului didactic. Dacă nu ai semnal, apasă <b>Arată codul QR</b> și lasă-l să scaneze ecranul telefonului tău.</p>' +
+    '<div class="row" style="margin-bottom:14px">' +
+    (canShare() ? '<button type="button" class="btn primary" id="btnShare">Trimite profesorului</button>' : "") +
+    (l.teacherEmail ? '<a class="btn' + (canShare() ? "" : " primary") + '" id="btnMail" href="#">Trimite pe e-mail</a>' : "") +
+    '<button type="button" class="btn" id="btnQR">Arată codul QR</button>' +
+    '<button type="button" class="btn' + (canShare() || l.teacherEmail ? "" : " primary") + '" id="btnCopyCode">Copiază codul</button>' +
+    '<button type="button" class="btn" id="btnDlCode">Descarcă fișierul</button>' +
+    "</div>" +
+    '<details><summary class="small muted" style="cursor:pointer">Codul de predare, ca text</summary>' +
+    '<div class="codebox" id="codeBox" style="margin-top:8px">' + esc(r.code) + "</div></details>" +
+    '<div class="row" style="margin-top:14px"><button type="button" class="btn" id="btnNewStudent">Fișă nouă pentru alt student</button>' +
+    '<button type="button" class="btn ghost" id="btnRedo">Reia laboratorul (același student)</button></div>' +
+    "</div>";
+}
+
+function emptyLabState() {
+  return '<div class="card"><div class="empty"><h3 style="font-size:17px;margin-bottom:6px">Niciun laborator încărcat</h3>' +
+    '<p class="small muted" style="margin-bottom:14px">Importă fișierul primit de la cadrul didactic (.json) sau lipește codul laboratorului.</p>' +
+    '<button type="button" class="btn primary" id="btnImportLab">Importă laborator</button></div></div>';
+}
+
+/* ============================ partajare și coduri QR ============================ */
+function canShare() { try { return typeof navigator !== "undefined" && typeof navigator.share === "function"; } catch (e) { return false; } }
+function subjectFor(l) {
+  return "Laborator: " + (l ? l.title : "") + " — " + (S.student.name || "") + " (" + (S.student.group || "") + ")";
+}
+function mailtoFor(l, r) {
+  const body = "Bună ziua,\n\nTrimit codul de predare pentru laboratorul „" + l.title + "”.\n\n" + r.code +
+    "\n\n" + (S.student.name || "") + ", grupa " + (S.student.group || "");
+  return "mailto:" + encodeURIComponent(l.teacherEmail || "") + "?subject=" + encodeURIComponent(subjectFor(l)) + "&body=" + encodeURIComponent(body);
+}
+async function shareSubmission() {
+  const l = lab(), r = S.result;
+  if (!l || !r) return;
+  const payload = { title: subjectFor(l), text: subjectFor(l) + "\n\n" + r.code };
+  try { await navigator.share(payload); return; }
+  catch (e) { if (e && (e.name === "AbortError" || e.name === "NotAllowedError")) { if (e.name === "AbortError") return; } }
+  await copyText(r.code);
+  toast("Partajarea nu e disponibilă aici — codul a fost copiat");
+}
+function qrBlock(text, opts) {
+  opts = opts || {};
+  try {
+    return '<div class="qrwrap' + (opts.big ? " big" : "") + (opts.small ? " small" : "") + '">' +
+      (opts.who ? '<div class="who">' + esc(opts.who) + "</div>" : "") +
+      qrSvg(text, { ec: opts.ec || "L", label: opts.label || "cod QR" }) +
+      (opts.after ? '<div class="after">' + esc(opts.after) + "</div>" : "") + "</div>";
+  } catch (e) {
+    return '<div class="fb bad">Codul este prea lung pentru un cod QR. Folosește trimiterea pe e-mail sau copierea codului.</div>';
+  }
+}
+function printModal() { try { window.print(); } catch (e) { toast("Tipărirea nu este disponibilă aici"); } }
+
+/* ============================ vizualizare profesor ============================ */
+function renderProf() {
+  const tabs = [["labs", "Laboratoare"], ["editor", "Editor"], ["access", "Acces studenți"], ["catalog", "Catalog (" + S.catalog.length + ")"], ["notes", "Note finale"], ["help", "Cum se folosește"]];
+  let body = "";
+  if (S.tab === "labs") body = renderLabList();
+  else if (S.tab === "editor") body = renderEditor();
+  else if (S.tab === "access") body = renderAccess();
+  else if (S.tab === "catalog") body = renderCatalog();
+  else if (S.tab === "notes") body = renderNotes();
+  else body = renderHelp();
+  return '<div class="tabs">' + tabs.map(t => '<button type="button" data-tab="' + t[0] + '"' + (S.tab === t[0] ? ' class="on"' : "") + ">" + t[1] + "</button>").join("") + "</div>" + body;
+}
+
+function renderLabList() {
+  const nHidden = HIDDEN.filter(id => isBuiltin(id)).length;
+  let h = '<div class="spread" style="margin-bottom:14px"><div><h2 style="font-size:20px">Biblioteca de laboratoare</h2>' +
+    '<p class="small muted">' + S.labs.length + " lucrări · salvate în acest browser" + (nHidden ? " · " + nHidden + " ascunse" : "") + "</p></div>" +
+    '<div class="row"><button type="button" class="btn primary" id="btnExportApp">Descarcă aplicația pentru studenți</button>' +
+    '<button type="button" class="btn" id="btnPack">Exportă pachetul</button>' +
+    '<button type="button" class="btn" id="btnImportLab">Importă…</button>' +
+    '<button type="button" class="btn primary" id="btnNewLab">Laborator nou</button></div></div>';
+  if (nHidden) h += '<div class="fb note" style="margin-bottom:12px">' + nHidden + ' lucrare(i) livrate cu pagina sunt ascunse. <button type="button" class="btn tiny" id="btnRestore" style="margin-left:6px">Readu-le</button></div>';
+  const nDiff = S.labs.filter(l => differsFromBuiltin(l.id)).length;
+  if (nDiff) h += '<div class="fb bad" style="margin-bottom:12px"><b>' + (nDiff === 1 ? "O lucrare folosește" : nDiff + " lucrări folosesc") + " o copie salvată în acest browser</b>, diferită de versiunea din pagină (mai veche sau modificată de tine). Copia se folosește și la corectarea fișelor. Vezi butonul „Folosește versiunea din pagină” de la lucrare.</div>";
+  if (!S.labs.length) return h + '<div class="card"><div class="empty">Nicio lucrare. Creează prima cu „Laborator nou”.</div></div>';
+  h += S.labs.map(l => {
+    const nO = (l.questions || []).filter(q => q.type === "open").length;
+    const nN = (l.questions || []).filter(q => q.type === "num").length;
+    const nG = (l.questions || []).filter(q => q.type === "mcq").length;
+    return '<div class="card" style="margin-bottom:12px"><div class="spread">' +
+      '<div style="min-width:0;flex:1 1 320px"><div class="eyebrow">' + esc(l.course || "—") + (l.demo ? " · demonstrativ" : localCopyOf(l.id) ? " · copie salvată în acest browser" : isBuiltin(l.id) ? " · inclus în pagină" : "") + "</div>" +
+      '<h3 style="font-size:17px;margin:3px 0 7px">' + esc(l.title) + "</h3>" +
+      '<div class="row small" style="gap:6px">' +
+      (nG ? '<span class="pill">grilă · ' + nG + (nG === 1 ? " întrebare" : " întrebări") + "</span>" : "") + "<span class='pill'>" + nN + " numerice</span><span class='pill'>" + nO + " libere</span>" +
+      '<span class="pill accent">' + totalPts(l) + " p</span>" +
+      (l.selfCheck ? '<span class="pill good">autoevaluare pornită</span>' : '<span class="pill warn">fără autoevaluare</span>') +
+      (ownKeys(l).length ? '<span class="pill">' + ownKeys(l).length + " figuri proprii · " + imgWeight(l) + " KB</span>" : "") +
+      "</div>" +
+      (differsFromBuiltin(l.id) ? '<div class="fb bad" style="margin-top:10px">Se folosește copia salvată în acest browser, diferită de versiunea din pagină. ' +
+        '<button type="button" class="btn tiny" data-act="resetLab" data-id="' + esc(l.id) + '" style="margin-left:4px">Folosește versiunea din pagină</button></div>' : "") +
+      "</div>" +
+      '<div class="row" style="gap:6px">' +
+      '<button type="button" class="btn tiny" data-act="edit" data-id="' + esc(l.id) + '">Editează</button>' +
+      '<button type="button" class="btn tiny" data-act="preview" data-id="' + esc(l.id) + '">Previzualizează</button>' +
+      '<button type="button" class="btn tiny" data-act="labQR" data-id="' + esc(l.id) + '">Cod QR</button>' +
+      '<button type="button" class="btn tiny" data-act="packStud" data-id="' + esc(l.id) + '">Pachet student</button>' +
+      '<button type="button" class="btn tiny" data-act="packFull" data-id="' + esc(l.id) + '">Export complet</button>' +
+      '<button type="button" class="btn tiny" data-act="dup" data-id="' + esc(l.id) + '">Duplică</button>' +
+      '<button type="button" class="btn tiny danger" data-act="delLab" data-id="' + esc(l.id) + '">Șterge</button>' +
+      "</div></div></div>";
+  }).join("");
+  return h;
+}
+
+function newLab() {
+  return {
+    id: uid("lab"), title: "Laborator nou", course: "", teacher: S.student.name || "", teacherEmail: "",
+    duration: "2 ore", date: todayISO(), selfCheck: true,
+    objectives: [], body: "## 1. Scopul lucrării\n\nScrie aici descrierea laboratorului.\n", questions: []
+  };
+}
+function blankQ(type) {
+  const base = { id: uid("q"), type: type, points: type === "open" ? 2 : 1, text: "" };
+  if (type === "mcq") { base.options = ["", "", "", ""]; base.correct = 0; base.explain = ""; }
+  if (type === "open") { base.model = ""; base.rows = 4; }
+  if (type === "num") {
+    base.points = 2;
+    base.vars = [{ name: "a", min: 1, max: 10, step: 1, dec: 0, unit: "" }];
+    base.expr = "a"; base.unit = ""; base.tolPct = 2; base.tolAbs = 0; base.dec = 2; base.solution = "";
+  }
+  return base;
+}
+
+function renderEditor() {
+  if (!S.edit) return '<div class="card"><div class="empty">Alege un laborator din listă („Editează”) sau creează unul nou.</div></div>';
+  const e = S.edit;
+  let h = '<div class="spread" style="margin-bottom:14px"><div><div class="eyebrow">Editor</div>' +
+    '<h2 style="font-size:20px">' + esc(e.title || "Fără titlu") + "</h2></div>" +
+    '<div class="row"><button type="button" class="btn" id="btnEdCancel">Renunță</button>' +
+    '<button type="button" class="btn" id="btnEdPreview">Previzualizează</button>' +
+    '<button type="button" class="btn primary" id="btnEdSave">Salvează</button></div></div>';
+
+  h += '<div class="card"><div class="eyebrow" style="margin-bottom:9px">Antet</div><div class="row">' +
+    fld("Titlul lucrării", "title", e.title, "flex:1 1 320px") +
+    fld("Disciplina / numărul lucrării", "course", e.course, "flex:1 1 220px") + "</div>" +
+    '<div class="row" style="margin-top:9px">' +
+    fld("Cadru didactic", "teacher", e.teacher, "flex:1 1 200px") +
+    fld("E-mail pentru predare", "teacherEmail", e.teacherEmail, "flex:1 1 200px") +
+    fld("Durata", "duration", e.duration, "flex:0 1 130px") +
+    fld("Data", "date", e.date, "flex:0 1 150px") + "</div>" +
+    '<div class="row" style="margin-top:9px">' + fld("Pagina proprie a lucr\u0103rii (adresa folosit\u0103 de codul QR al lucr\u0103rii)", "link", e.link, "flex:1 1 100%") + "</div>" +
+    '<label class="fld" style="margin-top:9px"><span>Obiective (câte unul pe linie)</span>' +
+    '<textarea data-f="objectives" rows="3">' + esc((e.objectives || []).join("\n")) + "</textarea></label>" +
+    '<label class="row small" style="margin-top:10px;gap:7px;cursor:pointer"><input type="checkbox" data-f="selfCheck"' + (e.selfCheck ? " checked" : "") +
+    ' style="width:auto;accent-color:var(--accent)"><span>Autoevaluare: studentul vede imediat punctajul și răspunsurile corecte. ' +
+    '<b class="muted">Dezactiveaz-o dacă nu vrei ca răspunsurile corecte să ajungă în pachetul studentului.</b></span></label></div>';
+
+  h += '<div class="card"><div class="spread" style="margin-bottom:9px"><div class="eyebrow">Descrierea laboratorului</div>' +
+    '<div class="row" style="gap:6px"><button type="button" class="btn tiny" id="btnFigs">Figuri disponibile</button>' +
+    '<button type="button" class="btn tiny" id="btnMdPrev">Previzualizare text</button></div></div>' +
+    '<textarea data-f="body" rows="16" style="font-family:var(--mono);font-size:13px">' + esc(e.body) + "</textarea>" +
+    '<p class="small muted" style="margin-top:7px">Formatare: <code>## Titlu</code>, <code>- listă</code>, <code>1. listă numerotată</code>, <code>**îngroșat**</code>, <code>*italic*</code>, ' +
+    "<code>&gt; observație</code>, tabele cu <code>|</code>, <code>x_{i}</code> indice, <code>x^{2}</code> exponent, " +
+    "<code>![descriere](cheie-figura)</code> figură.</p></div>";
+
+  h += '<div class="spread" style="margin:22px 0 10px"><h3 style="font-size:17px">Întrebări (' + (e.questions || []).length + " · " + totalPts(e) + ' puncte)</h3>' +
+    '<div class="row"><select id="newQType" style="width:auto"><option value="mcq">Grilă</option><option value="num">Aplicație numerică</option><option value="open">Răspuns liber</option></select>' +
+    '<button type="button" class="btn" id="btnAddQ">Adaugă întrebare</button></div></div>';
+
+  h += (e.questions || []).map((q, i) => renderQEdit(q, i, e.questions.length)).join("");
+  if (!(e.questions || []).length) h += '<div class="card"><div class="empty">Nicio întrebare încă.</div></div>';
+  return h;
+}
+function fld(label, f, v, style, type) {
+  return '<label class="fld" style="' + (style || "") + '"><span>' + esc(label) + '</span><input type="' + (type || "text") + '" data-f="' + f + '" value="' + esc(v == null ? "" : v) + '"></label>';
+}
+function qfld(label, i, f, v, style, type) {
+  return '<label class="fld" style="' + (style || "") + '"><span>' + esc(label) + '</span><input type="' + (type || "text") + '" data-qi="' + i + '" data-f="' + f + '" value="' + esc(v == null ? "" : v) + '"></label>';
+}
+function renderQEdit(q, i, n) {
+  const T = { mcq: "Grilă", num: "Aplicație numerică", open: "Răspuns liber" };
+  let h = '<div class="qedit"><div class="qeHead"><div class="row" style="gap:7px">' +
+    '<span class="qnum">' + (i + 1) + "</span><span class='pill accent'>" + T[q.type] + "</span>" +
+    '<label class="row small" style="gap:5px">puncte <input type="number" min="0" step="0.5" data-qi="' + i + '" data-f="points" value="' + (Number(q.points) || 0) + '" style="width:70px"></label>' +
+    "</div><div class='row' style='gap:4px'>" +
+    '<button type="button" class="btn tiny" data-act="qUp" data-i="' + i + '"' + (i === 0 ? " disabled" : "") + ">↑</button>" +
+    '<button type="button" class="btn tiny" data-act="qDown" data-i="' + i + '"' + (i === n - 1 ? " disabled" : "") + ">↓</button>" +
+    '<button type="button" class="btn tiny danger" data-act="qDel" data-i="' + i + '">✕</button></div></div>';
+
+  h += '<label class="fld"><span>Enunț' + (q.type === "num" ? " — folosește {{nume_variabilă}} pentru datele generate" : "") + '</span>' +
+    '<textarea data-qi="' + i + '" data-f="text" rows="3">' + esc(q.text) + "</textarea></label>";
+
+  if (q.type === "mcq") {
+    h += '<div class="small" style="margin-top:9px;color:var(--ink-2)">Variante (bifează varianta corectă)</div>';
+    h += (q.options || []).map((o, k) =>
+      '<div class="optedit"><input type="radio" name="corr-' + i + '" data-act="setCorrect" data-i="' + i + '" data-k="' + k + '"' + (q.correct === k ? " checked" : "") + ">" +
+      '<input type="text" data-qi="' + i + '" data-opt="' + k + '" value="' + esc(o) + '" placeholder="varianta ' + "abcdefgh"[k] + '">' +
+      '<button type="button" class="btn tiny danger" data-act="optDel" data-i="' + i + '" data-k="' + k + '">✕</button></div>').join("");
+    h += '<button type="button" class="btn tiny" data-act="optAdd" data-i="' + i + '" style="margin-top:7px">+ variantă</button>';
+    h += '<label class="fld" style="margin-top:9px"><span>Explicație afișată după corectare</span><textarea data-qi="' + i + '" data-f="explain" rows="2">' + esc(q.explain || "") + "</textarea></label>";
+  }
+  if (q.type === "open") {
+    h += '<label class="fld" style="margin-top:9px"><span>Răspuns model / barem (nu ajunge la student)</span><textarea data-qi="' + i + '" data-f="model" rows="3">' + esc(q.model || "") + "</textarea></label>";
+    h += '<div class="row" style="margin-top:9px">' + qfld("Rânduri câmp răspuns", i, "rows", q.rows || 4, "flex:0 1 160px", "number") + "</div>";
+  }
+  if (q.type === "num") {
+    h += '<div class="small" style="margin-top:9px;color:var(--ink-2)">Variabile generate aleator (fiecare student primește alte valori)</div>';
+    h += (q.vars || []).map((v, k) => '<div class="varrow">' +
+      vfld("nume", i, k, "name", v.name) + vfld("min", i, k, "min", v.min, "number") + vfld("max", i, k, "max", v.max, "number") +
+      vfld("pas", i, k, "step", v.step, "number") + vfld("zecimale", i, k, "dec", v.dec, "number") + vfld("u.m.", i, k, "unit", v.unit) +
+      '<button type="button" class="btn tiny danger" data-act="varDel" data-i="' + i + '" data-k="' + k + '">✕</button></div>').join("");
+    h += '<button type="button" class="btn tiny" data-act="varAdd" data-i="' + i + '" style="margin-top:7px">+ variabilă</button>';
+    h += '<label class="fld" style="margin-top:10px"><span>Formula răspunsului corect (JavaScript; funcțiile Math sunt disponibile: sqrt, pow, log, sin…)</span>' +
+      '<input type="text" class="mono" data-qi="' + i + '" data-f="expr" value="' + esc(q.expr || "") + '" placeholder="U/(I/1000)"></label>';
+    h += '<div class="row" style="margin-top:9px">' +
+      qfld("Unitate de măsură", i, "unit", q.unit, "flex:0 1 130px") +
+      qfld("Toleranță [%]", i, "tolPct", q.tolPct, "flex:0 1 120px", "number") +
+      qfld("Toleranță absolută", i, "tolAbs", q.tolAbs, "flex:0 1 140px", "number") +
+      qfld("Zecimale afișate", i, "dec", q.dec, "flex:0 1 130px", "number") + "</div>";
+    h += '<label class="fld" style="margin-top:9px"><span>Rezolvare afișată după corectare</span><textarea data-qi="' + i + '" data-f="solution" rows="2">' + esc(q.solution || "") + "</textarea></label>";
+    const vv = genVars(q, 12345);
+    const cv = q.expr ? evalExpr(q.expr, vv) : NaN;
+    h += '<div class="fb note" style="font-size:12.5px">Test: ' + Object.keys(vv).map(k => k + " = " + fmt(vv[k], 2)).join(", ") +
+      " → <b>" + (isFinite(cv) ? fmt(cv, Number(q.dec) || 2) + " " + esc(q.unit || "") : "formulă invalidă") + "</b></div>";
+  }
+  return h + "</div>";
+}
+function vfld(label, i, k, f, v, type) {
+  return '<label class="fld" style="flex:1 1 80px"><span>' + label + '</span><input type="' + (type || "text") + '" step="any" data-qi="' + i + '" data-vi="' + k + '" data-f="' + f + '" value="' + esc(v == null ? "" : v) + '"></label>';
+}
+
+/* ---------- catalog ---------- */
+function catRow(c) {
+  const full = S.labs.find(l => l.id === c.labId);
+  const g = full ? gradeSub(full, c) : null;
+  const manual = Object.values(c.manual || {}).reduce((a, b) => a + (Number(b) || 0), 0);
+  const total = g ? g.auto + manual : manual;
+  const max = full ? totalPts(full) : null;
+  const pending = g ? g.openMax > 0 && Object.keys(c.manual || {}).length === 0 : false;
+  return { full, g, manual, total, max, pending };
+}
+function renderCatalog() {
+  let h = '<div class="spread" style="margin-bottom:14px"><div><h2 style="font-size:20px">Catalogul răspunsurilor</h2>' +
+    '<p class="small muted">' + S.catalog.length + " fișe primite · salvate în acest browser</p></div>" +
+    '<div class="row"><button type="button" class="btn" id="btnImportSub">Importă coduri…</button>' +
+    '<button type="button" class="btn" id="btnCSV"' + (S.catalog.length ? "" : " disabled") + ">Export CSV</button>" +
+    '<button type="button" class="btn" id="btnBackup"' + (S.catalog.length ? "" : " disabled") + ">Backup JSON</button></div></div>";
+  if (!S.catalog.length) return h + '<div class="card"><div class="empty"><b>Nicio fișă încă.</b><br>Apasă „Importă coduri” și lipește codurile primite de la studenți (unul pe linie) sau încarcă fișierele lor.</div></div>';
+
+  const rows = S.catalog.slice().sort((a, b) => String(b.submittedAt).localeCompare(String(a.submittedAt)));
+  h += '<div class="card" style="padding:6px 6px 2px"><div style="overflow-x:auto"><table class="tbl"><thead><tr>' +
+    "<th>Student</th><th>Grupa</th><th>Laborator</th><th>Predat</th><th class='num'>Auto</th><th class='num'>Total</th><th class='num'>Nota</th><th>Stare</th><th></th>" +
+    "</tr></thead><tbody>";
+  h += rows.map(c => {
+    const r = catRow(c);
+    return "<tr><td><b>" + esc(c.name) + "</b></td><td>" + esc(c.group) + "</td>" +
+      "<td class='small'>" + esc(c.labTitle || c.labId) + "</td>" +
+      "<td class='small mono'>" + roDate(c.submittedAt) + "</td>" +
+      "<td class='num'>" + (r.g ? fmt(r.g.auto, r.g.auto % 1 ? 1 : 0) + "/" + r.g.autoMax : "—") + "</td>" +
+      "<td class='num'><b>" + (r.max != null ? fmt(r.total, r.total % 1 ? 1 : 0) + "/" + r.max : "—") + "</b></td>" +
+      "<td class='num'>" + (c.nota != null && c.nota !== "" ? '<b class="mono">' + esc(c.nota) + "</b>" : "—") + "</td>" +
+      "<td>" + (!r.full ? '<span class="pill crit">lipsește laboratorul</span>' : r.pending ? '<span class="pill warn">de corectat</span>' : '<span class="pill good">evaluat</span>') +
+      (c.__enc ? ' <span class="pill accent" title="Fișă primită criptată">🔒</span>' : "") + "</td>" +
+      "<td style='text-align:right;white-space:nowrap'><button type='button' class='btn tiny' data-act='openSub' data-id='" + esc(c.key) + "'>Deschide</button> " +
+      "<button type='button' class='btn tiny danger' data-act='delSub' data-id='" + esc(c.key) + "'>✕</button></td></tr>";
+  }).join("");
+  return h + "</tbody></table></div></div>";
+}
+
+function guessLink() {
+  const sb = siteBase();
+  if (sb) return sb;
+  const saved = LS.get(K.link, "");
+  if (saved) return saved;
+  try {
+    const r = document.referrer || "";
+    if (/^https:\/\/(www\.)?claude\.ai\//.test(r)) return r.split("#")[0];
+  } catch (e) { }
+  try {
+    const h = location.href;
+    if (/^https?:/.test(h)) return h.split("#")[0];
+  } catch (e) { }
+  return "";
+}
+function keyParam() { const k = pubKey(); return k ? "&k=" + k : ""; }
+function labLink(id) {
+  const b = guessLink();
+  return b ? b.split("#")[0] + "#lab=" + id + keyParam() : "";
+}
+/* Site-ul (GitHub Pages): index.html = toate lucrările, lucrari/<id>.html = doar lucrarea respectivă.
+   Adresa vine din setari.json („site”) sau, pe paginile site-ului („auto”), din adresa paginii. */
+function siteBase() {
+  try {
+    const P = window.__CL_PRESET || {}, s = String(P.site || "");
+    if (!s) return "";
+    if (s !== "auto") return /\/$/.test(s) ? s : s + "/";
+    const h = String(location.href).split("#")[0].split("?")[0];
+    if (!/^https?:/i.test(h)) return "";
+    const i = h.indexOf("/lucrari/");
+    return i >= 0 ? h.slice(0, i + 1) : h.replace(/[^/]*$/, "");
+  } catch (e) { return ""; }
+}
+function labUrl(l) {
+  if (!l) return appLink();
+  if (l.link) return l.link;
+  const sb = siteBase();
+  return sb ? sb + "lucrari/" + encodeURIComponent(l.id) + ".html" : labLink(l.id);
+}
+function onClaude() { return /^https:\/\/([a-z0-9-]+\.)*claude\.ai\//i.test(guessLink()); }
+function appLink() {
+  const sb = siteBase();
+  if (sb) return sb;
+  const b = guessLink();
+  if (!b) return "";
+  const k = pubKey();
+  return b.split("#")[0] + (k ? "#k=" + k : "");
+}
+function renderKeyCard() {
+  const pub = pubKey(), fp = Crypt.fingerprint(pub);
+  if (!Crypt.ok()) {
+    return '<div class="card"><div class="eyebrow">Confiden\u021bialitatea r\u0103spunsurilor</div>' +
+      '<div class="fb bad" style="margin-top:9px">Browserul acesta nu ofer\u0103 func\u021biile criptografice necesare, a\u0219a c\u0103 fi\u0219ele nu pot fi criptate. \u00cencearc\u0103 un browser recent (Chrome, Edge, Firefox).</div></div>';
+  }
+  if (!pub) {
+    return '<div class="card"><div class="eyebrow">Confiden\u021bialitatea r\u0103spunsurilor</div>' +
+      '<h3 style="font-size:16px;margin:4px 0 8px">Nicio cheie de criptare</h3>' +
+      '<p class="small muted" style="max-width:62ch">Acum, codurile de predare sunt doar codificate: cine \u0219tie ce face le poate citi. Genereaz\u0103 o pereche de chei \u0219i fiecare fi\u0219\u0103 va fi <b>criptat\u0103 pentru tine</b> \u2014 un student nu va mai putea deschide codul altui student.</p>' +
+      '<div class="row" style="margin-top:12px"><button type="button" class="btn primary" id="btnGenKey">Genereaz\u0103 cheile</button>' +
+      '<button type="button" class="btn" id="btnImpKey">Import\u0103 o cheie existent\u0103</button></div></div>';
+  }
+  return '<div class="card" style="border-color:var(--accent-line)"><div class="spread">' +
+    '<div><div class="eyebrow">Confiden\u021bialitatea r\u0103spunsurilor</div>' +
+    '<h3 style="font-size:16px;margin:4px 0 6px">Criptare activ\u0103 \u00b7 cheia <span class="mono">' + esc(fp) + "</span></h3>" +
+    '<p class="small muted" style="max-width:62ch">Fi\u0219ele predate de studen\u021bii care deschid aplica\u021bia prin codurile QR de mai jos sunt criptate pentru tine. Codurile QR con\u021bin acum \u0219i cheia public\u0103.</p></div>' +
+    '<span class="pill good">activ\u0103</span></div>' +
+    '<div class="fb note" style="margin-top:12px"><b>P\u0103streaz\u0103 o copie a cheii private.</b> F\u0103r\u0103 ea nu mai po\u021bi deschide nicio fi\u0219\u0103 primit\u0103, iar ea exist\u0103 doar \u00een acest browser.</div>' +
+    '<div class="row" style="margin-top:12px">' +
+    '<button type="button" class="btn" id="btnExpKey">Descarc\u0103 cheia privat\u0103</button>' +
+    '<button type="button" class="btn" id="btnImpKey">Import\u0103 alt\u0103 cheie</button>' +
+    '<button type="button" class="btn tiny danger" id="btnDelKey">\u0218terge cheia</button></div></div>';
+}
+
+function renderAccess() {
+  const link = guessLink();
+  const isFile = /^file:/i.test(link) || (!link && /^file:/i.test(String(location.href)));
+  let h = '<div class="spread" style="margin-bottom:14px"><div><h2 style="font-size:20px">Acces pentru studen\u021bi</h2>' +
+    '<p class="small muted">Fiecare lucrare are propriul cod QR, care se actualizeaz\u0103 singur c\u00e2nd ad\u0103ugi sau scoti lucr\u0103ri.</p></div></div>';
+
+  h += renderKeyCard();
+  h += '<div class="card" style="margin-top:14px"><label class="fld"><span>Adresa la care este publicat\u0103 aplica\u021bia</span>' +
+    '<input type="text" id="linkIn" class="mono" value="' + esc(link) + '" placeholder="https://..."' + (siteBase() ? " readonly" : "") + "></label>" +
+    (siteBase() ? '<p class="small muted" style="margin-top:7px">Adresa site-ului se completeaz\u0103 singur\u0103; codurile QR de mai jos duc la paginile site-ului.</p>' : isFile
+      ? '<div class="fb note" style="margin-top:9px"><b>Aplica\u021bia ruleaz\u0103 acum dintr-un fi\u0219ier local.</b> Codurile QR de mai jos deschid pagina doar dac\u0103 fi\u0219ierul se afl\u0103 la o adres\u0103 web. La ore, studen\u021bii pot lucra direct pe calculatoarele din laborator, cu acela\u0219i fi\u0219ier copiat pe fiecare sta\u021bie.</div>'
+      : '<p class="small muted" style="margin-top:7px">Se salveaz\u0103 \u00een acest browser, deci o completezi o singur\u0103 dat\u0103.</p>') +
+    "</div>";
+
+  if (!link) {
+    h += '<div class="card" style="margin-top:14px">' +
+      '<div class="eyebrow">De ce nu apare \u00eenc\u0103 niciun cod QR</div>' +
+      '<div class="doc" style="margin-top:8px">' + renderMd(
+        "Un cod QR con\u021bine o **adres\u0103 web**. Aplica\u021bia ruleaz\u0103 acum dintr-un fi\u0219ier de pe acest calculator, care are o cale local\u0103 (`file:///...`) \u2014 telefoanele studen\u021bilor nu o pot deschide, deci nu are ce s\u0103 fie pus \u00een cod.\n\nAi dou\u0103 variante:\n\n- **La ore, pe calculatoarele din laborator.** Copiezi acest fi\u0219ier pe fiecare sta\u021bie \u0219i \u00eel deschizi cu dublu-click. Nu ai nevoie de cod QR: studen\u021bii lucreaz\u0103 direct \u0219i, la final, \u00ee\u021bi arat\u0103 **codul QR al r\u0103spunsurilor** \u2014 acela se genereaz\u0103 \u0219i offline, f\u0103r\u0103 nicio adres\u0103.\n- **Pe telefoanele studen\u021bilor.** Lipe\u0219te \u00een c\u00e2mpul de mai sus adresa la care este publicat\u0103 aceea\u0219i aplica\u021bie (linkul paginii de pe claude.ai, din meniul *Share*, sau adresa de pe site-ul disciplinei). Codurile QR apar imediat, c\u00e2te unul pentru fiecare lucrare.") +
+      "</div></div>";
+  } else {
+    h += '<div class="card" style="margin-top:14px"><div class="eyebrow" style="margin-bottom:4px">Cod general \u2014 toate lucr\u0103rile</div>' +
+      '<p class="small muted" style="margin-bottom:10px">Deschide aplica\u021bia cu toate lucr\u0103rile, inclusiv cele ad\u0103ugate ulterior; studentul \u00ee\u0219i alege lucrarea din list\u0103.</p>' +
+      qrBlock(appLink(), {}) +
+      '<div class="linkbox" style="margin-top:12px">' + esc(appLink()) + "</div>" +
+      '<div class="row" style="margin-top:12px;justify-content:center">' +
+      '<button type="button" class="btn primary" data-act="qrBig" data-id="">Afi\u0219eaz\u0103 mare</button>' +
+      '<button type="button" class="btn" data-act="copyLink" data-id="">Copiaz\u0103 linkul</button></div></div>';
+
+    h += '<h3 style="font-size:17px;margin:22px 0 10px">Cod QR pentru fiecare lucrare</h3>' +
+      '<p class="small muted" style="margin-bottom:12px">Scanat, deschide doar lucrarea respectiv\u0103, f\u0103r\u0103 celelalte.</p>';
+    h += '<div class="qrgrid">' + S.labs.map(l => {
+      const u = labUrl(l);
+      return '<div class="card" style="padding:14px"><div class="eyebrow">' + esc(l.course || "Laborator") + "</div>" +
+        '<div style="font-weight:600;font-size:14px;margin:3px 0 10px;line-height:1.35">' + esc(l.title) + "</div>" +
+        qrBlock(u, { small: true }) +
+        (!l.link && !siteBase() && onClaude() ? '<div class="small" style="color:var(--warn);margin-top:8px">Pe claude.ai acest cod deschide aplica\u021bia cu toate lucr\u0103rile \u0219i cere cont Claude. Codurile care deschid doar lucrarea, f\u0103r\u0103 cont, sunt pe site-ul de pe GitHub (adresa lui se trece \u00een setari.json, la \u201esite\u201d).</div>' : "") +
+        '<div class="row" style="margin-top:10px;justify-content:center;gap:6px">' +
+        '<button type="button" class="btn tiny" data-act="qrBig" data-id="' + esc(l.id) + '">Afi\u0219eaz\u0103 mare</button>' +
+        '<button type="button" class="btn tiny" data-act="copyLink" data-id="' + esc(l.id) + '">Copiaz\u0103 linkul</button>' +
+        "</div></div>";
+    }).join("") + "</div>";
+  }
+
+  h += '<div class="card doc" style="margin-top:18px;max-width:72ch">' + renderMd(
+    "### Cum decurge ora\n\n1. Proiectezi codul QR al lucr\u0103rii de azi (sau \u00eel printezi \u0219i \u00eel lipe\u0219ti pe masa de lucru).\n2. Studen\u021bii \u00eel scaneaz\u0103, \u00ee\u0219i scriu numele \u0219i grupa \u0219i rezolv\u0103 fi\u0219a pe telefon sau pe laptop.\n3. La final apas\u0103 **Trimite profesorului**: pe telefon se deschide lista de aplica\u021bii (e-mail, WhatsApp, Teams), iar codul pleac\u0103 spre tine.\n4. Dac\u0103 nu e semnal, studentul apas\u0103 **Arat\u0103 codul QR** \u0219i tu \u00eei scanezi ecranul \u2014 sau \u00eel fotografiezi \u0219i \u00eel cite\u0219ti mai t\u00e2rziu.\n5. Tu lipe\u0219ti codurile primite \u00een fila *Catalog*. Po\u021bi lipi un e-mail \u00eentreg sau o conversa\u021bie \u00eentreag\u0103: aplica\u021bia g\u0103se\u0219te singur\u0103 toate codurile din text.") + "</div>";
+  return h;
+}
+/* ---------- situația studenților ---------- */
+function studKey(c) {
+  return (c.name || "").trim().toLowerCase().replace(/\s+/g, " ") + "|" + (c.group || "").trim().toLowerCase();
+}
+function notaOf(c) {
+  const r = catRow(c);
+  const typed = c.nota != null && String(c.nota).trim() !== "" ? parseNum(c.nota) : NaN;
+  if (isFinite(typed)) return { nota: typed, propusa: false, r: r };
+  if (r.max) return { nota: 1 + 9 * r.total / r.max, propusa: true, r: r };
+  return { nota: null, propusa: true, r: r };
+}
+function gradebook() {
+  const order = S.labs.map(l => l.id);
+  const used = [], byStud = {};
+  S.catalog.forEach(c => {
+    const k = studKey(c);
+    if (!byStud[k]) byStud[k] = { key: k, name: c.name, group: c.group, labs: {} };
+    const n = notaOf(c);
+    const prev = byStud[k].labs[c.labId];
+    /* dacă un student a predat de două ori aceeași lucrare, rămâne fișa cea mai recentă */
+    if (!prev || String(c.submittedAt || "") >= String(prev.submittedAt || "")) {
+      byStud[k].labs[c.labId] = { nota: n.nota, propusa: n.propusa, total: n.r.total, max: n.r.max, pending: n.r.pending, submittedAt: c.submittedAt, subKey: c.key };
+    }
+    if (used.indexOf(c.labId) < 0) used.push(c.labId);
+  });
+  used.sort((a, b) => { const ia = order.indexOf(a), ib = order.indexOf(b); return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib); });
+  const rows = Object.keys(byStud).map(k => {
+    const st = byStud[k];
+    const notes = used.map(id => st.labs[id] ? st.labs[id].nota : null).filter(n => n != null && isFinite(n));
+    st.count = notes.length;
+    st.final = notes.length ? notes.reduce((a, b) => a + b, 0) / notes.length : null;
+    let tot = 0, max = 0;
+    used.forEach(id => { const x = st.labs[id]; if (x && x.max) { tot += x.total; max += x.max; } });
+    st.pct = max ? tot / max * 100 : null;
+    st.anyPending = used.some(id => st.labs[id] && st.labs[id].pending);
+    return st;
+  }).sort((a, b) => (a.group + " " + a.name).localeCompare(b.group + " " + b.name, "ro"));
+  return { used: used, rows: rows };
+}
+function labShort(id) {
+  const l = S.labs.find(x => x.id === id);
+  if (!l) return id;
+  const m = String(l.course || l.title).match(/(\d+)/);
+  return m ? "L" + m[1] : (l.course || l.title).slice(0, 8);
+}
+function renderNotes() {
+  const g = gradebook();
+  let h = '<div class="spread" style="margin-bottom:14px"><div><h2 style="font-size:20px">Note finale</h2>' +
+    '<p class="small muted">Media aritmetică a notelor de la lucrările predate. Notele scrise cu gri sunt propuse automat din punctaj — devin definitive când le confirmi în Catalog.</p></div>' +
+    '<div class="row"><button type="button" class="btn" id="btnNotesCSV"' + (g.rows.length ? "" : " disabled") + ">Export CSV</button>" +
+    '<button type="button" class="btn" id="btnRank"' + (g.rows.length ? "" : " disabled") + ">Clasament pentru proiecție</button></div></div>";
+  if (!g.rows.length) return h + '<div class="card"><div class="empty"><b>Nicio fișă în catalog.</b><br>Importă fișele studenților în fila <i>Catalog</i> și situația se completează singură.</div></div>';
+
+  h += '<div class="card" style="padding:6px 6px 2px"><div style="overflow-x:auto"><table class="tbl"><thead><tr>' +
+    "<th>Student</th><th>Grupa</th>" + g.used.map(id => '<th class="num" title="' + esc((S.labs.find(l => l.id === id) || {}).title || id) + '">' + esc(labShort(id)) + "</th>").join("") +
+    "<th class='num'>Lucrări</th><th class='num'>Nota finală</th></tr></thead><tbody>";
+  h += g.rows.map(st => {
+    return "<tr><td><b>" + esc(st.name) + "</b></td><td>" + esc(st.group) + "</td>" +
+      g.used.map(id => {
+        const x = st.labs[id];
+        if (!x || x.nota == null) return "<td class='num muted'>—</td>";
+        return "<td class='num'" + (x.propusa ? " style='color:var(--ink-3)'" : "") + ">" + fmt(x.nota, 2) + (x.pending ? " *" : "") + "</td>";
+      }).join("") +
+      "<td class='num'>" + st.count + "/" + g.used.length + "</td>" +
+      "<td class='num'>" + (st.final != null ? '<b style="font-size:15px">' + fmt(st.final, 2) + "</b>" : "—") + "</td></tr>";
+  }).join("");
+  h += "</tbody></table></div></div>";
+  h += '<p class="small muted" style="margin-top:10px">* lucrare cu întrebări deschise încă necorectate.</p>';
+  return h;
+}
+function renderRank() {
+  const g = gradebook();
+  const groups = {};
+  g.rows.forEach(st => { if (st.pct == null) return; (groups[st.group || "—"] = groups[st.group || "—"] || []).push(st); });
+  const names = S.rankNames;
+  let b = '<label class="row small" style="gap:7px;margin-bottom:14px;cursor:pointer"><input type="checkbox" id="rankNames"' + (names ? " checked" : "") +
+    ' style="width:auto;accent-color:var(--accent)"><span>Arată numele studenților</span></label>';
+  const keys = Object.keys(groups).sort((a, b2) => a.localeCompare(b2, "ro"));
+  if (!keys.length) return b + '<div class="empty">Nicio fișă evaluată încă.</div>';
+  b += keys.map(gr => {
+    const list = groups[gr].slice().sort((a, b2) => b2.pct - a.pct);
+    return '<div style="margin-bottom:20px"><div class="eyebrow" style="margin-bottom:8px">Grupa ' + esc(gr) + "</div>" +
+      '<div class="rank">' + list.map((st, i) => {
+        const cls = i === 0 ? " top" : "";
+        return '<div class="rankrow' + cls + '"><span class="pos">' + (i + 1) + "</span>" +
+          '<span class="who">' + esc(names ? st.name : "Student " + (i + 1)) + "</span>" +
+          '<span class="barw"><i style="width:' + Math.max(3, Math.round(st.pct)) + '%"></i></span>' +
+          '<span class="pctv mono">' + Math.round(st.pct) + "%</span>" +
+          '<span class="notav mono">' + (st.final != null ? fmt(st.final, 2) : "—") + "</span></div>";
+      }).join("") + "</div></div>";
+  }).join("");
+  return b;
+}
+function renderHelp() {
+  return '<div class="card doc" style="max-width:76ch">' + renderMd(
+    "## Confiden\u021bialitatea r\u0103spunsurilor\n\n\u00cen fila *Acces studen\u021bi*, butonul **Genereaz\u0103 cheile** creeaz\u0103 o pereche de chei: cheia **public\u0103** pleac\u0103 la studen\u021bi \u00een codurile QR, cheia **privat\u0103** r\u0103m\u00e2ne doar la tine. De atunci, fiecare fi\u0219\u0103 predat\u0103 este criptat\u0103 pentru tine: nici studentul care a scris-o, nici colegii lui nu o mai pot deschide, chiar dac\u0103 \u00ee\u0219i trimit codurile \u00eentre ei. \u00cen catalog, fi\u0219ele primite criptat sunt marcate cu un lac\u0103t.\n\n> **P\u0103streaz\u0103 fi\u0219ierul cheii.** La generare se descarc\u0103 automat un fi\u0219ier `cheie-profesor-XXXXXX.json`. Cheia privat\u0103 exist\u0103 doar \u00een browserul acestui calculator; dac\u0103 o pierzi, fi\u0219ele deja primite nu mai pot fi deschise de nimeni. Pune fi\u0219ierul \u00een dou\u0103 locuri sigure \u0219i import\u0103-l pe orice alt calculator pe care corectezi.\n\nStudentul deschide fi\u0219a prin codul QR, care con\u021bine \u0219i cheia. Dac\u0103 ajunge la aplica\u021bie altfel \u0219i nu are cheia, codul lui iese necriptat \u0219i aplica\u021bia \u00eei spune asta \u2014 tu \u00eel vezi \u00een catalog f\u0103r\u0103 lac\u0103t. Pe calculatoarele din laborator, deschide aplica\u021bia o dat\u0103 cu adresa care con\u021bine cheia (o g\u0103se\u0219ti sub fiecare cod QR): aplica\u021bia o re\u021bine pentru urm\u0103toarele deschideri de pe acel calculator.\n\n## Accesul la modul profesor\n\nModul profesor este \u00eenchis cu un cod pe care \u00eel alegi tu, la prima intrare. Studen\u021bii care deschid linkul v\u0103d doar fi\u0219a de laborator \u2014 comutatorul *Student / Profesor* nici nu apare la ei. Ca s\u0103 intri, apas\u0103 insigna **LAB** din col\u021bul st\u00e2nga sus \u0219i scrie codul; la ie\u0219ire, ape\u0219i lac\u0103tul din dreapta sus. Pe calculatoarele din laborator **nu bifa** „\u021aine minte pe acest calculator\u201d.\n\n> Codul \u021bine studen\u021bii departe de editor, de catalog \u0219i de note. Nu este \u00eens\u0103 o \u00eencuietoare de seif: cine se pricepe poate citi codul-surs\u0103 al paginii. Pentru lucr\u0103ri notate, apărarea real\u0103 r\u0103m\u00e2ne faptul c\u0103 fiecare student prime\u0219te alte date numerice.\n\n## Pe scurt\n\n1. **Creezi sau editezi lucrarea** \u00een fila *Editor*: antet, descriere, figuri, \u00eentreb\u0103ri gril\u0103, aplica\u021bii numerice cu date generate individual \u0219i \u00eentreb\u0103ri cu r\u0103spuns liber.\n2. **Afi\u0219ezi codul QR** al lucr\u0103rii din fila *Acces studen\u021bi*. Fiecare lucrare are propriul cod, care se actualizeaz\u0103 singur c\u00e2nd ad\u0103ugi sau sco\u021bi lucr\u0103ri.\n3. **Studentul** \u00ee\u0219i scrie numele \u0219i grupa (a\u0219a prime\u0219te propriul set de date numerice), r\u0103spunde \u0219i apas\u0103 *Finalizeaz\u0103*. Fi\u0219a se salveaz\u0103 automat pe parcurs, deci poate \u00eenchide pagina \u0219i relua mai t\u00e2rziu.\n4. **Trimiterea**: dintr-o ap\u0103sare, prin e-mail, WhatsApp sau Teams \u2014 sau, f\u0103r\u0103 semnal, ca un cod QR pe care \u00eel scanezi de pe ecranul lui.\n5. **Tu** lipe\u0219ti \u00een *Catalog* tot ce ai primit \u2014 un e-mail, o conversa\u021bie, oric\u00e2t text: aplica\u021bia g\u0103se\u0219te singur\u0103 toate codurile. Corecteaz\u0103 automat grilele \u0219i aplica\u021biile numerice; tu acorzi punctajul la r\u0103spunsurile libere.\n6. **Nota final\u0103** apare \u00een fila *Note finale*: media notelor de la lucr\u0103rile predate, cu export \u00een Excel \u0219i clasament pe grupe pentru proiec\u021bie.\n\n## Cum adaugi o lucrare nou\u0103, f\u0103r\u0103 ajutor din afar\u0103\n\n1. *Laboratoare* \u2192 **Laborator nou**.\n2. Completezi antetul \u0219i descrierea. Textul accept\u0103 titluri (`## Titlu`), liste, \u00eengro\u0219at (`**text**`), tabele cu `|`, indici `x_{i}` \u0219i exponen\u021bi `x^{2}`.\n3. **Figurile**: butonul *Figuri disponibile* \u2192 *Adaug\u0103 figuri din calculator*. Aplica\u021bia le mic\u0219oreaz\u0103 singur\u0103 \u0219i le salveaz\u0103 \u00een lucrare; le inserezi cu un clic, care copiaz\u0103 codul `![descriere](cheie)`.\n4. Adaugi \u00eentreb\u0103rile \u0219i ape\u0219i *Salveaz\u0103*. Lucrarea apare imediat \u00een list\u0103 \u0219i prime\u0219te automat propriul cod QR.\n5. Din c\u00e2nd \u00een c\u00e2nd apas\u0103 **Export\u0103 pachetul** \u2014 un singur fi\u0219ier cu toate lucr\u0103rile \u0219i figurile lor, pe care \u00eel po\u021bi reimporta oric\u00e2nd, pe orice calculator.\n\n## Aplica\u021bii numerice individuale\n\nFiecare aplica\u021bie numeric\u0103 poate avea variabile cu interval, pas \u0219i unitate de m\u0103sur\u0103. Valorile se genereaz\u0103 dintr-un *cod de date* derivat din numele \u0219i grupa studentului: sunt diferite de la student la student, dar identice la fiecare redeschidere pentru acela\u0219i student. Corectarea folose\u0219te exact valorile primite de el. Dac\u0103 pui aceea\u0219i valoare la *min* \u0219i la *max*, \u00eentrebarea devine fix\u0103, cu datele din \u00eendrumar.\n\n## R\u0103spunsurile corecte\n\nCu *autoevaluarea* pornit\u0103, studentul \u00ee\u0219i vede punctajul imediat \u2014 dar r\u0103spunsurile corecte se afl\u0103 \u00een pachetul trimis lui. Pentru lucr\u0103ri notate, oprete autoevaluarea: pachetul studentului va con\u021bine doar enun\u021burile, iar corectarea se face la tine.\n\n## Unde se p\u0103streaz\u0103 datele\n\nLucr\u0103rile livrate cu pagina vin odat\u0103 cu fi\u0219ierul. Lucr\u0103rile pe care le creezi sau le modifici tu, figurile lor \u0219i catalogul se salveaz\u0103 **\u00een browserul acestui calculator**, \u00eentr-o baz\u0103 de date local\u0103 care suport\u0103 \u0219i imagini. Nu se sincronizeaz\u0103 \u00eentre dispozitive \u0219i se pierd dac\u0103 \u0219tergi datele browserului \u2014 de aceea *Export\u0103 pachetul* \u0219i *Backup JSON* din Catalog sunt importante.\n\n## \u0218tergerea unei lucr\u0103ri\n\n*\u0218terge* scoate lucrarea din list\u0103 \u0219i o \u021bine ascuns\u0103 \u0219i dup\u0103 reînc\u0103rcarea paginii. Dac\u0103 te r\u0103zg\u00e2nde\u0219ti, \u00een capul listei apare butonul *Readu-le*.") + "</div>";
+}
+
+/* ============================ modal ============================ */
+function openModal(title, body, footer) {
+  $("#modalTitle").textContent = title;
+  $("#modalBody").innerHTML = body;
+  $("#modalFoot").innerHTML = footer || '<button type="button" class="btn" data-mclose>Închide</button>';
+  $("#modal").hidden = false;
+}
+function closeModal() { $("#modal").hidden = true; S.openSub = null; }
+
+/* ============================ randare ============================ */
+function render() {
+  if (!S.unlocked && S.role === "prof") S.role = "student";
+  $("#roleSeg").hidden = !S.unlocked;
+  $("#lockBtn").hidden = !S.unlocked;
+  $$("#roleSeg button").forEach(b => b.classList.toggle("on", b.dataset.role === S.role));
+  const l = lab();
+  $("#brandSub").textContent = S.role === "prof" ? "Mod profesor · editor, corectare, catalog" : (l ? (l.course || "Fișă de lucru") : "Fișă de lucru");
+  S.renderedSeed = mySeed(); S.renderedReady = identOK();
+  $("#main").innerHTML = S.role === "prof" ? renderProf() : renderStudent();
+  const mail = $("#btnMail");
+  if (mail && l && S.result) { mail.href = mailtoFor(l, S.result); mail.target = "_blank"; mail.rel = "noopener"; }
+}
+function updateProgress() {
+  const l = lab(); if (!l) return;
+  const n = (l.questions || []).length, d = answeredCount(l);
+  const t = $("#progTxt"), b = $("#progBar");
+  if (t) t.textContent = d + "/" + n;
+  if (b) b.style.width = (n ? Math.round(d / n * 100) : 0) + "%";
+  qBlocks(l).forEach(b => {
+    if (b.grila) {
+      const a = $("[data-qg]"); if (!a) return;
+      const n = b.items.length, d = b.items.filter(x => isAnswered(x.q)).length;
+      a.classList.toggle("done", d === n);
+      a.querySelector(".n").textContent = d === n ? "✓" : "▢";
+      const c = a.querySelector("[data-qgc]"); if (c) c.textContent = "(" + d + "/" + n + ")";
+      return;
+    }
+    const a = $('[data-ql="' + b.q.id + '"]');
+    if (!a) return;
+    const done = isAnswered(b.q);
+    a.classList.toggle("done", done);
+    a.querySelector(".n").textContent = done ? "✓" : (b.i + 1);
+  });
+}
+
+/* ============================ ciornă ============================ */
+let draftT = null, savedT = null;
+function flashSaved() {
+  const el = $("#savedTag"); if (!el) return;
+  const l = lab(); if (!l) return;
+  el.textContent = "salvat ✓";
+  el.style.color = "var(--good)";
+  clearTimeout(savedT);
+  savedT = setTimeout(() => { el.textContent = totalPts(l) + " p"; el.style.color = ""; }, 1400);
+}
+function saveDraft() {
+  const l = lab(); if (!l) return;
+  flashSaved();
+  clearTimeout(draftT);
+  draftT = setTimeout(() => LS.set(K.draft(l.id), { ans: S.ans, sub: S.result ? { code: S.result.code, qr: S.result.qr, submittedAt: S.result.submittedAt } : null, who: S.student }), 350);
+}
+function restoreDraft() {
+  const l = lab(); if (!l) { S.ans = {}; S.result = null; return; }
+  const d = LS.get(K.draft(l.id), null);
+  S.ans = d && d.ans ? d.ans : {};
+  S.result = null;
+  if (d && d.sub && d.sub.code) {
+    const sub = { labId: l.id, answers: S.ans, given: {} };
+    (l.questions || []).forEach(q => { if (q.type === "num") sub.given[q.id] = genVars(q, mySeed()); });
+    const r = gradeSub(l, sub);
+    r.code = d.sub.code; r.qr = d.sub.qr || d.sub.code; r.submittedAt = d.sub.submittedAt;
+    r.enc = /^LAB[23]\./.test(r.code || "");
+    S.result = r;
+  }
+}
+
+/* ============================ predare ============================ */
+async function doSubmit() {
+  const l = lab(); if (!l || !identOK()) return;
+  const n = (l.questions || []).length, d = answeredCount(l);
+  if (d < n) {
+    const ok = await confirmModal("Fișă incompletă", "Ai completat " + d + " din " + n + " întrebări. Întrebările necompletate se punctează cu zero. Trimiți fișa acum?", "Trimit fișa");
+    if (!ok) return;
+  }
+  const given = {}, answers = {};
+  (l.questions || []).forEach(q => {
+    if (q.type === "num") given[q.id] = genVars(q, mySeed());
+    const v = S.ans[q.id];
+    if (v !== undefined && String(v).trim() !== "") answers[q.id] = v;
+  });
+  const sub = {
+    v: 1, labId: l.id, labTitle: l.title, name: (S.student.name || "").trim(), group: (S.student.group || "").trim(),
+    seed: mySeed(), submittedAt: new Date().toISOString(), answers: answers, given: given
+  };
+  const r = gradeSub(l, sub);
+  r.submittedAt = sub.submittedAt;
+  r.code = await encodePayload(sub);
+  r.qr = await encodePayload(compactSub(sub));
+  r.enc = /^LAB[23]\./.test(r.code);
+  S.result = r;
+  saveDraft();
+  if (LMS.present()) { try { LMS.done(r.autoMax ? r.auto / r.autoMax * 100 : 0); } catch (e) { } }
+  render();
+  toast("Fișa a fost finalizată — trimite codul cadrului didactic");
+  setTimeout(() => { const c = $("#codeBox"); if (c) c.scrollIntoView({ behavior: "smooth", block: "center" }); }, 60);
+}
+
+/* ============================ figuri proprii ============================ */
+function fileToDataURL(f) {
+  return new Promise((res, rej) => {
+    const r = new FileReader();
+    r.onload = () => res(r.result); r.onerror = () => rej(new Error("citire"));
+    r.readAsDataURL(f);
+  });
+}
+/* micșorează imaginea în browser, ca fișierul lucrării să rămână mic */
+function shrinkImage(dataUrl, maxW) {
+  return new Promise(res => {
+    const im = new Image();
+    im.onload = () => {
+      const w = Math.min(maxW || 900, im.naturalWidth || maxW);
+      const h = Math.max(1, Math.round((im.naturalHeight || 1) * w / (im.naturalWidth || w)));
+      const c = document.createElement("canvas");
+      c.width = w; c.height = h;
+      const ctx = c.getContext("2d");
+      ctx.fillStyle = "#ffffff"; ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(im, 0, 0, w, h);
+      let out = null;
+      try { out = c.toDataURL("image/webp", 0.8); } catch (e) { }
+      if (!out || out.indexOf("data:image/webp") !== 0) { try { out = c.toDataURL("image/jpeg", 0.82); } catch (e) { out = null; } }
+      res(out || dataUrl);
+    };
+    im.onerror = () => res(null);
+    im.src = dataUrl;
+  });
+}
+function slugKey(name, taken) {
+  let b = String(name || "figura").replace(/\.[^.]+$/, "").toLowerCase()
+    .replace(/[ăâà]/g, "a").replace(/[îí]/g, "i").replace(/ș|ş/g, "s").replace(/ț|ţ/g, "t").replace(/[éè]/g, "e")
+    .replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 28);
+  if (!b) b = "figura";
+  let k = b, n = 2;
+  while (taken.indexOf(k) >= 0) { k = b + "-" + n; n++; }
+  return k;
+}
+async function addFigures() {
+  if (!S.edit) return;
+  const files = (await pickFile("image/*", true)).filter(f => /^image\//.test(f.type));
+  if (!files.length) return;
+  S.edit.images = S.edit.images || {};
+  let added = 0, failed = 0;
+  for (const f of files) {
+    try {
+      const raw = await fileToDataURL(f);
+      const small = await shrinkImage(raw, 900);
+      if (!small) { failed++; continue; }
+      const k = slugKey(f.name, Object.keys(S.edit.images).concat(Object.keys(IMG)));
+      S.edit.images[k] = small;
+      added++;
+    } catch (e) { failed++; }
+  }
+  toast(added + " figuri adăugate" + (failed ? " · " + failed + " nu au putut fi citite" : ""));
+  openFigModal();
+}
+function openFigModal() {
+  const own = ownKeys(S.edit), all = Object.keys(IMG).sort();
+  const cell = (k, isOwn) => '<button type="button" class="figitem" data-fig="' + esc(k) + '">' +
+    '<img src="' + imgSrc(k) + '" alt=""><code>' + esc(k) + "</code>" +
+    (isOwn ? '<span class="del" data-delfig="' + esc(k) + '" title="Șterge figura">✕</span>' : "") + "</button>";
+  let b = '<p class="small muted" style="margin-bottom:12px">Apasă o figură pentru a copia codul ei, apoi lipește-l în textul lucrării sau într-o variantă de răspuns.</p>' +
+    '<div class="row" style="margin-bottom:14px"><button type="button" class="btn primary" id="btnAddFig">Adaugă figuri din calculator</button>' +
+    '<span class="small muted">' + (own.length ? own.length + " figuri proprii · " + imgWeight(S.edit) + " KB" : "nicio figură proprie") + "</span></div>";
+  if (own.length) b += '<div class="eyebrow" style="margin:4px 0 8px">Figurile acestei lucrări</div><div class="figpick">' + own.map(k => cell(k, true)).join("") + "</div>";
+  if (all.length) b += '<div class="eyebrow" style="margin:18px 0 8px">Figuri livrate cu pagina</div><div class="figpick">' + all.map(k => cell(k, false)).join("") + "</div>";
+  openModal("Figuri disponibile", b);
+}
+
+/* ============================ import / export ============================ */
+function pickFile(accept, multiple) {
+  return new Promise(res => {
+    const inp = document.createElement("input");
+    inp.type = "file"; inp.accept = accept || ".json,.txt"; if (multiple) inp.multiple = true;
+    inp.style.display = "none"; document.body.appendChild(inp);
+    inp.addEventListener("change", () => { const f = Array.from(inp.files || []); inp.remove(); res(f); });
+    inp.click();
+  });
+}
+async function readFiles(files) { return Promise.all(files.map(f => f.text())); }
+async function parseAny(text) {
+  const t = String(text || "").trim();
+  if (!t) throw new Error("gol");
+  if (t[0] === "{" || t[0] === "[") return JSON.parse(t);
+  return await decodePayload(t);
+}
+function isLab(o) { return o && typeof o === "object" && Array.isArray(o.questions) && o.title != null; }
+function isSub(o) { return o && typeof o === "object" && ((o.answers && o.labId) || (o.a && o.l)); }
+
+async function importLabText(text) {
+  const o = await parseAny(text);
+  const arr = Array.isArray(o) ? o : [o];
+  let n = 0;
+  arr.forEach(x => {
+    if (!isLab(x)) return;
+    if (!x.id) x.id = uid("lab");
+    storeLab(x);
+    S.labId = x.id; n++;
+  });
+  if (!n) throw new Error("Fișierul nu conține un laborator valid.");
+  restoreDraft();
+  toast(n + " laborator(oare) importate");
+}
+function subKey(s) { return hashStr((s.labId || "") + "|" + (s.name || "").toLowerCase().trim() + "|" + (s.group || "").toLowerCase().trim() + "|" + (s.submittedAt || "")).toString(36); }
+async function importSubsText(text) {
+  let added = 0, dup = 0, bad = 0;
+  const push = (raw) => {
+    const sb = normalizeSub(raw);
+    if (!isSub(sb)) { bad++; return; }
+    const key = subKey(sb);
+    if (S.catalog.some(c => c.key === key)) { dup++; return; }
+    S.catalog.push(Object.assign({}, sb, { key: key, manual: {}, feedback: "", nota: null, importedAt: new Date().toISOString() }));
+    added++;
+  };
+  const ingest = async (o) => {
+    if (o && typeof o === "object" && o.code && !o.answers && !o.a) {
+      try { o = await decodePayload(o.code); } catch (e) { bad++; return; }
+    }
+    push(o);
+  };
+  const t = String(text || "").trim();
+  let handled = false;
+  /* un fișier JSON întreg (exportul unui student sau un backup de catalog) */
+  if (t[0] === "{" || t[0] === "[") {
+    try {
+      const o = JSON.parse(t);
+      const arr = Array.isArray(o) ? o : [o];
+      for (const x of arr) await ingest(x);
+      handled = true;
+    } catch (e) { }
+  }
+  /* altfel: se caută toate codurile de predare din text, oriunde ar fi */
+  if (!handled) {
+    const codes = t.match(/LAB[0-3]\.[A-Za-z0-9_-]{8,}/g) || [];
+    if (codes.length) {
+      for (const c of codes) {
+        try { await ingest(await decodePayload(c)); } catch (e) { bad++; }
+      }
+    } else { bad++; }
+  }
+  saveCat();
+  toast(added + " fișe adăugate" + (dup ? " · " + dup + " deja existau" : "") + (bad ? " · " + bad + " neinterpretabile" : ""));
+}
+
+/* ============================ corectare manuală ============================ */
+function openSubModal(key) {
+  const c = S.catalog.find(x => x.key === key); if (!c) return;
+  S.openSub = key;
+  const r = catRow(c);
+  const full = r.full;
+  let b = '<div class="row" style="justify-content:space-between;margin-bottom:14px">' +
+    "<div><b style='font-size:16px'>" + esc(c.name) + "</b> · grupa " + esc(c.group) +
+    "<div class='small muted'>" + esc(c.labTitle || c.labId) + " · predat " + roDate(c.submittedAt) + "</div></div>" +
+    (r.g ? "<div style='text-align:right'><div class='mono' style='font-size:20px'>" + fmt(r.total, r.total % 1 ? 1 : 0) + "/" + r.max +
+      "</div><div class='small muted'>automat: " + fmt(r.g.auto, r.g.auto % 1 ? 1 : 0) + "/" + r.g.autoMax + "</div></div>" : "") + "</div>";
+
+  if (!full) {
+    b += '<div class="fb bad">Laboratorul <b>' + esc(c.labId) + "</b> nu se află în biblioteca acestui browser, deci răspunsurile nu pot fi corectate automat. Importă laboratorul complet în fila „Laboratoare”.</div>";
+    b += '<div class="codebox" style="margin-top:12px;max-height:260px">' + esc(JSON.stringify(c.answers, null, 1)) + "</div>";
+  } else {
+    b += (full.questions || []).map((q, i) => {
+      const it = r.g.items.find(x => x.id === q.id) || {};
+      const decMap = {}; (q.vars || []).forEach(v => decMap[v.name] = Number(v.dec) || 0);
+      const given = givenFor(q, c);
+      let ansHtml = "";
+      if (q.type === "mcq") {
+        const k = Number(c.answers[q.id]);
+        ansHtml = isFinite(k) ? "<b>" + ("abcdefgh"[k] || "?") + ")</b> " + inl((q.options || [])[k] || "—") : "<i>fără răspuns</i>";
+      } else if (q.type === "num") {
+        ansHtml = '<span class="mono">' + esc(c.answers[q.id] == null ? "—" : c.answers[q.id]) + " " + esc(q.unit || "") + "</span>" +
+          (it.correct != null ? ' <span class="muted small">(corect: ' + fmt(it.correct, q.dec == null ? 2 : q.dec) + " " + esc(q.unit || "") + ")</span>" : "");
+      } else {
+        ansHtml = '<div style="white-space:pre-wrap;background:var(--surface-2);border-radius:7px;padding:9px 11px;margin-top:5px">' + esc(c.answers[q.id] || "— fără răspuns —") + "</div>";
+      }
+      const badge = q.type === "open" ? '<span class="pill warn">manual</span>' : it.ok ? '<span class="pill good">corect · ' + it.earned + " p</span>" : '<span class="pill crit">greșit · 0 p</span>';
+      return '<div class="qedit" style="background:var(--surface)"><div class="qeHead"><span class="qnum">' + (i + 1) + " · " + (Number(q.points) || 0) + " p</span>" + badge + "</div>" +
+        '<div class="small" style="color:var(--ink-2);margin-bottom:7px">' + inl(subVars(q.text, given, decMap)) + "</div>" + ansHtml +
+        (q.type === "open" ? '<div class="row" style="margin-top:10px;align-items:flex-end">' +
+          '<label class="fld" style="flex:0 1 150px"><span>Punctaj acordat (max ' + (Number(q.points) || 0) + ')</span>' +
+          '<input type="number" min="0" step="0.5" max="' + (Number(q.points) || 0) + '" data-mq="' + esc(q.id) + '" value="' + ((c.manual || {})[q.id] != null ? c.manual[q.id] : "") + '"></label>' +
+          (q.model ? '<div class="small muted" style="flex:1 1 220px">Barem: ' + inl(q.model) + "</div>" : "") + "</div>" : "") + "</div>";
+    }).join("");
+    const sugg = r.max ? (1 + 9 * r.total / r.max) : null;
+    b += '<div class="card" style="margin-top:14px;background:var(--surface-2)"><div class="row" style="align-items:flex-end">' +
+      '<label class="fld" style="flex:0 1 130px"><span>Nota finală</span><input type="text" id="notaIn" value="' + esc(c.nota == null ? "" : c.nota) + '" placeholder="' + (sugg ? fmt(sugg, 2) : "") + '"></label>' +
+      (sugg ? '<button type="button" class="btn tiny" id="btnSugg">Propune ' + fmt(sugg, 2) + "</button>" : "") +
+      '<label class="fld" style="flex:1 1 240px"><span>Observații pentru student</span><input type="text" id="fbIn" value="' + esc(c.feedback || "") + '"></label>' +
+      "</div></div>";
+  }
+  openModal("Fișa studentului", b,
+    '<button type="button" class="btn" data-mclose>Închide</button>' +
+    (full ? '<button type="button" class="btn primary" id="btnSaveGrade">Salvează evaluarea</button>' : ""));
+}
+function saveGrade() {
+  const c = S.catalog.find(x => x.key === S.openSub); if (!c) return;
+  c.manual = c.manual || {};
+  $$("[data-mq]", $("#modalBody")).forEach(inp => {
+    const v = parseNum(inp.value);
+    if (isFinite(v)) c.manual[inp.dataset.mq] = v; else delete c.manual[inp.dataset.mq];
+  });
+  const n = $("#notaIn"), f = $("#fbIn");
+  c.nota = n && n.value.trim() ? n.value.trim() : null;
+  c.feedback = f ? f.value : "";
+  saveCat(); closeModal(); render(); toast("Evaluare salvată");
+}
+function confirmModal(title, msg, okLabel) {
+  return new Promise(res => {
+    openModal(title, '<p style="max-width:60ch">' + esc(msg) + "</p>",
+      '<button type="button" class="btn" data-mclose>Renunță</button><button type="button" class="btn primary" id="cfmOk">' + esc(okLabel || "Continuă") + "</button>");
+    const done = v => { closeModal(); res(v); };
+    $("#cfmOk").onclick = () => done(true);
+    $("#modalX").onclick = () => done(false);
+    $("#modalFoot").querySelector("[data-mclose]").onclick = () => done(false);
+  });
+}
+function importModal(kind) {
+  const isLabKind = kind === "lab";
+  openModal(isLabKind ? "Importă laborator" : "Importă fișe de la studenți",
+    '<p class="small muted" style="margin-bottom:10px">' +
+    (isLabKind ? "Lipește conținutul fișierului .json primit sau codul laboratorului."
+      : "Lipește codurile de predare — <b>câte unul pe linie</b> — sau încarcă fișierele primite de la studenți.") + "</p>" +
+    '<textarea id="impTa" rows="9" class="mono" style="font-size:12px" placeholder="LAB1.…"></textarea>',
+    '<button type="button" class="btn" id="impFile">Încarcă fișier…</button>' +
+    '<button type="button" class="btn" data-mclose>Renunță</button>' +
+    '<button type="button" class="btn primary" id="impGo">Importă</button>');
+  const run = async (text) => {
+    try {
+      if (isLabKind) await importLabText(text); else await importSubsText(text);
+      closeModal(); render();
+    } catch (e) { toast("Nu am putut citi datele: " + (e && e.message ? e.message : "format necunoscut")); }
+  };
+  $("#impGo").onclick = () => run($("#impTa").value);
+  $("#impFile").onclick = async () => {
+    const fs = await pickFile(".json,.txt", !isLabKind);
+    if (!fs.length) return;
+    const texts = await readFiles(fs);
+    run(texts.join("\n"));
+  };
+}
+
+/* ============================ evenimente ============================ */
+document.addEventListener("click", async (ev) => {
+  const t = ev.target.closest("button,a,[data-act]");
+  if (!t) return;
+
+  if (t.dataset.role) {
+    if (t.dataset.role === "prof" && !S.unlocked) { openGate(); return; }
+    S.role = t.dataset.role; LS.set(K.role, S.role);
+    if (S.role === "prof" && S.tab === "editor" && !S.edit) S.tab = "labs";
+    render(); return;
+  }
+  if (t.id === "profGate") { if (S.unlocked) { S.role = "prof"; LS.set(K.role, "prof"); render(); } else openGate(); return; }
+  if (t.id === "lockBtn") { lockProf(); return; }
+  if (t.id === "pinGo") { submitGate(); return; }
+  if (t.id === "pinReset") { resetPin(); return; }
+  if (t.id === "themeBtn") {
+    const cur = document.documentElement.getAttribute("data-theme");
+    const next = cur === "dark" ? "light" : cur === "light" ? "dark" : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark");
+    document.documentElement.setAttribute("data-theme", next); LS.set(K.theme, next); return;
+  }
+  if (t.dataset.tab) { S.tab = t.dataset.tab; render(); return; }
+  if (t.hasAttribute("data-mclose")) { closeModal(); return; }
+  if (t.id === "modalX") { closeModal(); return; }
+
+  /* student */
+  if (t.id === "btnSubmit") { ev.preventDefault(); doSubmit(); return; }
+  if (t.id === "btnCopyCode") { copyText(S.result.code); return; }
+  if (t.id === "btnShare") { shareSubmission(); return; }
+  if (t.id === "btnQR") {
+    const l2 = lab();
+    openModal("Codul tău de predare",
+      qrBlock(S.result.qr || S.result.code, {
+        big: true,
+        who: (S.student.name || "") + " · grupa " + (S.student.group || ""),
+        after: "Cadrul didactic scanează acest cod de pe ecranul tău. Rămâne salvat — îl poți afișa din nou oricând."
+      }),
+      '<button type="button" class="btn" data-mclose>Închide</button>');
+    return;
+  }
+  if (t.id === "btnDlCode") {
+    const l = lab();
+    const nm = (S.student.name || "student").replace(/[^\wăâîșțĂÂÎȘȚ -]/g, "").replace(/\s+/g, "_");
+    saveFile(nm + "_" + (l ? l.id : "lab") + ".json", JSON.stringify(Object.assign({ code: S.result.code }, { name: S.student.name, group: S.student.group, labId: l && l.id, labTitle: l && l.title, submittedAt: S.result.submittedAt, answers: S.ans, given: (function () { const g = {}; (l.questions || []).forEach(q => { if (q.type === "num") g[q.id] = genVars(q, mySeed()); }); return g; })() }), null, 1));
+    return;
+  }
+  if (t.id === "btnRedo") {
+    const ok = await confirmModal("Reiei laboratorul?", "Răspunsurile actuale și codul de predare se șterg din acest browser. Codul deja trimis cadrului didactic rămâne valabil.", "Reia");
+    if (!ok) return;
+    const l = lab(); if (l) LS.del(K.draft(l.id));
+    S.ans = {}; S.result = null; render(); return;
+  }
+  if (t.id === "btnNewStudent") {
+    const ok = await confirmModal("Fișă nouă pentru alt student?",
+      "Se șterg numele, grupa și răspunsurile din acest browser, ca următorul student să înceapă curat. Codul deja generat rămâne valabil, dacă a fost trimis.",
+      "Șterge și începe");
+    if (!ok) return;
+    S.labs.forEach(l5 => LS.del(K.draft(l5.id)));
+    S.student = { name: "", group: "" }; LS.set(K.stud, S.student);
+    S.ans = {}; S.result = null;
+    render(); window.scrollTo(0, 0);
+    setTimeout(() => { const i = $("#sName"); if (i) i.focus(); }, 80);
+    return;
+  }
+  if (t.id === "btnClear") {
+    const ok = await confirmModal("Începi din nou?", "Răspunsurile completate până acum se șterg din acest browser.", "Începe din nou");
+    if (!ok) return;
+    const l4 = lab(); if (l4) LS.del(K.draft(l4.id));
+    S.ans = {}; S.result = null; render(); window.scrollTo(0, 0); return;
+  }
+  if (t.id === "btnImportLab") { importModal("lab"); return; }
+
+  /* profesor — listă */
+  if (t.id === "btnNewLab") { S.edit = newLab(); S.tab = "editor"; render(); return; }
+  if (t.dataset.act === "copyLink") { copyText(labUrl(t.dataset.id ? S.labs.find(x => x.id === t.dataset.id) : null)); return; }
+  if (t.dataset.act === "qrBig") {
+    const id = t.dataset.id, l3 = id ? S.labs.find(x => x.id === id) : null;
+    const u = labUrl(l3);
+    openModal(l3 ? l3.course || l3.title : "Cod QR — aplicația",
+      qrBlock(u, { big: true, who: l3 ? l3.title : "", after: u }),
+      '<button type="button" class="btn" id="btnPrintQR">Printează</button><button type="button" class="btn" data-mclose>Închide</button>');
+    return;
+  }
+  if (t.id === "btnPrintQR") { printModal(); return; }
+  if (t.id === "btnRestore") { restoreBuiltins(); render(); toast("Lucrările incluse în pagină au fost readuse"); return; }
+  if (t.id === "btnGenKey") {
+    if (pubKey()) {
+      const ok = await confirmModal("Ai deja o cheie", "Generarea unei chei noi face imposibilă deschiderea fișelor criptate cu cheia veche. Continui?", "Generează alta");
+      if (!ok) return;
+    }
+    try {
+      const kp = await Crypt.genPair();
+      LS.set(K.pub, kp.pub); PRIV = kp.priv; await Store.set(K.priv, kp.priv);
+      render();
+      await saveFile("cheie-profesor-" + Crypt.fingerprint(kp.pub) + ".json",
+        JSON.stringify({ tip: "cheie-caiet-laborator", amprenta: Crypt.fingerprint(kp.pub), creata: new Date().toISOString(), pub: kp.pub, priv: kp.priv }, null, 1));
+      toast("Cheile au fost create — păstrează fișierul descărcat");
+    } catch (e) { toast("Nu am putut genera cheile: " + (e && e.message ? e.message : "")); }
+    return;
+  }
+  if (t.id === "btnExpKey") {
+    const pk = await privKey();
+    if (!pk) { toast("Cheia privată lipsește din acest browser"); return; }
+    saveFile("cheie-profesor-" + Crypt.fingerprint(pubKey()) + ".json",
+      JSON.stringify({ tip: "cheie-caiet-laborator", amprenta: Crypt.fingerprint(pubKey()), pub: pubKey(), priv: pk }, null, 1));
+    return;
+  }
+  if (t.id === "btnImpKey") {
+    const fs = await pickFile(".json", false);
+    if (!fs.length) return;
+    try {
+      const o = JSON.parse(await fs[0].text());
+      if (!o || !o.pub || !o.priv) throw new Error("fișier necorespunzător");
+      LS.set(K.pub, o.pub); PRIV = o.priv; await Store.set(K.priv, o.priv);
+      render(); toast("Cheia a fost importată · " + Crypt.fingerprint(o.pub));
+    } catch (e) { toast("Fișierul nu conține o cheie validă"); }
+    return;
+  }
+  if (t.id === "btnDelKey") {
+    const ok = await confirmModal("Ștergi cheia?", "Fișele criptate primite până acum nu vor mai putea fi deschise pe acest calculator, iar fișele viitoare vor fi din nou necriptate. Asigură-te că ai fișierul cheii salvat.", "Șterge cheia");
+    if (!ok) return;
+    LS.del(K.pub); PRIV = null; await Store.set(K.priv, null);
+    render(); toast("Cheia a fost ștearsă din acest browser");
+    return;
+  }
+  if (t.id === "btnPack") { exportPack(); return; }
+  if (t.id === "btnExportApp") { exportApp(); return; }
+  if (t.dataset.act === "labQR") { S.tab = "access"; render(); window.scrollTo(0, 0); return; }
+  if (t.id === "btnImportSub") { importModal("sub"); return; }
+  if (t.id === "btnCSV") { exportCSV(); return; }
+  if (t.id === "btnNotesCSV") { exportNotesCSV(); return; }
+  if (t.id === "btnRank") {
+    openModal("Clasament pe grupe", renderRank(),
+      '<button type="button" class="btn" id="btnPrintQR">Printează</button><button type="button" class="btn" data-mclose>Închide</button>');
+    return;
+  }
+  if (t.id === "btnBackup") { saveFile("catalog-laborator.json", JSON.stringify(S.catalog, null, 1)); return; }
+
+  const act = t.dataset.act;
+  if (act === "edit") { const l = S.labs.find(x => x.id === t.dataset.id); S.edit = JSON.parse(JSON.stringify(l)); S.tab = "editor"; render(); return; }
+  if (act === "preview") { S.labId = t.dataset.id; restoreDraft(); S.role = "student"; render(); window.scrollTo(0, 0); return; }
+  if (act === "resetLab") {
+    const ok = await confirmModal("Folosești versiunea din pagină?", "Copia lucrării salvată în acest browser se șterge și se folosește lucrarea livrată cu pagina, inclusiv la corectarea fișelor deja primite.", "Folosește versiunea din pagină");
+    if (!ok) return;
+    resetToBuiltin(t.dataset.id); restoreDraft(); render(); toast("Se folosește versiunea din pagină"); return;
+  }
+  if (act === "packStud") { const l = S.labs.find(x => x.id === t.dataset.id); saveFile(l.id + "-student.json", JSON.stringify(stripLab(l), null, 1)); return; }
+  if (act === "packFull") { const l = S.labs.find(x => x.id === t.dataset.id); saveFile(l.id + "-complet.json", JSON.stringify(l, null, 1)); return; }
+  if (act === "dup") {
+    const l = JSON.parse(JSON.stringify(S.labs.find(x => x.id === t.dataset.id)));
+    l.id = uid("lab"); l.title = l.title + " (copie)"; delete l.demo;
+    storeLab(l); render(); toast("Laborator duplicat"); return;
+  }
+  if (act === "delLab") {
+    const l = S.labs.find(x => x.id === t.dataset.id);
+    const ok = await confirmModal("Ștergi laboratorul?", "„" + l.title + "” va fi eliminat din acest browser. Fișele deja primite rămân în catalog, dar nu mai pot fi corectate automat.", "Șterge");
+    if (!ok) return;
+    removeLab(t.dataset.id);
+    if (S.labId === t.dataset.id) { S.labId = S.labs[0] ? S.labs[0].id : null; }
+    restoreDraft(); render(); return;
+  }
+  if (act === "openSub") { openSubModal(t.dataset.id); return; }
+  if (act === "delSub") {
+    const ok = await confirmModal("Ștergi fișa?", "Fișa va fi eliminată din catalog. Poți reimporta oricând codul primit de la student.", "Șterge");
+    if (!ok) return;
+    S.catalog = S.catalog.filter(x => x.key !== t.dataset.id); saveCat(); render(); return;
+  }
+  if (t.id === "btnSaveGrade") { saveGrade(); return; }
+  if (t.id === "btnSugg") { const c = S.catalog.find(x => x.key === S.openSub); const r = catRow(c); $("#notaIn").value = fmt(1 + 9 * r.total / r.max, 2); return; }
+
+  /* profesor — editor */
+  if (!S.edit) return;
+  const e = S.edit, i = Number(t.dataset.i), k = Number(t.dataset.k);
+  if (t.id === "btnEdSave") {
+    delete e.demo;
+    storeLab(e); S.labId = e.id; restoreDraft(); S.tab = "labs"; render(); toast("Laborator salvat"); return;
+  }
+  if (t.id === "btnEdCancel") { S.edit = null; S.tab = "labs"; render(); return; }
+  if (t.id === "btnEdPreview") {
+    storeLab(e); S.labId = e.id; restoreDraft(); S.role = "student"; render(); window.scrollTo(0, 0); return;
+  }
+  if (t.id === "btnAddQ") { e.questions = e.questions || []; e.questions.push(blankQ($("#newQType").value)); render(); return; }
+  if (t.id === "btnMdPrev") { openModal("Previzualizare text", '<div class="doc">' + renderMd(e.body) + "</div>"); return; }
+  if (t.id === "btnFigs") { openFigModal(); return; }
+  if (t.id === "btnAddFig") { addFigures(); return; }
+  if (t.dataset.delfig) {
+    ev.stopPropagation();
+    const kf = t.dataset.delfig;
+    const okf = await confirmModal("\u0218tergi figura?", "Figura \u201e" + kf + "\u201d va fi eliminat\u0103 din lucrare. Dac\u0103 este folosit\u0103 \u00een text, va ap\u0103rea un semn de figur\u0103 lips\u0103.", "\u0218terge");
+    if (okf && S.edit && S.edit.images) { delete S.edit.images[kf]; }
+    openFigModal();
+    return;
+  }
+  if (t.dataset.fig) { copyText("![" + t.dataset.fig + "](" + t.dataset.fig + ")"); return; }
+  if (act === "qDel") { e.questions.splice(i, 1); render(); return; }
+  if (act === "qUp") { const q = e.questions.splice(i, 1)[0]; e.questions.splice(i - 1, 0, q); render(); return; }
+  if (act === "qDown") { const q = e.questions.splice(i, 1)[0]; e.questions.splice(i + 1, 0, q); render(); return; }
+  if (act === "optAdd") { e.questions[i].options.push(""); render(); return; }
+  if (act === "optDel") { e.questions[i].options.splice(k, 1); if (e.questions[i].correct >= e.questions[i].options.length) e.questions[i].correct = 0; render(); return; }
+  if (act === "setCorrect") { e.questions[i].correct = k; return; }
+  if (act === "varAdd") { e.questions[i].vars.push({ name: "x" + (e.questions[i].vars.length + 1), min: 1, max: 10, step: 1, dec: 0, unit: "" }); render(); return; }
+  if (act === "varDel") { e.questions[i].vars.splice(k, 1); render(); return; }
+});
+
+document.addEventListener("keydown", (ev) => {
+  if (ev.key === "Enter" && ev.target && (ev.target.id === "pin1" || ev.target.id === "pin2")) { ev.preventDefault(); submitGate(); }
+});
+
+document.addEventListener("input", (ev) => {
+  const el = ev.target;
+  /* student */
+  if (el.dataset.ident !== undefined) {
+    S.student[el.dataset.ident] = el.value; LS.set(K.stud, S.student);
+    const b = $("#btnSubmit"); if (b) b.disabled = !identOK();
+    refreshIdentitySoon();
+    return;
+  }
+  if (el.dataset.q !== undefined && el.type !== "radio") { S.ans[el.dataset.q] = el.value; saveDraft(); updateProgress(); return; }
+  /* editor */
+  if (!S.edit) return;
+  const e = S.edit, f = el.dataset.f;
+  if (el.dataset.qi !== undefined) {
+    const q = e.questions[Number(el.dataset.qi)]; if (!q) return;
+    if (el.dataset.vi !== undefined) {
+      const v = q.vars[Number(el.dataset.vi)]; if (!v) return;
+      v[f] = el.type === "number" ? parseNum(el.value) : el.value;
+      return;
+    }
+    if (el.dataset.opt !== undefined) { q.options[Number(el.dataset.opt)] = el.value; return; }
+    if (f) q[f] = el.type === "number" ? parseNum(el.value) : el.value;
+    return;
+  }
+  if (f === "objectives") { e.objectives = el.value.split("\n").map(s => s.trim()).filter(Boolean); return; }
+  if (f && f !== "selfCheck") { e[f] = el.value; return; }
+});
+
+document.addEventListener("change", (ev) => {
+  const el = ev.target;
+  if (el.id === "labPick") { S.labId = el.value; restoreDraft(); render(); window.scrollTo(0, 0); return; }
+  if (el.id === "linkIn") { LS.set(K.link, el.value.trim()); render(); return; }
+  if (el.dataset.ident !== undefined) { LS.set(K.stud, S.student); refreshIdentity(); return; }
+  if (el.type === "radio" && el.dataset.q !== undefined) { S.ans[el.dataset.q] = Number(el.value); saveDraft(); updateProgress(); return; }
+  if (el.id === "rankNames") { S.rankNames = el.checked; $("#modalBody").innerHTML = renderRank(); return; }
+  if (S.edit && el.dataset.f === "selfCheck") { S.edit.selfCheck = el.checked; return; }
+});
+
+/* Scrie o copie a aplicației, cu cheia publică și lucrările tale incluse.
+   Copia e pentru studenți: baremul lucrărilor tale este eliminat. */
+async function exportApp() {
+  let src = null;
+  try {
+    const r = await fetch(location.href, { cache: "no-store" });
+    if (r.ok) src = await r.text();
+  } catch (e) { }
+  if (!src || src.indexOf("/*PRESET-START*/") < 0) {
+    openModal("Exportul nu este disponibil aici",
+      '<div class="doc">' + renderMd(
+        "Aplica\u021bia \u00ee\u0219i poate scrie o copie doar c\u00e2nd este deschis\u0103 **de la o adres\u0103 web** \u2014 de pe platforma eLearning sau de la o g\u0103zduire.\n\nDintr-un fi\u0219ier deschis cu dublu-click, browserul nu \u00eei d\u0103 voie s\u0103 \u00ee\u0219i citeasc\u0103 propriul con\u021binut. Urc\u0103 o dat\u0103 fi\u0219ierul pe platform\u0103, deschide-l de acolo \u0219i apas\u0103 din nou acest buton.") + "</div>");
+    return;
+  }
+  const A = "/*PRESET-START*/", B = "/*PRESET-END*/";
+  const i = src.indexOf(A), j = src.indexOf(B);
+  if (j < i) { toast("Fișierul sursă nu are locul pentru setări"); return; }
+  const preset = {
+    v: 1, creat: new Date().toISOString(),
+    pub: pubKey(),
+    link: guessLink(),
+    hidden: HIDDEN.slice(),
+    labs: USER_LABS.map(l => stripLab(l))
+  };
+  const js = "window.__CL_PRESET=" + JSON.stringify(preset).replace(/</g, "\\u003c").replace(/\*\//g, "*\\/") + ";";
+  const out = src.slice(0, i + A.length) + js + src.slice(j);
+  await saveFile("caiet-laborator-studenti.html", out);
+  toast("Copia pentru studenți a fost creată" + (pubKey() ? " · cheia este inclusă" : " · fără cheie de criptare"));
+}
+
+/* pachetul complet: toate lucrările, cu figurile lor proprii */
+function exportPack() {
+  const pack = S.labs.map(l => JSON.parse(JSON.stringify(l)));
+  saveFile("pachet-lucrari-" + todayISO() + ".json", JSON.stringify(pack, null, 1));
+}
+function exportNotesCSV() {
+  const g = gradebook();
+  const head = ["Nume", "Grupa"].concat(g.used.map(id => {
+    const l = S.labs.find(x => x.id === id);
+    return l ? (l.course || l.title) : id;
+  })).concat(["Lucrari predate", "Nota finala"]);
+  const rows = [head];
+  g.rows.forEach(st => {
+    rows.push([st.name, st.group]
+      .concat(g.used.map(id => st.labs[id] && st.labs[id].nota != null ? fmt(st.labs[id].nota, 2) : ""))
+      .concat([st.count, st.final != null ? fmt(st.final, 2) : ""]));
+  });
+  saveFile("note-finale-" + todayISO() + ".csv", toCSV(rows));
+}
+function exportCSV() {
+  const rows = [["Nume", "Grupa", "Laborator", "Data predarii", "Punctaj automat", "Punctaj manual", "Punctaj total", "Punctaj maxim", "Procent", "Nota", "Observatii"]];
+  S.catalog.slice().sort((a, b) => (a.group + a.name).localeCompare(b.group + b.name, "ro")).forEach(c => {
+    const r = catRow(c);
+    rows.push([c.name, c.group, c.labTitle || c.labId, roDate(c.submittedAt),
+    r.g ? r.g.auto : "", r.manual || "", r.max != null ? r.total : "", r.max != null ? r.max : "",
+    r.max ? Math.round(r.total / r.max * 100) + "%" : "", c.nota == null ? "" : c.nota, c.feedback || ""]);
+  });
+  saveFile("catalog-laborator.csv", toCSV(rows));
+}
+
+/* ============================ pornire ============================ */
+/* lucrarea cerută prin link: ...#lab=lucrarea-3 */
+function hashLab() {
+  try {
+    const m = (location.hash || "").match(/lab=([A-Za-z0-9_-]+)/);
+    return m ? m[1] : null;
+  } catch (e) { return null; }
+}
+/* cheia publică a cadrului didactic, adusă de codul QR */
+function adoptKeyFromHash() {
+  try {
+    const m = (location.hash || "").match(/[#&]k=([A-Za-z0-9_-]{80,})/);
+    if (m && m[1] !== pubKey()) { LS.set(K.pub, m[1]); return true; }
+  } catch (e) { }
+  return false;
+}
+async function init() {
+  const th = LS.get(K.theme, null);
+  if (th) document.documentElement.setAttribute("data-theme", th);
+  document.documentElement.style.height = "100%";
+  S.unlocked = sessUnlocked() || (pinSet() && LS.get(K.keep, false) === true);
+  if (!S.unlocked) S.role = "student";
+  rebuildLabs(); render();
+
+  USER_LABS = (await Store.get(K.labs, null)) || LS.get(K.labs, []) || [];
+  HIDDEN = (await Store.get(K.hidden, null)) || LS.get(K.hidden, []) || [];
+  S.catalog = (await Store.get(K.cat, null)) || LS.get(K.cat, []) || [];
+
+  /* o singură dată: se elimină laboratoarele demonstrative din versiunile vechi */
+  if (!LS.get("cl.mig2", false)) {
+    const before = USER_LABS.length;
+    USER_LABS = USER_LABS.filter(l => l && l.id !== "demo-vam" && l.id !== "demo-stat");
+    HIDDEN = HIDDEN.filter(id => id !== "demo-vam" && id !== "demo-stat");
+    LS.set("cl.mig2", true);
+    if (before !== USER_LABS.length) persistLabs();
+  }
+
+  /* setări livrate odată cu fișierul */
+  try {
+    const P = window.__CL_PRESET;
+    if (P && typeof P === "object") {
+      /* cheia publică inclusă în pagină; în browserul profesorului (unde există cheia privată) rămâne cheia lui */
+      if (P.pub && P.pub !== pubKey() && !(await privKey())) LS.set(K.pub, P.pub);
+      if (P.link && !LS.get(K.link, "")) LS.set(K.link, P.link);
+      if (Array.isArray(P.labs) && P.labs.length) {
+        P.labs.forEach(l => { if (l && l.id && !USER_LABS.some(x => x.id === l.id)) USER_LABS.push(l); });
+      }
+      if (Array.isArray(P.hidden) && !HIDDEN.length) HIDDEN = P.hidden.slice();
+    }
+  } catch (e) { }
+
+  /* nume preluat din platforma eLearning */
+  if (LMS.present()) {
+    LMS.init();
+    const who = LMS.student();
+    if (who && who.name) { S.fromLMS = true; S.student.name = who.name; LS.set(K.stud, S.student); }
+  }
+
+  adoptKeyFromHash();
+  S.unlocked = sessUnlocked() || (pinSet() && LS.get(K.keep, false) === true);
+  if (!S.unlocked) { S.role = "student"; }
+  const want = hashLab();
+  rebuildLabs();
+  if (want && S.labs.some(l => l.id === want)) S.labId = want;
+  restoreDraft();
+  if (S.role === "prof") S.tab = "labs";
+  render();
+  try { if (/(^|[#&])prof(esor)?(&|$)/.test(location.hash || "") && !S.unlocked) openGate(); } catch (e) { }
+}
+init();
+window.addEventListener("hashchange", () => {
+  adoptKeyFromHash();
+  const want = hashLab();
+  if (want && S.labs.some(l => l.id === want)) { S.labId = want; restoreDraft(); render(); window.scrollTo(0, 0); }
+});
+
+
+
+
+</script>
+
+</body></html>

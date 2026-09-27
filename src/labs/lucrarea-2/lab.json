@@ -1,0 +1,179 @@
+{
+  "id": "lucrarea-2",
+  "title": "Stivuirea cherestelei, amplasarea stivelor în instalație și determinarea capacității de uscare",
+  "course": "Lucrarea 2 · Uscarea lemnului",
+  "teacher": "",
+  "teacherEmail": "",
+  "duration": "2 ore",
+  "date": "",
+  "selfCheck": true,
+  "objectives": [
+    "Descrie caracteristicile șipcilor de stivuire.",
+    "Specifice regulile de stivuire.",
+    "Aplice regulile de amplasare a stivelor în instalațiile de uscare.",
+    "Calculeze capacitatea de încărcare a unei instalații de uscare."
+  ],
+  "body": "## 2.1. Introducere\n\nStivuirea cherestelei este o operație tehnologică de mare importanță, de care depinde atât calitatea uscării, cât și volumul de material care se poate introduce la o șarjă în instalație. Capacitatea de încărcare a unei instalații de uscare depinde de caracteristicile dimensionale ale materialului care se usucă, de dimensiunile și numărul stivelor din instalație, care depind la rândul lor de dimensiunile interioare ale camerei. Aproximarea volumului de cherestea care se usucă la o șarjă este importantă pentru corecta planificare a producției, atât pe termen scurt, cât și pe termen lung, întrucât capacitatea de încărcare a unei instalații determină la rândul ei capacitatea anuală de uscare.\n\n## 2.2. Stivuirea cherestelei\n\nÎn vederea stivuirii corecte, materialul trebuie sortat pe specii și dimensiuni (în special după grosime), astfel încât materialul introdus într-o stivă să fie cât mai omogen: din aceeași specie, aceeași grosime și umiditate inițială cât mai apropiată.\n\n### 2.2.1. Formarea stivei și reguli de stivuire\n\nO stivuire corectă trebuie să asigure:\n\n- spații suficiente pentru circulația aerului printre piesele de cherestea. Pentru aceasta stivuirea se face cu șipci, iar între piese, pe lățimea stivei, se lasă mici spații de 3–5 cm;\n- strângerea materialului pe fețele late pentru a evita deformațiile — se pot folosi dispozitive mecanice de strângere (cu arc) sau plăci grele așezate deasupra stivei (Fig. 2.1);\n- stabilitatea stivei;\n- utilizarea cât mai bună a spațiului util al instalației — pentru aceasta este necesar ca lungimea stivei să fie cât mai complet acoperită cu material, iar înălțimea stivei să fie apropiată de înălțimea utilă a camerei.\n\n| ![Dispozitiv mecanic de strângere](l2-fig21a) | ![Plăci grele de beton](l2-fig21b) |\n| a | b |\n\n*Fig. 2.1. Stive de cherestea și modalități pentru evitarea bombării pieselor (Câmpean și Marinescu 2012): a — dispozitiv mecanic de strângere (cu arc); b — plăci grele de beton.*\n\nȘipcile de stivuire se confecționează de regulă din lemn de molid (U ≈ 15%), pentru a nu păta materialul. Șipcile de stivuire cel mai frecvent utilizate au următoarele dimensiuni:\n\n- grosimea (s_{s}) = 20 mm;\n- lățimea (l_{s}) = 30 mm;\n- lungimea (L_{s}) egală cu lățimea stivei.\n\nÎn cadrul operației de stivuire trebuie respectate câteva reguli de bază:\n\n- șipcile se vor așeza **obligatoriu la capetele stivei**, pentru a evita deformarea pieselor pe lungime;\n- în plan vertical șipcile vor fi strict una sub alta;\n- în interiorul stivei, șipcile se așează la anumite distanțe pentru a se evita deformarea pieselor pe lungime (Tabelul 2.1);\n- piesele cu inimă se vor așeza cu partea dinspre inimă în sus, pentru a evita tendința de deformare a acestora datorită contragerii inegale după direcția radială și respectiv tangențială (Fig. 2.2).\n\n![Tendința de bombare a pieselor în timpul uscării](l2-fig22)\n\n*Fig. 2.2. Tendința de bombare a pieselor în timpul uscării.*\n\nPentru a încetini eliminarea apei prin capetele pieselor și a evita astfel crăpăturile de capăt, în special la sortimentele groase de foioase tari, se pot aplica pe capetele pieselor de cherestea fie agrafe anti-crăpare („S”-uri), fie pelicule de protecție prin pensulare — varianta mai practică. Peliculele de protecție pot fi pe bază de parafină (ex. BOMUL) sau dispersie de ceară.\n\n**Tabelul 2.1. Distanța de amplasare a șipcilor de stivuire (STAS 9701-88)**\n\nDistanța între șipci, aproximativ, în mm, în funcție de grosimea cherestelei:\n\n| Specia lemnoasă | sub 30 mm | 31...60 mm | peste 60 mm |\n|---|---|---|---|\n| Rășinoase | 500 | 1000 | 1500 |\n| Foioase | 300...400 | 401...600 | 601...800 |\n\n### 2.2.2. Dimensiunile stivelor\n\nDimensiunile stivelor se adoptă ținând seama de dimensiunile interioare ale instalației, de dimensiunile pieselor de cherestea și de utilajele de transport și stivuire disponibile. Astfel:\n\n- **lungimea stivei (L_{st})** este în funcție de lungimea maximă a cherestelei. Atunci când piesele de cherestea au lungimi diferite, se recomandă dispunerea decalată stânga-dreapta, astfel încât stiva în ansamblu să păstreze aspectul unui paralelipiped (Fig. 2.3);\n- **lățimea stivei (l_{st})** este cuprinsă, de regulă, între 1 și 1,2 m, uzual fiind de 1,2 m — în cazul încărcării instalației prin intermediul autostivuitoarelor. Atunci când instalația de uscare este prevăzută cu vagonet, lățimea stivei este limitată de lățimea vagonetului;\n- **înălțimea stivei (h_{st})** trebuie să respecte proporția de max. 3:1 față de lățime, pentru a se asigura stabilitatea acesteia (Câmpean și Marinescu 2012). Oricum, și aceasta este limitată de utilajul de transport folosit. În cazul utilizării vagonetelor se recomandă a nu se depăși h_{st} = 2 m. Pentru cazul în care încărcarea camerei se realizează cu ajutorul autostivuitoarelor se pot suprapune până la 4 stive de câte 1 m înălțime fiecare, cu grinzi distanțiere de 10 cm între ele (Fig. 2.4). Grinzile distanțiere trebuie amplasate sub fiecare coloană de șipci de stivuire.\n\n![Stivuirea pieselor de lungimi diferite](l2-fig23)\n\n*Fig. 2.3. Modalitatea de stivuire a pieselor de lungimi diferite (vedere de sus): 1 — șipci de stivuire; 2 — piese de cherestea.*\n\n![Amplasarea stivelor pe înălțimea instalației](l2-fig24)\n\n*Fig. 2.4. Modalitatea de amplasare a stivelor pe înălțimea instalației prin intermediul grinzilor distanțiere: 1 — pardoseală; 2 — grinzi distanțiere; 3 — șipci de stivuire.*\n\n## 2.3. Amplasarea stivelor în instalația de uscare\n\nStivele rezultate se amplasează în instalația de uscare astfel încât să nu se obstrucționeze circulația aerului în cadrul instalației. Prin urmare, trebuie respectate următoarele reguli:\n\n- stivele se așează doar pe zona corespunzătoare planșeului intermediar, astfel încât canalele de distribuție și colectare a aerului să nu fie blocate (Fig. 2.5a și b);\n- pe lățimea camerei se vor lăsa spații de cca. 100 mm între stivele de cherestea (Fig. 2.5b). Aceste spații sunt necesare pentru a nu se obstrucționa trecerea aerului prin celelalte rânduri de stive;\n- pe lungimea camerei se va urmări ca între stive și pereți să rămână un spațiu de cca. 0,5 m (Fig. 2.5b);\n- pe înălțime, stivele se vor amplasa cât mai aproape de planșeul intermediar (Fig. 2.5a). Cu cât spațiul dintre ultima stivă și planșeul intermediar este mai mare, cu atât riscul de „scurtcircuitare” a aerului prin acel spațiu gol este mai mare, în detrimentul uniformității uscării.\n\n| ![Amplasare pe înălțimea și lățimea camerei](l2-fig25a) | ![Amplasare pe lungimea și lățimea camerei](l2-fig25b) |\n| a | b |\n\n*Fig. 2.5. Modalitatea de amplasare a stivelor în interiorul instalației de uscare: a — pe înălțimea și lățimea camerei; b — pe lungimea și lățimea camerei.*\n\n## 2.4. Calculul capacității de încărcare a unei instalații de uscare\n\nCapacitatea de încărcare a unei camere de uscare (V) reprezintă volumul efectiv de material care se introduce la un moment dat în instalație. Ea depinde de dimensiunile și numărul stivelor, dar și de spațiile goale:\n\n> **V = V_{g.st} · n_{st} · K_{st}**  [m³/șarjă]  (2.1)\n\nîn care **V_{g.st}** este volumul de gabarit al unei stive, egal cu produsul dintre lungimea (L_{st}), lățimea (l_{st}) și înălțimea acesteia (h_{st}):\n\n> **V_{g.st} = L_{st} · l_{st} · h_{st}**  [m³]  (2.2)\n\n**n_{st}** — numărul de stive din interiorul instalației;\n\n**K_{st}** — coeficientul de stivuire, care ține seama de spațiile goale sau de aer dintre piese pe lungimea, lățimea și respectiv înălțimea stivei:\n\n> **K_{st} = K_{L} · K_{l} · K_{h}**  (2.3)\n\nîn care:\n\n- **K_{L}** este coeficientul de stivuire pe lungimea stivei; în general se consideră K_{L} = 0,85. Numai dacă toate piesele au exact aceeași lungime și egală cu lungimea stivei se poate considera K_{L} = 1.\n- **K_{l}** este coeficientul de stivuire pe lățimea stivei; în funcție de gradul de tivire a cherestelei se consideră: K_{l} = 0,9 pentru cherestea tivită (Fig. 2.6a); K_{l} = 0,75 pentru cherestea semitivită (Fig. 2.6b); K_{l} = 0,6 pentru cherestea netivită (Fig. 2.6c).\n\n| ![Cherestea tivită](l2-fig26a) | ![Cherestea semitivită](l2-fig26b) | ![Cherestea netivită](l2-fig26c) |\n| a | b | c |\n\n*Fig. 2.6. Cherestea tivită (a), semitivită (b) și netivită (c).*\n\n- **K_{h}** este coeficientul de stivuire pe înălțimea stivei; se calculează în funcție de grosimea cherestelei (s) și de grosimea șipcii de stivuire (s_{s}):\n\n> **K_{h} = s / (s_{s} + 1,08 · s)**  (2.4)\n\nîn care: *s* este grosimea materialului, în mm; *s_{s}* — grosimea șipcilor de stivuire, în mm; *1,08* — coeficient care ține seama de contragerea medie.\n\n## 2.5. Calculul capacității anuale de uscare a unei instalații\n\nCapacitatea anuală de uscare a unei instalații (P_{an}) reprezintă volumul de material lemnos care se poate usca în decursul unui an în instalația respectivă:\n\n> **P_{an} = V · T / Z**  [m³/an]  (2.5)\n\nîn care:\n\n- **V** este capacitatea de încărcare a instalației, calculată conform Ecuației (2.1), în m³/șarjă;\n- **T** — durata de funcționare a instalației în decursul unui an, h/an. Pentru instalațiile metalice se consideră T = 345 zile/an × 24 h/zi × 0,87 (coeficient de utilizare a timpului de lucru) ⇒ **T = 7200 h/an**;\n- **Z** — durata unui ciclu de uscare, h/șarjă; ia în considerare atât durata totală a procesului de uscare (D_{t}), cât și durata de încărcare/descărcare a instalației (D_{î.d.}):\n\n> **Z = D_{t} + D_{î.d.}**  [h]  (2.6)\n\nValorile orientative ale duratei de uscare (D_{t}) în funcție de specia și grosimea cherestelei sunt prezentate în Tabelul 2.2. Durata de încărcare/descărcare a camerei depinde de tipul mijlocului de transport folosit. Orientativ, se poate considera:\n\n- D_{î.d.} = 1 h/vagonet — în cazul utilizării vagonetelor pe șină;\n- D_{î.d.} = 20 minute/stivă — în cazul stivuirii direct în camera de uscare, cu ajutorul unui autostivuitor cu furci.\n\n**Tabelul 2.2. Valori orientative ale duratei de uscare (în zile) în funcție de specia și grosimea cherestelei (U_{i} = 60% și U_{f} = 12%)**\n\n| Grosimea materialului, mm | Brad | Pin, cedru, brad, plop | Mesteacăn, arin | Fag, frasin, paltin, larice | Stejar, carpen |\n|---|---|---|---|---|---|\n| 19...25 | 1...2 | 2 | 3 | 5 | 10 |\n| 26...30 | 2...3 | 2...3 | 4 | 6 | 12 |\n| 30...40 | 3 | 3 | 5 | 6...8 | 15 |\n| 40...50 | 3...4 | 4 | 6 | 10 | 20 |\n| 50...60 | 4...5 | 5 | 8 | 12 | 25 |\n| 60...70 | 6 | 6 | 10 | 15 | 30 |\n| 70...80 | 6...8 | 8 | 12 | 20 | — |\n| 80...90 | 8...10 | 10 | 15 | 25 | — |\n| 91...100 | 10...12 | 12 | 20 | 30 | — |\n\n---\n\n## Aplicațiile de laborator\n\n**Aplicația 1.** Să se calculeze capacitatea de încărcare a unei instalații, pentru care se cunosc următoarele date:\n\n*Varianta A:* specia fag; lungimea pieselor de cherestea 5–6 m; grosimea cherestelei 70 mm; gradul de tivire: tivită; lungimea stivei 6 m; lățimea stivei 1,2 m; înălțimea stivei 1 m; numărul de stive din instalație: 6 buc.\n\n*Varianta B:* specia stejar; lungimea pieselor de cherestea 6 m; grosimea cherestelei 40 mm; gradul de tivire: netivită; lungimea stivei 6 m; lățimea stivei 1,2 m; înălțimea stivei 1 m; numărul de stive din instalație: 6 buc.\n\nRezultatele obținute se vor centraliza în Tabelul 2.3, iar valorile cerute mai jos se completează în aplicațiile numerice.\n\n**Tabelul 2.3. Capacitatea de încărcare a instalației de uscare**\n\n| Varianta | L_{st}, m | l_{st}, m | h_{st}, m | V_{g.st}, m³ | n_{st} | K_{L} | K_{l} | K_{h} | K_{st} | V, m³/șarjă |\n|---|---|---|---|---|---|---|---|---|---|---|\n| A | 6 | 1,2 | 1 | | 6 | | | | | |\n| B | 6 | 1,2 | 1 | | 6 | | | | | |\n\n**Aplicația 2.** Să se determine capacitatea anuală de uscare a instalației pentru care s-a calculat capacitatea de încărcare la aplicația precedentă (Varianta A). Încărcarea instalației se realizează cu: a) vagonete; b) autostivuitorul.\n\n**Tabelul 2.4. Capacitatea anuală de uscare a instalației**\n\n| Mod de încărcare | V, m³/șarjă | T, h/an | D_{t}, h/șarjă | n_{st} | D_{î.d.}, h | P_{an}, m³/an |\n|---|---|---|---|---|---|---|\n| a — vagonete | | 7200 | | 6 | | |\n| b — autostivuitor | | 7200 | | 6 | | |\n\n---\n\n*Sursa textului și a figurilor: îndrumarul de laborator al disciplinei (Bedelean B., Câmpean M.).*\n",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "points": 1,
+      "text": "În care dintre variantele din Fig. 2.7 este corectă dispunerea șipcilor de stivuire, în cazul unei stive de cherestea de **rășinoase** cu lungimea de **4 m** și grosimea de **58 mm**?",
+      "options": [
+        "![a](l2-fig27a)",
+        "![b](l2-fig27b)",
+        "![c](l2-fig27c)",
+        "![d](l2-fig27d)"
+      ],
+      "correct": 3,
+      "explain": "Pentru rășinoase cu grosimea între 31 și 60 mm, Tabelul 2.1 impune o distanță între șipci de cca. 1000 mm, iar șipcile trebuie așezate obligatoriu și la capetele stivei. Varianta d îndeplinește ambele condiții: șipci la ambele capete și din metru în metru pe lungimea de 4 m."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "points": 1,
+      "text": "În care dintre variantele din Fig. 2.8 este corectă amplasarea stivelor în instalația de uscare?",
+      "options": [
+        "![a](l2-fig28a)",
+        "![b](l2-fig28b)",
+        "![c](l2-fig28c)",
+        "![d](l2-fig28d)"
+      ],
+      "correct": 3,
+      "explain": "Varianta d respectă toate regulile: stivele sunt aliniate în coloane, cu spații de cca. 100 mm între ele pe lățimea camerei și cu spații de cca. 0,5 m față de pereți pe lungimea camerei, astfel încât aerul circulă liber și uniform prin toate rândurile."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "points": 1,
+      "text": "La ce distanță (aproximativ) se așează șipcile de stivuire în interiorul unei stive de cherestea de **foioase** cu grosimea de **45 mm**?",
+      "options": [
+        "300...400 mm",
+        "401...600 mm",
+        "601...800 mm",
+        "1000 mm"
+      ],
+      "correct": 1,
+      "explain": "Tabelul 2.1: foioase, grosime 31...60 mm → 401...600 mm."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "points": 1,
+      "text": "Coeficientul de stivuire pe lățimea stivei (K_{l}) pentru cherestea **netivită** este:",
+      "options": [
+        "0,9",
+        "0,75",
+        "0,6",
+        "1"
+      ],
+      "correct": 2,
+      "explain": "K_{l} = 0,9 pentru cherestea tivită, 0,75 pentru semitivită și 0,6 pentru netivită."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "points": 1,
+      "text": "Piesele de cherestea cu inimă se așează în stivă:",
+      "options": [
+        "cu partea dinspre inimă în sus",
+        "cu partea dinspre inimă în jos",
+        "alternativ, o piesă în sus și una în jos",
+        "nu are importanță orientarea lor"
+      ],
+      "correct": 0,
+      "explain": "Contragerea inegală după direcția radială și cea tangențială face piesa să se bombeze; așezarea cu partea dinspre inimă în sus contracarează această tendință (Fig. 2.2)."
+    },
+    {
+      "id": "q3",
+      "type": "open",
+      "points": 2,
+      "rows": 5,
+      "text": "Motivați alegerea făcută la întrebarea 2 din grilă (amplasarea stivelor, Fig. 2.8): ce reguli de amplasare sunt încălcate în celelalte variante?",
+      "model": "Se așteaptă: stivele trebuie aliniate în coloane, cu spații de cca. 100 mm între ele pe lățimea camerei și cca. 0,5 m față de pereți pe lungimea camerei; stivele așezate lipit de pereți sau decalate unele față de altele obstrucționează circulația aerului și duc la scurtcircuitarea curentului de aer prin spațiile goale, deci la uscare neuniformă."
+    },
+    {
+      "id": "q7",
+      "type": "num",
+      "points": 1,
+      "text": "**Varianta A.** Cheresteaua are grosimea s = {{s}} mm, iar șipcile de stivuire s_{s} = {{ss}} mm. Calculați coeficientul de stivuire pe înălțimea stivei, K_{h}.",
+      "vars": [
+        {
+          "name": "s",
+          "min": 70,
+          "max": 70,
+          "step": 1,
+          "dec": 0,
+          "unit": "mm"
+        },
+        {
+          "name": "ss",
+          "min": 20,
+          "max": 20,
+          "step": 1,
+          "dec": 0,
+          "unit": "mm"
+        }
+      ],
+      "expr": "s/(ss+1.08*s)",
+      "unit": "—",
+      "tolPct": 2,
+      "tolAbs": 0,
+      "dec": 3,
+      "solution": "K_{h} = s / (s_{s} + 1,08 · s) = 70 / (20 + 1,08 · 70) = 70 / 95,6."
+    },
+    {
+      "id": "q8",
+      "type": "num",
+      "points": 2,
+      "text": "**Varianta A.** Calculați capacitatea de încărcare V a instalației: fag, piese de 5–6 m (K_{L} = 0,85), cherestea tivită (K_{l} = 0,9), s = 70 mm, s_{s} = 20 mm, L_{st} = 6 m, l_{st} = 1,2 m, h_{st} = 1 m, n_{st} = 6 stive.",
+      "vars": [],
+      "expr": "6*1.2*1*6*0.85*0.9*(70/(20+1.08*70))",
+      "unit": "m³/șarjă",
+      "tolPct": 3,
+      "tolAbs": 0,
+      "dec": 2,
+      "solution": "V_{g.st} = 6 · 1,2 · 1 = 7,2 m³; K_{h} = 0,732; K_{st} = 0,85 · 0,9 · 0,732 = 0,560; V = 7,2 · 6 · 0,560."
+    },
+    {
+      "id": "q9",
+      "type": "num",
+      "points": 2,
+      "text": "**Varianta B.** Calculați capacitatea de încărcare V: stejar, toate piesele de 6 m, egale cu lungimea stivei (K_{L} = 1), cherestea netivită (K_{l} = 0,6), s = 40 mm, s_{s} = 20 mm, L_{st} = 6 m, l_{st} = 1,2 m, h_{st} = 1 m, n_{st} = 6 stive.",
+      "vars": [],
+      "expr": "6*1.2*1*6*1*0.6*(40/(20+1.08*40))",
+      "unit": "m³/șarjă",
+      "tolPct": 3,
+      "tolAbs": 0,
+      "dec": 2,
+      "solution": "K_{h} = 40 / (20 + 43,2) = 0,633; K_{st} = 1 · 0,6 · 0,633 = 0,380; V = 43,2 · 0,380."
+    },
+    {
+      "id": "q10",
+      "type": "num",
+      "points": 2,
+      "text": "**Aplicația 2a.** Pentru instalația de la Varianta A (fag, 70 mm — Tabelul 2.2), încărcată cu **vagonete** (1 h/vagonet, 6 stive), calculați capacitatea anuală de uscare P_{an}. Se consideră T = 7200 h/an.",
+      "vars": [],
+      "expr": "24.199*7200/(15*24+6)",
+      "unit": "m³/an",
+      "tolPct": 4,
+      "tolAbs": 0,
+      "dec": 0,
+      "solution": "D_{t} = 15 zile = 360 h; D_{î.d.} = 6 × 1 h = 6 h; Z = 366 h; P_{an} = 24,2 · 7200 / 366."
+    },
+    {
+      "id": "q11",
+      "type": "num",
+      "points": 2,
+      "text": "**Aplicația 2b.** Aceeași instalație, încărcată cu **autostivuitorul** (20 minute/stivă, 6 stive). Calculați P_{an}.",
+      "vars": [],
+      "expr": "24.199*7200/(15*24+6*20/60)",
+      "unit": "m³/an",
+      "tolPct": 4,
+      "tolAbs": 0,
+      "dec": 0,
+      "solution": "D_{î.d.} = 6 × 20 min = 2 h; Z = 360 + 2 = 362 h; P_{an} = 24,2 · 7200 / 362."
+    }
+  ]
+}
