@@ -1,0 +1,207 @@
+{
+  "id": "lucrarea-1",
+  "title": "Prezentarea generală a unei instalații de uscare",
+  "course": "Lucrarea 1 · Uscarea lemnului",
+  "teacher": "",
+  "teacherEmail": "",
+  "duration": "2 ore",
+  "date": "",
+  "selfCheck": true,
+  "objectives": [
+    "Descrie construcția propriu-zisă a unei instalații de uscare: scheletul, carcasa, ușile și planșeul intermediar.",
+    "Identifice elementele componente ale instalației de uscare și rolul fiecăruia.",
+    "Cunoască principalele caracteristici tehnice ale unei instalații de uscare.",
+    "Pregătească instalația în vederea uscării unei noi șarje."
+  ],
+  "body": "## 1.1. Introducere\n\nÎn orice întreprindere de prelucrare a lemnului, uscarea constituie un proces tehnologic obligatoriu, prin care se urmărește reducerea umidității lemnului până la un anumit nivel, în funcție de destinație. În acest fel se preîntâmpină schimbările dimensionale sau de formă, asigurându-se una dintre condițiile de bază ale interschimbabilității reperelor în cadrul unui produs.\n\nPentru a asigura reducerea uniformă a umidității materialului pe secțiunea și lungimea pieselor, precum și în cuprinsul întregului lot de material, parametrii mediului de uscare trebuie să poată fi controlați riguros. Acest lucru nu este posibil în cazul uscării naturale (în aer liber), ci doar în interiorul unor instalații speciale, dotate cu sursă de încălzire, umezire și circulație forțată a aerului. Aceste agregate poartă denumirea de **instalații de uscare**.\n\nExistența unor fabrici cu diferite capacități de uscare a impus un **sistem constructiv modulat** al instalațiilor de uscare, care să permită adaptarea capacității instalației la necesitățile fabricii. Instalațiile moderne sunt construite din prefabricate modulate, care permit realizarea oricăror dimensiuni ale carcasei.\n\nÎn cadrul Laboratorului de Tratamente Termice ale Lemnului se găsește o instalație tip **SEBA**, cu ventilatoare axiale acționate individual, amplasate deasupra planșeului intermediar (Fig. 1.1), care funcționează după principiul uscării cu schimb de aer cu mediul exterior (uscare „convențională”).\n\n![Instalația de uscare SEBA — schemă](l1-fig11)\n\n*Fig. 1.1. Instalație de uscare cu ventilatoare axiale acționate individual (SEBA): 1 — stiva de cherestea; 2 — țevi de calorifer; 3 — țeavă de pulverizare a apei; 4 — ventilator axial cu motor electric montat direct pe ax; 5 — coșuri de admisie/evacuare a aerului; 6 — planșeu intermediar.*\n\n## 1.2. Construcția propriu-zisă\n\nElementele constructive ale oricărei instalații de uscare sunt: **scheletul de rezistență** și **carcasa propriu-zisă**, formată din pereți, planșeu superior și ușă. În funcție de materialele folosite în structura lor, instalațiile de uscare pot fi metalice, din zidărie sau din beton.\n\nCele mai răspândite sunt **instalațiile metalice**, datorită avantajelor pe care le oferă: etanșeitate foarte bună, protecție deosebită împotriva coroziunii, izolare termică și hidrofugă foarte bună. În plus, necesită un spațiu de amplasare mai redus decât cele din zidărie, pot fi transportate ușor, se montează rapid direct la beneficiar, pe o platformă betonată, și nu necesită întreținere.\n\nInstalația de uscare din laborator este de construcție metalică, cu carcasa realizată din **panouri prefabricate cu structură de tip „sandwich”** (Fig. 1.2). La instalația SEBA, panourile cuprind **două table de aluminiu cu grosimea de 2 mm, cu un strat de poliuretan de 100 mm între ele**. La exterior se poate folosi și un alt material (de exemplu, tablă neagră de oțel), întrucât partea exterioară a carcasei trebuie să reziste numai la intemperii, nu și la acțiunea corozivă a acizilor degajați din lemn.\n\n![Structura tip sandwich a panourilor](l1-fig12)\n\n*Fig. 1.2. Structura tip „sandwich” a panourilor prefabricate.*\n\n**Ușile** instalațiilor de uscare au aceeași structură constructivă tip sandwich. Ele trebuie să asigure o etanșeitate absolută pe contur, fiind prevăzute în acest scop cu garnituri, care trebuie reînnoite periodic. Dintre variantele de deschidere, cea mai frecventă este **ușa glisantă cu sistem de rulare laterală** (Fig. 1.3a) — vezi instalația SEBA.\n\n| ![Ușă glisantă](l1-fig13a) | ![Uși cu canaturi](l1-fig13b) |\n| a — ușă glisantă, cu sistem de rulare laterală | b — uși cu canaturi |\n\n*Fig. 1.3. Tipuri de uși.*\n\n**Planșeul intermediar** desparte spațiul util de uscare (în care este amplasată stiva) de spațiul tehnic (în care sunt amplasate caloriferul, ventilatoarele etc.). În mod uzual este o placă din aluminiu ondulat — vezi instalația SEBA.\n\n## 1.3. Elemente componente\n\nPentru a funcționa ca instalație de uscare, incinta închisă trebuie dotată cu o serie de **agregate specifice**:\n\n- calorifer (țevi de încălzire);\n- țeavă de umezire;\n- sistem de circulație forțată a aerului prin stive;\n- coșuri pentru schimbul de aer cu mediul exterior.\n\nÎn afara acestor componente obligatorii, instalațiile de uscare mai sunt prevăzute, de obicei, cu un sistem de stivuire și transport, precum și cu aparatură specifică de măsurare, reglare și control.\n\n### Caloriferul\n\nAre rolul de **ridicare și menținere a temperaturii** la valoarea de regim. Se folosesc în general țevi cu aripioare, prin care circulă agentul termic: apă încălzită sub presiune, vapori, ulei termic etc. Există și posibilitatea utilizării unor încălzitoare electrice, dar consumul energetic este foarte mare, având în vedere durata lungă a proceselor de uscare.\n\nLa instalația SEBA, de construcție mai modernă, s-au utilizat **țevi bimetalice** (Fig. 1.4), realizate dintr-un miez de oțel inoxidabil și un înveliș cu aripioare din aluminiu. Aluminiul rezistă foarte bine la acțiunea acizilor, este mai maleabil și asigură un transfer termic mai bun decât oțelul inoxidabil; în schimb, oțelul inoxidabil este mai rezistent în medii alcaline. De aceea, construcția bimetalică este considerată în prezent soluția optimă: țevile de încălzire sunt supuse atât contactului cu un mediu alcalin (agentul termic din interiorul țevii), cât și cu un mediu acid (aerul din instalație, încărcat cu acizii eliminați odată cu apa din lemn).\n\n![Țeavă bimetalică](l1-fig14)\n\n*Fig. 1.4. Țeavă bimetalică.*\n\nȚevile de încălzire trebuie amplasate **în secțiunea de intrare a aerului în stivă**. La instalațiile cu ventilatoare amplasate deasupra stivelor, țevile de calorifer sunt amplasate orizontal, în partea superioară a instalației, puțin deasupra planșeului intermediar (ca la instalația SEBA).\n\n### Țeava de umezire\n\nAre rolul de **ridicare a umidității relative a aerului** din interiorul camerei de uscare, atunci când este necesar. Agentul de umezire poate fi apă rece sau vapori umezi. La instalația SEBA, țeava de umezire este prevăzută cu **duze de pulverizare** (Fig. 1.5), care transformă apa în ceață (picături foarte fine de apă în suspensie). Țeava se amplasează cu orificiile orientate astfel încât curentul de aer să preia ușor agentul de umezire.\n\n![Țeavă de umezire cu duze](l1-fig15)\n\n*Fig. 1.5. Țeavă de umezire cu duze de pulverizare a apei.*\n\n### Ventilatoarele\n\nPentru o uscare corespunzătoare, **viteza aerului în stivă trebuie să fie de cel puțin 1,5 m/s la uscarea foioaselor și de cel puțin 2,5 m/s la uscarea rășinoaselor**. Pentru aceasta, instalațiile de uscare sunt dotate în general cu ventilatoare axiale, amplasate central deasupra planșeului intermediar și acționate individual de un motor electric montat direct pe axul ventilatorului (Fig. 1.6) — vezi instalația SEBA. În acest caz, motoarele electrice necesită o carcasare specială, pentru a rezista acțiunii corozive a aerului din interiorul instalației.\n\n![Ventilator axial](l1-fig16)\n\n*Fig. 1.6. Ventilator axial cu motor electric montat direct pe ax.*\n\nLa instalațiile moderne, motorul de antrenare a ventilatorului este prevăzut și cu un **variator continuu de turație**. Acesta permite schimbarea sensului de rotație la anumite intervale de timp, precum și varierea vitezei aerului în stivă pe parcursul procesului: viteză mai mare la începutul procesului, când se evaporă apa liberă din lemn, și mai mică spre final, pentru a economisi energie.\n\n### Coșurile pentru schimbul de aer cu mediul exterior\n\nAu rolul de a **primeni (desumidifica) aerul** din interiorul instalației. Atunci când umiditatea aerului din instalație devine mai mare decât cea prevăzută de regim, prin deschiderea coșurilor se elimină o parte din acest aer „utilizat” și, simultan, se admite o cantitate egală de aer „proaspăt”, cu umiditate relativă mai mică. Coșurile de aer pot avea secțiune dreptunghiulară (vezi instalația SEBA) sau circulară.\n\nEle se prevăd **întotdeauna în număr par și de secțiune egală**, astfel încât cantitatea de aer admis și cea de aer evacuat să fie întotdeauna egale. Pentru reglarea debitului de aer schimbat cu exteriorul, coșurile sunt prevăzute cu clapete de reglare (Fig. 1.7a), care pot fi acționate și manual, dar de regulă sunt prevăzute cu servomotoare pentru acționarea automată (Fig. 1.7b).\n\n| ![Coșuri de aer — vedere de ansamblu](l1-fig17a) | ![Acționarea clapetei](l1-fig17b) |\n| a — vedere de ansamblu | b — detaliu privind acționarea clapetei |\n\n*Fig. 1.7. Coș de aer prevăzut cu clapetă pentru reglarea debitului de aer.*\n\n### Sistemul de stivuire și transport\n\nPermite încărcarea și descărcarea rapidă a instalației, precum și susținerea stivei în timpul uscării. De cele mai multe ori, încărcarea și descărcarea camerei se fac cu un stivuitor cu furci; stiva, susținută de un palet, se așază direct pe grinzi distanțiere puse pe pardoseala betonată a camerei — vezi instalația SEBA.\n\n### Aparatura de măsurare, reglare și control\n\nPentru buna desfășurare a procesului de uscare este necesară monitorizarea continuă a parametrilor de proces: umiditatea lemnului, temperatura și umiditatea aerului. Aceasta se poate realiza și manual, dar instalațiile moderne sunt prevăzute în general cu sisteme automate de conducere a procesului, care măsoară și reglează parametrii de la distanță. Construcția acestor aparate și modul lor de utilizare fac obiectul unor lucrări ulterioare.\n\n## 1.4. Caracteristicile tehnice ale instalațiilor de uscare\n\nOrice instalație de uscare este caracterizată de o serie de date tehnice, care permit evaluarea performanțelor ei și compararea cu alte instalații similare:\n\n- dimensiunile de gabarit — necesare pentru planificarea amplasării;\n- dimensiunile interioare;\n- dimensiunile stivelor (în funcție de mijlocul de stivuire utilizat) — necesare pentru estimarea capacității de încărcare;\n- capacitatea de încărcare;\n- caracteristicile caloriferului, suprafața de încălzire;\n- caracteristicile țevilor de umezire;\n- numărul de ventilatoare, diametrul și debitul acestora;\n- puterea instalată și turația motoarelor electrice;\n- masa instalației etc.\n\n**Tabelul 1.1. Caracteristicile tehnice ale instalației de uscare tip SEBA**\n\n| Caracteristici tehnice | Instalația SEBA |\n|---|---|\n| Dimensiuni de gabarit (lungime × lățime/adâncime × înălțime), m | 4,0 × 2,7 × 3,4 |\n| Dimensiuni interioare (lungime × lățime/adâncime × înălțime utilă), m | 3,8 × 2,5 × 2,2 |\n| Dimensiunile stivei (lungime × lățime/adâncime × înălțime), m | 3,0 × 1,25 × 2,0 |\n| Capacitatea maximă de încărcare, m³/șarjă | 6 |\n| Caracteristicile țevilor de încălzire | 6 țevi bimetalice, cu aripioare |\n| Suprafața de încălzire a caloriferului, m² | 30 |\n| Caracteristicile țevilor de umezire | 2 țevi de pulverizare a apei, cu duze atomizoare speciale și filtru încorporat |\n| Numărul de ventilatoare | 2 |\n| Diametrul ventilatoarelor, mm | 900 |\n| Debitul de aer, m³/h | 30000 |\n| Turația motoarelor electrice | variabilă continuu, 0...1400 rpm |\n| Puterea instalată, kW | 2 × 1,5 |\n| Posibilitate de inversare a sensului aerului prin stivă | da |\n| Numărul și dimensiunile coșurilor de aer | 4, secțiune pătrată cu latura a = 30 cm |\n\n## 1.5. Pregătirea instalației în vederea uscării\n\nÎnainte de a introduce o nouă șarjă de cherestea la uscare, se verifică:\n\n- etanșeitatea ventilelor de pe conducta de alimentare a caloriferului;\n- etanșeitatea ventilelor de pe conducta de alimentare a țevii de umezire și faptul că orificiile acesteia nu sunt înfundate;\n- dacă ventilatoarele sunt echilibrate (să nu „bată”);\n- funcționarea ușoară a clapetelor din coșurile de aer;\n- integritatea cablurilor, în cazul folosirii unor senzori de măsurare de la distanță;\n- etanșeitatea ușilor pe contur etc.\n\n---\n\n## Referatul lucrării\n\nRăspunsurile la întrebările cu răspuns liber de mai jos reprezintă referatul aferent acestei lucrări. Schema instalației SEBA, cerută la întrebarea despre agregatele componente, se desenează pe hârtie și se predă odată cu referatul.\n\n---\n\n*Sursa textului și a figurilor: îndrumarul de laborator al disciplinei.*\n",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "points": 1,
+      "text": "Din ce sunt realizate **țevile bimetalice** ale caloriferului instalației SEBA?",
+      "options": [
+        "Miez din oțel inoxidabil și înveliș cu aripioare din aluminiu",
+        "Miez din aluminiu și înveliș cu aripioare din oțel inoxidabil",
+        "Miez din cupru și înveliș cu aripioare din alamă",
+        "Miez din oțel carbon și înveliș din tablă zincată"
+      ],
+      "correct": 0,
+      "explain": "Miezul din oțel inoxidabil rezistă mediului alcalin al agentului termic, iar aripioarele din aluminiu rezistă acizilor din aer și transferă mai bine căldura."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "points": 1,
+      "text": "De ce este considerată construcția bimetalică soluția optimă pentru țevile de încălzire?",
+      "options": [
+        "Pentru că este mai ieftină decât orice altă soluție",
+        "Pentru că aluminiul rezistă mai bine în medii alcaline decât oțelul inoxidabil",
+        "Pentru că permite folosirea încălzitoarelor electrice",
+        "Pentru că țeava este expusă la interior unui mediu alcalin (agentul termic), iar la exterior unui mediu acid (aerul încărcat cu acizii din lemn)"
+      ],
+      "correct": 3,
+      "explain": "Aluminiul rezistă foarte bine la acizi, iar oțelul inoxidabil în medii alcaline; fiecare material e pus pe fața pe care rezistă."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "points": 1,
+      "text": "Unde trebuie amplasate **țevile de încălzire** ale caloriferului?",
+      "options": [
+        "În secțiunea de ieșire a aerului din stivă",
+        "Pe pardoseala camerei, sub stivă",
+        "În secțiunea de intrare a aerului în stivă",
+        "Lângă ușă, pentru acces ușor la întreținere"
+      ],
+      "correct": 2,
+      "explain": "Aerul trebuie încălzit înainte să intre în stivă. La instalațiile cu ventilatoare deasupra stivelor (ca SEBA), țevile sunt orizontale, sus, puțin deasupra planșeului intermediar."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "points": 1,
+      "text": "Care este viteza **minimă** a aerului în stivă pentru o uscare corespunzătoare?",
+      "options": [
+        "0,5 m/s la foioase și 1 m/s la rășinoase",
+        "1,5 m/s la foioase și 2,5 m/s la rășinoase",
+        "2,5 m/s la foioase și 1,5 m/s la rășinoase",
+        "5 m/s indiferent de specie"
+      ],
+      "correct": 1,
+      "explain": "Viteza aerului în stivă trebuie să fie de cel puțin 1,5 m/s la uscarea foioaselor și de cel puțin 2,5 m/s la uscarea rășinoaselor."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "points": 1,
+      "text": "Variatorul de turație permite reducerea vitezei aerului **spre finalul** procesului de uscare. De ce?",
+      "options": [
+        "Pentru a crește temperatura aerului",
+        "Pentru a mări umiditatea relativă a aerului",
+        "Pentru a răci motoarele electrice",
+        "Pentru a economisi energie, după ce la început s-a evaporat apa liberă din lemn"
+      ],
+      "correct": 3,
+      "explain": "Viteza mare este necesară la început, când se evaporă apa liberă; spre final se reduce, pentru a economisi energie."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "points": 1,
+      "text": "De ce se prevăd coșurile pentru schimbul de aer **întotdeauna în număr par și de secțiune egală**?",
+      "options": [
+        "Din motive estetice",
+        "Pentru a putea monta mai multe ventilatoare",
+        "Pentru ca volumul de aer admis să fie egal cu cel evacuat",
+        "Pentru a reduce costul instalației"
+      ],
+      "correct": 2,
+      "explain": "Aerul „utilizat” eliminat trebuie înlocuit cu o cantitate egală de aer „proaspăt”, cu umiditate relativă mai mică."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "points": 1,
+      "text": "Care este principalul dezavantaj al încălzitoarelor electrice în instalațiile de uscare?",
+      "options": [
+        "Consumul energetic foarte mare, având în vedere durata lungă a proceselor de uscare",
+        "Nu pot atinge temperaturile de regim",
+        "Nu pot fi montate în instalațiile metalice",
+        "Nu pot fi reglate automat"
+      ],
+      "correct": 0,
+      "explain": "Încălzitoarele electrice sunt posibile, dar consumul de energie este foarte mare, pentru că procesele de uscare durează mult."
+    },
+    {
+      "id": "q8",
+      "type": "mcq",
+      "points": 1,
+      "text": "Care este rolul **țevii de umezire**?",
+      "options": [
+        "Răcirea aerului din instalație",
+        "Spălarea stivei de cherestea la sfârșitul uscării",
+        "Evacuarea condensului",
+        "Ridicarea umidității relative a aerului din camera de uscare, atunci când este necesar"
+      ],
+      "correct": 3,
+      "explain": "Țeava de umezire ridică umiditatea relativă a aerului; la SEBA, duzele de pulverizare transformă apa în ceață."
+    },
+    {
+      "id": "q9",
+      "type": "mcq",
+      "points": 1,
+      "text": "Ce se verifică la **ventilatoare** înainte de introducerea unei noi șarje?",
+      "options": [
+        "Dacă au paletele vopsite anticoroziv",
+        "Dacă se rotesc numai într-un sens",
+        "Dacă sunt echilibrate (să nu „bată”)",
+        "Dacă turația lor depășește 1400 rpm"
+      ],
+      "correct": 2,
+      "explain": "Printre verificările dinaintea unei noi șarje: ventilatoarele trebuie să fie echilibrate, să nu „bată”."
+    },
+    {
+      "id": "q10",
+      "type": "mcq",
+      "points": 1,
+      "text": "Conform Tabelului 1.1, care este **capacitatea maximă de încărcare** a instalației SEBA?",
+      "options": [
+        "3 m³/șarjă",
+        "6 m³/șarjă",
+        "7,5 m³/șarjă",
+        "20,9 m³/șarjă"
+      ],
+      "correct": 1,
+      "explain": "Tabelul 1.1: capacitatea maximă de încărcare este de 6 m³/șarjă. (7,5 m³ ar fi volumul geometric al stivei, iar 20,9 m³ volumul interior al camerei.)"
+    },
+    {
+      "id": "q11",
+      "type": "open",
+      "points": 2,
+      "rows": 4,
+      "text": "Care sunt **elementele constructive** ale unei instalații de uscare?",
+      "model": "Se așteaptă: scheletul de rezistență și carcasa propriu-zisă, formată din pereți, planșeu superior și ușă; după material, instalațiile pot fi metalice, din zidărie sau din beton."
+    },
+    {
+      "id": "q12",
+      "type": "open",
+      "points": 2,
+      "rows": 4,
+      "text": "Care sunt **avantajele** pe care le oferă o instalație de uscare metalică?",
+      "model": "Se așteaptă: etanșeitate foarte bună, protecție deosebită împotriva coroziunii, izolare termică și hidrofugă foarte bună, spațiu de amplasare mai redus decât la cele din zidărie, transport ușor, montaj rapid direct la beneficiar pe o platformă betonată, fără întreținere."
+    },
+    {
+      "id": "q13",
+      "type": "open",
+      "points": 2,
+      "rows": 4,
+      "text": "Care este rolul **planșeului intermediar** al instalației de uscare?",
+      "model": "Se așteaptă: desparte spațiul util de uscare (unde se află stiva) de spațiul tehnic (unde se află caloriferul, ventilatoarele etc.); la SEBA este o placă din aluminiu ondulat."
+    },
+    {
+      "id": "q14",
+      "type": "open",
+      "points": 2,
+      "rows": 4,
+      "text": "Din ce materiale este alcătuită **structura tip „sandwich”** a panourilor prefabricate la o instalație de uscare metalică?",
+      "model": "Se așteaptă: două table de aluminiu de 2 mm cu un strat izolator de poliuretan (sau vată minerală) de 100 mm între ele; la exterior se poate folosi și tablă neagră de oțel, deoarece fața exterioară trebuie să reziste doar la intemperii, nu și la acizii degajați din lemn."
+    },
+    {
+      "id": "q15",
+      "type": "open",
+      "points": 3,
+      "rows": 7,
+      "text": "Care sunt **agregatele obligatorii** (elementele componente) ale unei instalații de uscare și care este rolul fiecăruia? Schema instalației SEBA (Fig. 1.1), cu poziția agregatelor componente, se desenează pe hârtie și se predă cu referatul.",
+      "model": "Se așteaptă: caloriferul (țevi de încălzire) — ridică și menține temperatura la valoarea de regim; țeava de umezire — ridică umiditatea relativă a aerului când e necesar; sistemul de circulație forțată (ventilatoarele) — asigură viteza aerului prin stivă (minim 1,5 m/s la foioase, 2,5 m/s la rășinoase); coșurile de aer — primenesc (desumidifică) aerul prin schimb cu exteriorul. Pe schemă (Fig. 1.1): stiva (1), țevile de calorifer (2), țeava de pulverizare (3), ventilatorul axial (4), coșurile (5), planșeul intermediar (6)."
+    },
+    {
+      "id": "q16",
+      "type": "open",
+      "points": 2,
+      "rows": 4,
+      "text": "Ce avantaj aduce posibilitatea de **inversare a sensului aerului** prin stivă?",
+      "model": "Se așteaptă: uscare mai uniformă în cuprinsul stivei — fără inversare, partea stivei pe unde intră aerul cald se usucă mai repede decât cea pe unde iese; inversarea periodică a sensului echilibrează uscarea și duce la o umiditate finală mai uniformă."
+    }
+  ]
+}

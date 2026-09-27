@@ -1,0 +1,255 @@
+{
+  "id": "lucrarea-4",
+  "title": "Metode și aparatură pentru măsurarea temperaturii, umidității relative a aerului și a umidității de echilibru",
+  "course": "Lucrarea 4 · Uscarea lemnului",
+  "teacher": "",
+  "teacherEmail": "",
+  "duration": "2 ore",
+  "date": "",
+  "selfCheck": true,
+  "objectives": [
+    "Specifice principalii parametri de uscare și influența lor asupra duratei și calității uscării.",
+    "Descrie construcția traductorilor utilizați pentru măsurarea temperaturii, umidității relative și umidității de echilibru în instalațiile de uscare a cherestelei.",
+    "Utilizeze tabela psihrometrică.",
+    "Utilizeze diagrama umidității de echilibru."
+  ],
+  "body": "## 4.1. Introducere\n\nÎn tehnica uscării lemnului, starea aerului cald și umed din interiorul instalației de uscare se modifică pe parcursul procesului, conform regimului de uscare. În afară de umiditatea lemnului, principalii parametri ai regimurilor de uscare sunt **temperatura, umiditatea și viteza aerului**. Valoarea acestora determină decisiv durata și calitatea uscării:\n\n- **temperatura (T)** este principalul factor de accelerare a procesului de uscare: odată cu creșterea temperaturii cresc atât viteza de evaporare a apei de la suprafața lemnului, cât și viteza de difuziune a apei în interiorul lemnului. Totodată însă, cu creșterea temperaturii crește și riscul de producere a defectelor de uscare (crăpături, colorații);\n- **umiditatea relativă a aerului (φ)** reprezintă gradul de saturare al aerului cu vapori și este un factor de frânare a uscării: cu cât este mai ridicată, cu atât capacitatea aerului de a absorbi umiditatea eliminată din lemn este mai redusă. Din punct de vedere calitativ însă, cu cât umiditatea aerului este mai mare, cu atât regimul de uscare este mai blând, iar uscarea decurge cu risc redus de producere a crăpăturilor;\n- **umiditatea de echilibru (U_{e})** reprezintă umiditatea către care tinde lemnul menținut timp îndelungat într-un mediu caracterizat de o anumită temperatură și umiditate relativă. Pe această proprietate se bazează procesele de uscare și condiționare;\n- **viteza aerului** și uniformitatea acesteia influențează dinamica schimbului de căldură dintre mediul de uscare și lemn, precum și dinamica evaporării apei de la suprafața lemnului. Asemeni temperaturii, viteza este un factor de accelerare a procesului, iar uniformitatea ei în cuprinsul stivei determină uniformitatea distribuției umidității finale. Acestui parametru i se dedică o lucrare separată (Lucrarea 5).\n\nAvând în vedere aceste influențe, pentru fiecare sortiment (în funcție de specie, grosime, nivelul umidității) trebuie respectate anumite limite de variație ale acestor parametri. Acest lucru nu este posibil fără a cunoaște cu exactitate, în orice moment al procesului, valorile lor efective — de aici necesitatea măsurării lor continue pe parcursul procesului.\n\n## 4.2. Măsurarea temperaturii\n\nProcedeele de măsurare a temperaturii se clasifică în două grupe principale:\n\n- pe cale **neelectrică**, cu termometre de dilatație (termometre de sticlă cu lichid, termometre cu tijă, termometre bimetalice) și termometre manometrice;\n- pe cale **electrică**, cu termometre electrice (termorezistențe, termocuple, termistoare).\n\nAlegerea metodei ține cont de domeniul de măsurare, de precizia cerută, de facilitățile oferite (citire de la distanță, conectare într-un circuit de reglare etc.), de compatibilitatea materialului termometrului cu mediul în care este amplasat, de robustețea și simplitatea constructivă și de costul aparatului.\n\nÎn practica uscării se aplică în principal două variante:\n\n- măsurarea cu un **termometru de sticlă cu mercur** (așa-numitul „termometru uscat” al psihrometrului — vezi Fig. 4.3);\n- măsurarea cu **traductori termorezistivi**.\n\nPrima variantă, aplicată numai în absența unui sistem de conducere și reglare automată, are avantajul unei precizii ridicate și al costului redus; principalul dezavantaj este imposibilitatea citirii de la distanță. În marea majoritate a cazurilor, termometrele „reci” au fost înlocuite de termometre electrice, care pot fi conectate într-un sistem automat, permițând citirea de la distanță, comanda automată a elementelor de execuție în vederea reglării și înregistrarea automată a valorilor măsurate.\n\nCele mai utilizate traductoare de temperatură sunt în prezent **termorezistențele** (Fig. 4.1). Constructiv, termorezistența constă dintr-o bobină de dimensiuni reduse (30...60 mm lungime și 4...6 mm lățime sau diametru), cu conductorul sub forma unui fir cu diametrul de 0,05...0,2 mm, înfășurat pe un suport izolator din mică, ceramică sau sticlă (în funcție de temperatura de lucru) și acoperit cu un strat protector împotriva acțiunii corozive externe. Pentru instalare, termorezistențele sunt introduse într-o armătură de protecție (din oțel inox, alamă sau oțel aliat cu nichel și crom), prevăzută cu flanșă de fixare și cu o cutie cu bornele de conexiune (Popa 2012).\n\n| ![Termorezistență — aspect exterior](l4-fig41a) | ![Termorezistență — schemă](l4-fig41b) |\n| a — aspectul exterior al unei termorezistențe | b — schema termorezistenței |\n\n*Fig. 4.1. Termorezistență (Popa 2012): 1 — teacă de protecție; 2 — cutia de borne; 3 — cablu de legătură; 4 — firul traductor; 5 — suport izolator; 6 — borne de conectare a firelor de legătură.*\n\nPrincipiul de măsurare cu termorezistența are la bază **variația rezistenței electrice a unui conductor în funcție de temperatură**. Ca materiale conductoare se utilizează în principal platina, nichelul sau cuprul. În Fig. 4.2 se prezintă variația raportului R_{t}/R_{0} pentru aceste materiale, în funcție de temperatură.\n\n![Variația rezistenței electrice cu temperatura](l4-fig42)\n\n*Fig. 4.2. Curbele de variație a rezistenței electrice în funcție de temperatură pentru nichel, cupru și platină (Chiciuc și Corjan 2002): R_{t} — rezistența la temperatura T; R_{0} — rezistența la 0 °C; T — temperatura mediului, °C.*\n\nMajoritatea instalațiilor de uscare sunt echipate cu **termorezistențe din platină Pt100 sau Pt1000**, montate în interiorul unei carcase de protecție din aluminiu sau oțel inoxidabil.\n\n## 4.3. Determinarea umidității relative a aerului\n\nUmiditatea relativă a aerului (φ) se poate determina fie cu ajutorul psihrometrului, fie prin calcul.\n\n### 4.3.1. Utilizarea psihrometrului\n\nPsihrometrul este un aparat foarte simplu, dar eficient, pentru că permite măsurarea simultană a celor mai importanți doi parametri ai aerului în procesele de uscare: temperatura și umiditatea relativă. Constructiv, psihrometrul (Fig. 4.3) este format din **două termometre identice** (de dilatație, manometrice sau electrice): unul are tija liberă în curentul de aer (**termometrul uscat**), celălalt are tija înfășurată într-un manșon din tifon sau finet umezit permanent cu apă distilată (**termometrul umed**).\n\n| ![Psihrometru — aspect general](l4-fig43a) | ![Psihrometru — detaliu](l4-fig43b) |\n| a — aspectul general al unui psihrometru | b — detaliu privind construcția psihrometrului |\n\n*Fig. 4.3. Psihrometru (Câmpean și Marinescu 2000; CTBA 2002): 1 — termometru uscat; 2 — termometru umed; 3 — tifon; 4 — rezervor cu apă distilată.*\n\n**Termometrul uscat** măsoară temperatura aerului din instalație, numită temperatura termometrului uscat și notată cu *t*.\n\n**Termometrul umed** măsoară temperatura de evaporare a apei la saturație adiabatică — procesul în care căldura necesară evaporării se ia numai din aerul înconjurător din interiorul instalației. În acest proces temperatura aerului scade și, la saturația deplină a aerului cu apă, devine egală cu temperatura apei care se evaporă. Această temperatură, numită temperatura termometrului umed, se notează cu *t_{u}* și este întotdeauna mai mică sau cel mult egală cu *t*.\n\nDiferența **Δt = t − t_{u}** se numește **diferență psihrometrică** și este o măsură a gradului de saturare cu vapori a aerului: cu cât diferența psihrometrică este mai mică, cu atât aerul este mai umed.\n\nPornind de la indicațiile psihrometrului, umiditatea relativă a aerului se determină ușor cu ajutorul **tabelei psihrometrice** (Tabelul 4.1): pe rândul temperaturii termometrului uscat *t* și în coloana diferenței psihrometrice Δt. Valorile din tabel sunt valabile pentru o viteză a aerului de **cel puțin 2 m/s** în jurul tijelor aparatului.\n\n**Tabelul 4.1. Tabela psihrometrică** (Câmpean și Marinescu 2000)\n\n![Tabela psihrometrică](l4-t41)\n\n### 4.3.2. Metoda analitică\n\nUmiditatea relativă a aerului (φ) este, prin definiție, raportul dintre umiditatea absolută (ρ_{v}) și umiditatea absolută maximă (ρ_{s}) la o temperatură dată. Deoarece, prin aproximare cu gazele ideale, densitatea vaporilor se consideră proporțională cu presiunea lor (legea Boyle-Mariotte), rezultă:\n\n> **φ = p_{v} / p_{s} · 100**  [%]  (4.1)\n\nîn care: *p_{s}* este presiunea de saturație a vaporilor la temperatura termometrului uscat, în N/m² (Tabelul 4.2); *p_{v}* — presiunea parțială a vaporilor, în N/m².\n\n**Tabelul 4.2. Valorile presiunii de saturație în funcție de temperatură**\n\n| Temperatura, °C | Presiunea de saturație, N/m² | Temperatura, °C | Presiunea de saturație, N/m² |\n|---|---|---|---|\n| 40 | 7375 | 70 | 31170 |\n| 45 | 9584 | 75 | 38550 |\n| 50 | 12335 | 80 | 47360 |\n| 55 | 15740 | 85 | 57810 |\n| 60 | 19917 | 90 | 70110 |\n| 65 | 25010 | 95 | 84570 |\n| | | 100 | 101325 |\n\nPresiunea parțială a vaporilor se calculează cu Ecuația 4.2:\n\n> **p_{v} = p'_{s} − C · p_{b} · (t − t_{u})**  [N/m²]  (4.2)\n\nîn care: *p'_{s}* este presiunea de saturație a vaporilor la temperatura termometrului umed, în N/m² (se citește tot din Tabelul 4.2); *p_{b}* — presiunea atmosferică; variază cu altitudinea și cu condițiile climatice, dar în calculele tehnice se consideră constantă și egală cu 10^{5} N/m²; *C* — coeficientul psihrometric, care depinde de viteza aerului prin instalație, *v* (m/s):\n\n> **C = (65 + 6,75 / v) · 10^{-5}**  (4.3)\n\n## 4.4. Măsurarea umidității de echilibru\n\nCa material higroscopic, lemnul are proprietatea de a-și schimba umiditatea în funcție de parametrii aerului care îl înconjoară. Menținută timp îndelungat într-un mediu cu o anumită stare, orice piesă de lemn tinde să ajungă la echilibru cu acest mediu, modificându-și umiditatea prin **sorbție** sau **desorbție**, până la atingerea așa-numitei **umidități de echilibru U_{e}** (Fig. 4.4).\n\n![Sorbția și desorbția lemnului](l4-fig44)\n\n*Fig. 4.4. Sorbția și desorbția lemnului (Câmpean și Marinescu 2012).*\n\nExperimental s-a constatat că umiditatea de echilibru **nu depinde aproape deloc de specie**, ci este determinată numai de parametrii de stare ai aerului (T și φ). Pe această bază a fost elaborată **diagrama umidității de echilibru** (Fig. 4.5): punctul definit de temperatura aerului (pe orizontală) și umiditatea relativă (pe verticală) cade pe curba — sau între curbele — umidității de echilibru corespunzătoare.\n\n![Diagrama umidității de echilibru](l4-fig45)\n\n*Fig. 4.5. Diagrama umidității de echilibru (prelucrare după Trübswetter 2006).*\n\nRelația dintre cei trei parametri T, φ și U_{e} stă la baza schemelor de reglare automată a parametrilor procesului de uscare, atunci când nu se măsoară direct umiditatea relativă φ, ci umiditatea de echilibru U_{e}.\n\nPentru măsurarea umidității de echilibru în timpul procesului de uscare se utilizează **traductori speciali**, care au ca senzor propriu-zis o **plăcuță subțire din furnir de limba sau celuloză**. Fiind foarte higroscopică, plăcuța ajunge aproape instantaneu la echilibru cu mediul care o înconjoară. Ea se poziționează cu strângere între doi electrozi din oțel inoxidabil, întregul ansamblu fiind amplasat pe peretele instalației, sub o placă protectoare, pentru a evita infiltrarea condensului. La instalațiile cu circulație reversibilă a aerului sunt necesari **doi astfel de traductori**.\n\n| ![Traductorul de umiditate de echilibru — construcție](l4-fig46a) | ![Traductorul de umiditate de echilibru — amplasare](l4-fig46b) |\n| a — detaliu privind construcția senzorului | b — modul de amplasare a senzorului în instalația de uscare |\n\n*Fig. 4.6. Traductorul pentru măsurarea umidității de echilibru (SECEA 2010; Popa 2012): 1 — piesă din oțel inoxidabil; 2 — plăcuță celulozică; 3 — piulițe randalinate; 4 — resort; 5 — piesă izolatoare; 6 — papuc de fixare a cablului; 7 — cablul de legătură; 8 — conector; 9 — suport izolator pentru conectori.*\n\nPrincipiul de măsurare este cel **rezistiv**: are la bază variația rezistenței electrice a plăcuței higroscopice în funcție de umiditatea ei. Rezistența traductorului este dată de Ecuația 4.4 (Popa 2012):\n\n> **R = ρ · d / (h · l)**  [Ω]  (4.4)\n\nîn care: *R* este rezistența electrică a materialului dintre electrozi, în Ω; *ρ* — rezistivitatea (rezistența electrică specifică) a plăcuței higroscopice, în Ω·m; *d* — distanța dintre electrozi, în m; *h* — grosimea plăcuței higroscopice, în m; *l* — lățimea plăcuței higroscopice aflate între electrozi, în m.\n\nDeși nu este atât de precisă ca metoda psihrometrică, această metodă de măsurare este folosită în prezent aproape exclusiv în sistemele automate de conducere a proceselor de uscare, datorită utilizării facile și întreținerii comode. Pentru o precizie satisfăcătoare a măsurătorii, **senzorul trebuie schimbat înainte de introducerea fiecărei noi șarje**.\n\n---\n\n## Aplicațiile de laborator\n\n**Aplicația 1.** Două seturi de epruvete au fost introduse în camera climatică FEUTRON KPK 200, la temperatura de 60 °C, timp de 3 săptămâni. Pentru **setul A** umiditatea relativă a aerului a fost de **76%**, iar pentru **setul B** de **20%**. Să se determine: (a) umiditatea de echilibru pentru epruvetele din cele două seturi, cu ajutorul diagramei umidității de echilibru (Fig. 4.5); (b) conținutul de umiditate al fiecărei epruvete după trei săptămâni, prin metoda uscării și cântăririi; (c) să se compare valorile obținute experimental cu cele din diagramă și să se comenteze eventualele diferențe. Tabelele se completează în timpul lucrării.\n\n**Tabelul 4.3. Conținutul de umiditate al epruvetelor după trei săptămâni — setul A (T = 60 °C, φ = 76%)**\n\n| Epruveta | m_{0}, g | m_{Ue}, g | U după 3 săptămâni, % | U_{e} din diagramă, % |\n|---|---|---|---|---|\n| 1 | | | | |\n| 2 | | | | |\n| 3 | | | | |\n\n**Tabelul 4.4. Conținutul de umiditate al epruvetelor după trei săptămâni — setul B (T = 60 °C, φ = 20%)**\n\n| Epruveta | m_{0}, g | m_{Ue}, g | U după 3 săptămâni, % | U_{e} din diagramă, % |\n|---|---|---|---|---|\n| 1 | | | | |\n| 2 | | | | |\n| 3 | | | | |\n\n*m_{0} — masa epruvetei în stare anhidră; m_{Ue} — masa epruvetei după 3 săptămâni în camera climatică.*\n\n**Aplicația 2.** Să se determine umiditatea relativă a aerului din instalație, atât cu ajutorul tabelei psihrometrice, cât și prin metoda analitică, dacă se cunosc indicațiile psihrometrului: temperatura termometrului uscat t = 60 °C; temperatura termometrului umed t_{u} = 55 °C; viteza aerului v = 1 m/s.\n\n**Aplicația 3.** Utilizând diagrama umidității de echilibru (Fig. 4.5), să se determine umiditatea relativă a aerului caracterizat de temperatura T = 60 °C și umiditatea de echilibru U_{e} = 16%.\n\n**Aplicația 4.** Poate fi uscată până la o umiditate de echilibru de 10% o piesă menținută timp suficient de îndelungat într-o atmosferă cu T = 20 °C și φ = 40%? Motivați.\n\n---\n\n*Sursa textului și a figurilor: îndrumarul de laborator al disciplinei (Bedelean B., Câmpean M.).*\n",
+  "questions": [
+    {
+      "id": "q1",
+      "type": "mcq",
+      "points": 1,
+      "text": "Care dintre parametrii aerului este **principalul factor de accelerare** a procesului de uscare, dar și cel care, crescând, mărește riscul de apariție a defectelor (crăpături, colorații)?",
+      "options": [
+        "Temperatura",
+        "Umiditatea relativă a aerului",
+        "Umiditatea de echilibru",
+        "Presiunea atmosferică"
+      ],
+      "correct": 0,
+      "explain": "Odată cu creșterea temperaturii cresc atât viteza de evaporare a apei de la suprafața lemnului, cât și viteza de difuziune din interior — dar crește și riscul de crăpături și colorații."
+    },
+    {
+      "id": "q2",
+      "type": "mcq",
+      "points": 1,
+      "text": "Pentru procesul de uscare, umiditatea relativă a aerului este un factor de:",
+      "options": [
+        "accelerare, deoarece aerul umed transportă mai multă căldură",
+        "frânare, deoarece aerul mai umed poate absorbi mai puțină umiditate din lemn",
+        "accelerare numai sub punctul de saturație a fibrei",
+        "nicio influență asupra duratei uscării"
+      ],
+      "correct": 1,
+      "explain": "Cu cât φ este mai mare, cu atât capacitatea aerului de a prelua umiditatea eliminată din lemn este mai mică. În schimb, regimul este mai blând și riscul de crăpături scade."
+    },
+    {
+      "id": "q3",
+      "type": "mcq",
+      "points": 1,
+      "text": "Cu ce traductoare de temperatură sunt echipate **majoritatea** instalațiilor de uscare?",
+      "options": [
+        "Termocuple cupru-constantan",
+        "Termorezistențe din platină Pt100 sau Pt1000",
+        "Termometre bimetalice",
+        "Termometre de sticlă cu mercur"
+      ],
+      "correct": 1,
+      "explain": "Termorezistențele din platină Pt100 sau Pt1000, montate în carcase de protecție din aluminiu sau oțel inoxidabil, sunt cele mai utilizate traductoare de temperatură."
+    },
+    {
+      "id": "q4",
+      "type": "mcq",
+      "points": 1,
+      "text": "Psihrometrul indică o **diferență psihrometrică Δt mică**. Ce arată aceasta despre aerul din instalație?",
+      "options": [
+        "Aerul este uscat",
+        "Aerul este umed, apropiat de saturație",
+        "Temperatura aerului este ridicată",
+        "Viteza aerului este prea mare"
+      ],
+      "correct": 1,
+      "explain": "Δt = t − t_{u} este o măsură a gradului de saturare cu vapori: cu cât este mai mică, cu atât aerul este mai umed. La saturație deplină, t_{u} = t."
+    },
+    {
+      "id": "q5",
+      "type": "mcq",
+      "points": 1,
+      "text": "Valorile din tabela psihrometrică (Tabelul 4.1) sunt valabile dacă viteza aerului în jurul tijelor psihrometrului este de **cel puțin**:",
+      "options": [
+        "0,5 m/s",
+        "1 m/s",
+        "2 m/s",
+        "5 m/s"
+      ],
+      "correct": 2,
+      "explain": "Tabela psihrometrică presupune o viteză a aerului de cel puțin 2 m/s în jurul tijelor aparatului."
+    },
+    {
+      "id": "q6",
+      "type": "mcq",
+      "points": 1,
+      "text": "Umiditatea de echilibru a lemnului depinde **în principal** de:",
+      "options": [
+        "specia lemnoasă",
+        "temperatura și umiditatea relativă a aerului",
+        "densitatea lemnului",
+        "dimensiunile piesei"
+      ],
+      "correct": 1,
+      "explain": "Experimental s-a constatat că U_{e} nu depinde aproape deloc de specie, ci numai de parametrii de stare ai aerului (T și φ) — de aceea există o singură diagramă a umidității de echilibru."
+    },
+    {
+      "id": "q7",
+      "type": "mcq",
+      "points": 1,
+      "text": "Senzorul traductorului de umiditate de echilibru este o plăcuță din furnir de limba sau celuloză. **Când** trebuie schimbată plăcuța?",
+      "options": [
+        "O dată pe an, la revizia instalației",
+        "Înainte de introducerea fiecărei noi șarje",
+        "Numai când indică valori peste 20%",
+        "Nu se schimbă niciodată"
+      ],
+      "correct": 1,
+      "explain": "Pentru o precizie satisfăcătoare a măsurătorii, senzorul se schimbă înainte de introducerea fiecărei noi șarje."
+    },
+    {
+      "id": "q8",
+      "type": "mcq",
+      "points": 1,
+      "text": "Conform Ecuației 4.4, dacă **distanța d dintre electrozii** traductorului de umiditate de echilibru se dublează, iar celelalte mărimi rămân aceleași, rezistența R:",
+      "options": [
+        "se înjumătățește",
+        "rămâne aceeași",
+        "se dublează",
+        "crește de patru ori"
+      ],
+      "correct": 2,
+      "explain": "R = ρ · d / (h · l): rezistența este direct proporțională cu distanța dintre electrozi."
+    },
+    {
+      "id": "q9",
+      "type": "open",
+      "points": 3,
+      "rows": 6,
+      "text": "Descrieți rolul **temperaturii**, al **umidității relative** și al **vitezei aerului** în procesele de uscare a lemnului.",
+      "model": "Se așteaptă: temperatura — principalul factor de accelerare (crește viteza de evaporare la suprafață și viteza de difuziune în interior), dar cu creșterea ei crește riscul de defecte (crăpături, colorații); umiditatea relativă — factor de frânare (aerul mai umed absoarbe mai puțină umiditate), dar calitativ un aer mai umed înseamnă un regim mai blând, cu risc redus de crăpături; viteza aerului — factor de accelerare (schimbul de căldură și evaporarea de la suprafață), iar uniformitatea ei în stivă determină uniformitatea umidității finale."
+    },
+    {
+      "id": "q10",
+      "type": "open",
+      "points": 2,
+      "rows": 5,
+      "text": "Descrieți **principiul de măsurare al psihrometrului**.",
+      "model": "Se așteaptă: două termometre identice; termometrul uscat, cu tija liberă în curentul de aer, măsoară temperatura aerului t; termometrul umed, cu tija înfășurată în tifon umezit permanent cu apă distilată, măsoară temperatura de evaporare la saturație adiabatică t_{u} ≤ t. Diferența psihrometrică Δt = t − t_{u} arată gradul de saturare: cu cât e mai mică, cu atât aerul e mai umed. Cu t și Δt se citește φ din tabela psihrometrică (viteza aerului de cel puțin 2 m/s) sau se calculează analitic (Ecuațiile 4.1–4.3)."
+    },
+    {
+      "id": "q11",
+      "type": "open",
+      "points": 3,
+      "rows": 6,
+      "text": "Ce este **umiditatea de echilibru** și pe ce principiu funcționează **traductorul de umiditate de echilibru** din instalațiile de uscare?",
+      "model": "Se așteaptă: U_{e} este umiditatea spre care tinde lemnul menținut timp îndelungat într-un mediu cu o anumită temperatură și umiditate relativă, prin sorbție sau desorbție; nu depinde aproape deloc de specie, ci de T și φ (diagrama umidității de echilibru). Traductorul: plăcuță subțire din furnir de limba sau celuloză, foarte higroscopică, prinsă între doi electrozi din oțel inoxidabil, care ajunge aproape instantaneu la echilibru cu aerul; principiul este rezistiv — rezistența plăcuței, R = ρ · d / (h · l), variază cu umiditatea ei. Plăcuța se schimbă înaintea fiecărei șarje; la circulația reversibilă a aerului sunt necesari doi traductori."
+    },
+    {
+      "id": "q12",
+      "type": "num",
+      "points": 1,
+      "text": "**Aplicația 1a.** Setul A de epruvete a stat 3 săptămâni în camera climatică la T = 60 °C și φ = 76%. Citiți din diagrama umidității de echilibru (Fig. 4.5) umiditatea de echilibru corespunzătoare.",
+      "vars": [],
+      "expr": "12",
+      "unit": "%",
+      "tolPct": 0,
+      "tolAbs": 1,
+      "dec": 0,
+      "solution": "La 60 °C, punctul φ = 76% se află pe curba U_{e} = 12% a diagramei (se acceptă 11–13%)."
+    },
+    {
+      "id": "q13",
+      "type": "num",
+      "points": 1,
+      "text": "**Aplicația 1a.** Setul B de epruvete a stat 3 săptămâni în camera climatică la T = 60 °C și φ = 20%. Citiți din diagrama umidității de echilibru (Fig. 4.5) umiditatea de echilibru corespunzătoare.",
+      "vars": [],
+      "expr": "4",
+      "unit": "%",
+      "tolPct": 0,
+      "tolAbs": 1,
+      "dec": 0,
+      "solution": "La 60 °C, curba U_{e} = 4% trece practic prin φ = 20% (se acceptă 3–5%)."
+    },
+    {
+      "id": "q14",
+      "type": "open",
+      "points": 3,
+      "rows": 6,
+      "text": "**Aplicația 1b, c.** Notați masele măsurate pentru epruvetele din setul A și din setul B (Tabelele 4.3 și 4.4), calculați conținutul de umiditate al fiecărei epruvete după trei săptămâni și comparați-l cu umiditatea de echilibru din diagramă. Comentați eventualele diferențe.",
+      "model": "Se așteaptă: pentru fiecare epruvetă U = (m_{Ue} − m_{0}) / m_{0} · 100, cu calculul arătat; valori apropiate de cele din diagramă (cca. 12% pentru setul A și cca. 4% pentru setul B). Explicații pentru diferențe: histerezisul de sorbție (umiditatea atinsă prin desorbție e mai mare decât cea atinsă prin sorbție, Fig. 4.4), timp insuficient pentru atingerea echilibrului, abateri ale parametrilor din camera climatică, erori de cântărire, particularități ale speciei."
+    },
+    {
+      "id": "q15",
+      "type": "num",
+      "points": 1,
+      "text": "**Aplicația 2a.** Psihrometrul din instalație indică temperatura termometrului uscat t = 60 °C și a termometrului umed t_{u} = 55 °C. Determinați umiditatea relativă a aerului cu ajutorul tabelei psihrometrice (Tabelul 4.1).",
+      "vars": [],
+      "expr": "77",
+      "unit": "%",
+      "tolPct": 0,
+      "tolAbs": 0.5,
+      "dec": 0,
+      "solution": "Δt = t − t_{u} = 60 − 55 = 5 °C; în Tabelul 4.1, pe rândul t = 60 °C și în coloana Δt = 5 °C: φ = 77%."
+    },
+    {
+      "id": "q16",
+      "type": "num",
+      "points": 2,
+      "text": "**Aplicația 2b.** Pentru aceleași indicații ale psihrometrului (t = 60 °C, t_{u} = 55 °C) și viteza aerului v = 1 m/s, calculați presiunea parțială a vaporilor p_{v} (Ecuațiile 4.2 și 4.3, Tabelul 4.2; p_{b} = 10^{5} N/m²).",
+      "vars": [],
+      "expr": "15740-(65+6.75/1)*1e-5*1e5*(60-55)",
+      "unit": "N/m²",
+      "tolPct": 1,
+      "tolAbs": 0,
+      "dec": 0,
+      "solution": "C = (65 + 6,75 / 1) · 10^{-5} = 71,75 · 10^{-5}; p'_{s}(55 °C) = 15740 N/m²; p_{v} = 15740 − 71,75 · 10^{-5} · 10^{5} · (60 − 55) = 15740 − 358,75."
+    },
+    {
+      "id": "q17",
+      "type": "num",
+      "points": 2,
+      "text": "**Aplicația 2c.** Calculați umiditatea relativă a aerului prin metoda analitică (Ecuația 4.1), pentru t = 60 °C și presiunea parțială a vaporilor determinată la punctul anterior.",
+      "vars": [],
+      "expr": "(15740-(65+6.75/1)*1e-5*1e5*(60-55))/19917*100",
+      "unit": "%",
+      "tolPct": 1,
+      "tolAbs": 0.5,
+      "dec": 1,
+      "solution": "p_{s}(60 °C) = 19917 N/m²; φ = p_{v} / p_{s} · 100 = 15381,25 / 19917 · 100. Rezultatul este foarte apropiat de valoarea din tabela psihrometrică (77%)."
+    },
+    {
+      "id": "q18",
+      "type": "num",
+      "points": 1,
+      "text": "**Aplicația 3.** Utilizând diagrama umidității de echilibru (Fig. 4.5), determinați umiditatea relativă a aerului cu temperatura T = 60 °C și umiditatea de echilibru U_{e} = 16%.",
+      "vars": [],
+      "expr": "86",
+      "unit": "%",
+      "tolPct": 0,
+      "tolAbs": 3,
+      "dec": 0,
+      "solution": "Curba U_{e} = 16% intersectează verticala de 60 °C la cca. 86% (se acceptă 83–89%)."
+    },
+    {
+      "id": "q19",
+      "type": "num",
+      "points": 1,
+      "text": "**Aplicația 4.** Poate fi uscată până la o umiditate de echilibru de 10% o piesă menținută timp suficient de îndelungat într-o atmosferă cu T = 20 °C și φ = 40%? Pentru a răspunde, citiți din diagrama umidității de echilibru (Fig. 4.5) umiditatea de echilibru corespunzătoare acestor condiții.",
+      "vars": [],
+      "expr": "8",
+      "unit": "%",
+      "tolPct": 0,
+      "tolAbs": 1,
+      "dec": 0,
+      "solution": "La 20 °C și φ = 40%, punctul se află pe curba U_{e} = 8% (se acceptă 7–9%). Deci **nu**: lemnul tinde spre umiditatea de echilibru a mediului, așa că piesa nu se oprește la 10%, ci continuă să se usuce până la cca. 8%.",
+      "explain": "Deci **nu**: piesa nu se oprește la 10%, ci continuă să se usuce până la cca. 8%."
+    }
+  ]
+}
