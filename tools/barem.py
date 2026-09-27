@@ -1,11 +1,14 @@
 #!/usr/bin/env python3
 """Scoate baremul din paginile publice sau îl pune la loc.
 
-  python3 tools/barem.py scoate ../barem-lucrari.json index.html lucrarea-*.html
+  python3 tools/barem.py scoate [--fara-punctaj] ../barem-lucrari.json index.html lucrarea-*.html
       Mută răspunsurile corecte, formulele, toleranțele, rezolvările și
       răspunsurile-model din lista BUILTIN a fiecărei pagini în fișierul de
-      barem (îl completează dacă există). Paginile rămân doar cu enunțurile,
-      iar autoevaluarea se oprește.
+      barem (îl completează dacă există). Paginile rămân cu enunțurile și cu
+      o cheie de punctare codificată (`k`): la lucrările cu autoevaluare,
+      studentul își vede punctajul total, dar nu și care răspunsuri sunt
+      corecte. Cu --fara-punctaj, cheia nu se pune deloc și autoevaluarea
+      se oprește (pentru lucrări notate).
 
   python3 tools/barem.py pune ../barem-lucrari.json index.html lucrarea-*.html
       Operația inversă: reface paginile complete, pentru lucru local.
@@ -13,6 +16,7 @@
 Fișierul de barem nu se pune niciodată în depozit: depozitul este public.
 Profesorul îl încarcă o dată în aplicație, din Laboratoare → Importă….
 """
+import base64
 import json
 import os
 import sys
@@ -20,6 +24,15 @@ import sys
 START = "const BUILTIN = "
 END = "\n];\n"
 KEYS = ("correct", "expr", "tolPct", "tolAbs", "solution", "explain", "model")
+SCORING = ("correct", "expr", "tolPct", "tolAbs")
+
+
+def encode_key(lab_id, keys):
+    """Aceeași codificare ca scoringLab() din pagină."""
+    b = bytearray(json.dumps(keys, ensure_ascii=False, separators=(",", ":")).encode("utf-8"))
+    for i in range(len(b)):
+        b[i] ^= (ord(lab_id[i % len(lab_id)]) + i * 31) & 255
+    return base64.b64encode(bytes(b)).decode("ascii")
 
 
 def split_page(src):
@@ -40,7 +53,7 @@ def load_barem(path):
     return {"caietBarem": 1, "labs": {}}
 
 
-def scoate(barem_path, pages):
+def scoate(barem_path, pages, cu_punctaj=True):
     barem = load_barem(barem_path)
     for page in pages:
         with open(page, encoding="utf-8") as f:
@@ -51,12 +64,20 @@ def scoate(barem_path, pages):
                 continue
             entry = barem["labs"].setdefault(lab["id"], {"questions": {}})
             entry["selfCheck"] = bool(lab.get("selfCheck"))
+            scoring = {}
             for q in lab.get("questions", []):
                 keys = {k: q.pop(k) for k in KEYS if k in q}
                 if keys:
                     entry["questions"][q["id"]] = keys
                     n += 1
-            lab["selfCheck"] = False
+                sk = {k: keys[k] for k in SCORING if k in keys}
+                if sk:
+                    scoring[q["id"]] = sk
+            if cu_punctaj and lab.get("selfCheck") and scoring:
+                lab["scoreOnly"] = True
+                lab["k"] = encode_key(lab["id"], scoring)
+            else:
+                lab["selfCheck"] = False
             lab["stripped"] = True
         write_page(page, head, labs, tail)
         print(f"{page}: {n} întrebări fără barem")
@@ -78,12 +99,17 @@ def pune(barem_path, pages):
             for q in lab.get("questions", []):
                 q.update(entry["questions"].get(q["id"], {}))
             lab["selfCheck"] = entry.get("selfCheck", False)
-            del lab["stripped"]
+            for k in ("stripped", "scoreOnly", "k"):
+                lab.pop(k, None)
         write_page(page, head, labs, tail)
         print(f"{page}: barem pus la loc")
 
 
 if __name__ == "__main__":
-    if len(sys.argv) < 4 or sys.argv[1] not in ("scoate", "pune"):
+    args = [a for a in sys.argv[1:] if a != "--fara-punctaj"]
+    if len(args) < 3 or args[0] not in ("scoate", "pune"):
         sys.exit(__doc__)
-    {"scoate": scoate, "pune": pune}[sys.argv[1]](sys.argv[2], sys.argv[3:])
+    if args[0] == "scoate":
+        scoate(args[1], args[2:], cu_punctaj="--fara-punctaj" not in sys.argv)
+    else:
+        pune(args[1], args[2:])
