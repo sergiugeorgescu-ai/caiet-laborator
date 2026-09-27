@@ -1419,7 +1419,7 @@ function renderStudent() {
   /* identitate */
   main += '<div class="card" id="identCard">' +
     '<div class="spread" style="margin-bottom:12px"><div><div class="eyebrow">Pasul 1</div><h3 style="font-size:16px">Cine completează fișa</h3>' +
-    '<button type="button" class="btn tiny ghost" id="btnNewStudent" style="margin-top:4px;padding-left:0"' + (identOK() && !S.fromLMS ? "" : " hidden") + ">Nu ești tu? Șterge și începe altă fișă</button></div>" +
+    '<button type="button" class="btn tiny ghost" id="btnNewStudent" style="margin-top:4px;padding-left:0"' + (identOK() && !S.fromLMS && !(S.result && l.scoreOnly) ? "" : " hidden") + ">Nu ești tu? Șterge și începe altă fișă</button></div>" +
     (S.labs.length > 1 ? '<label class="fld" style="flex:0 1 250px"><span>Laborator</span><select id="labPick">' +
       S.labs.map(x => '<option value="' + esc(x.id) + '"' + (x.id === l.id ? " selected" : "") + ">" + esc(x.title) + "</option>").join("") + "</select></label>" : "") +
     "</div>" +
@@ -1567,8 +1567,9 @@ function renderSubmitCard(l, ready, submitted, done, nQ) {
     "</div>" +
     '<details><summary class="small muted" style="cursor:pointer">Codul de predare, ca text</summary>' +
     '<div class="codebox" id="codeBox" style="margin-top:8px">' + esc(r.code) + "</div></details>" +
-    '<div class="row" style="margin-top:14px"><button type="button" class="btn" id="btnNewStudent">Fișă nouă pentru alt student</button>' +
-    '<button type="button" class="btn ghost" id="btnRedo">Reia laboratorul (același student)</button></div>' +
+    /* la lucrările cu punctaj imediat, fișa predată nu se mai poate relua din pagină */
+    (l.scoreOnly ? "" : '<div class="row" style="margin-top:14px"><button type="button" class="btn" id="btnNewStudent">Fișă nouă pentru alt student</button>' +
+    '<button type="button" class="btn ghost" id="btnRedo">Reia laboratorul (același student)</button></div>') +
     "</div>";
 }
 
