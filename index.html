@@ -335,7 +335,7 @@ const Store = (function () {
     }
   };
 })();
-const K = { labs: "cl.labs", hidden: "cl.hidden", link: "cl.link", pin: "cl.pin", keep: "cl.keepunlocked", pub: "cl.pubkey", priv: "cl.privkey", cat: "cl.catalog", stud: "cl.student", role: "cl.role", theme: "cl.theme", draft: id => "cl.draft." + id };
+const K = { barem: "cl.barem", labs: "cl.labs", hidden: "cl.hidden", link: "cl.link", pin: "cl.pin", keep: "cl.keepunlocked", pub: "cl.pubkey", priv: "cl.privkey", cat: "cl.catalog", stud: "cl.student", role: "cl.role", theme: "cl.theme", draft: id => "cl.draft." + id };
 
 function fmt(v, dec) {
   if (v == null || !isFinite(v)) return "—";
@@ -980,7 +980,7 @@ const BUILTIN = [
   "teacherEmail": "",
   "duration": "2 ore",
   "date": "",
-  "selfCheck": true,
+  "selfCheck": false,
   "objectives": [
    "Descrie construcția propriu-zisă a unei instalații de uscare: scheletul, carcasa, ușile și planșeul intermediar.",
    "Identifice elementele componente ale instalației de uscare și rolul fiecăruia.",
@@ -999,9 +999,7 @@ const BUILTIN = [
      "Miez din aluminiu și înveliș cu aripioare din oțel inoxidabil",
      "Miez din cupru și înveliș cu aripioare din alamă",
      "Miez din oțel carbon și înveliș din tablă zincată"
-    ],
-    "correct": 0,
-    "explain": "Miezul din oțel inoxidabil rezistă mediului alcalin al agentului termic, iar aripioarele din aluminiu rezistă acizilor din aer și transferă mai bine căldura."
+    ]
    },
    {
     "id": "q2",
@@ -1013,9 +1011,7 @@ const BUILTIN = [
      "Pentru că aluminiul rezistă mai bine în medii alcaline decât oțelul inoxidabil",
      "Pentru că permite folosirea încălzitoarelor electrice",
      "Pentru că țeava este expusă la interior unui mediu alcalin (agentul termic), iar la exterior unui mediu acid (aerul încărcat cu acizii din lemn)"
-    ],
-    "correct": 3,
-    "explain": "Aluminiul rezistă foarte bine la acizi, iar oțelul inoxidabil în medii alcaline; fiecare material e pus pe fața pe care rezistă."
+    ]
    },
    {
     "id": "q3",
@@ -1027,9 +1023,7 @@ const BUILTIN = [
      "Pe pardoseala camerei, sub stivă",
      "În secțiunea de intrare a aerului în stivă",
      "Lângă ușă, pentru acces ușor la întreținere"
-    ],
-    "correct": 2,
-    "explain": "Aerul trebuie încălzit înainte să intre în stivă. La instalațiile cu ventilatoare deasupra stivelor (ca SEBA), țevile sunt orizontale, sus, puțin deasupra planșeului intermediar."
+    ]
    },
    {
     "id": "q4",
@@ -1041,9 +1035,7 @@ const BUILTIN = [
      "1,5 m/s la foioase și 2,5 m/s la rășinoase",
      "2,5 m/s la foioase și 1,5 m/s la rășinoase",
      "5 m/s indiferent de specie"
-    ],
-    "correct": 1,
-    "explain": "Viteza aerului în stivă trebuie să fie de cel puțin 1,5 m/s la uscarea foioaselor și de cel puțin 2,5 m/s la uscarea rășinoaselor."
+    ]
    },
    {
     "id": "q5",
@@ -1055,9 +1047,7 @@ const BUILTIN = [
      "Pentru a mări umiditatea relativă a aerului",
      "Pentru a răci motoarele electrice",
      "Pentru a economisi energie, după ce la început s-a evaporat apa liberă din lemn"
-    ],
-    "correct": 3,
-    "explain": "Viteza mare este necesară la început, când se evaporă apa liberă; spre final se reduce, pentru a economisi energie."
+    ]
    },
    {
     "id": "q6",
@@ -1069,9 +1059,7 @@ const BUILTIN = [
      "Pentru a putea monta mai multe ventilatoare",
      "Pentru ca volumul de aer admis să fie egal cu cel evacuat",
      "Pentru a reduce costul instalației"
-    ],
-    "correct": 2,
-    "explain": "Aerul „utilizat” eliminat trebuie înlocuit cu o cantitate egală de aer „proaspăt”, cu umiditate relativă mai mică."
+    ]
    },
    {
     "id": "q7",
@@ -1083,9 +1071,7 @@ const BUILTIN = [
      "Nu pot atinge temperaturile de regim",
      "Nu pot fi montate în instalațiile metalice",
      "Nu pot fi reglate automat"
-    ],
-    "correct": 0,
-    "explain": "Încălzitoarele electrice sunt posibile, dar consumul de energie este foarte mare, pentru că procesele de uscare durează mult."
+    ]
    },
    {
     "id": "q8",
@@ -1097,9 +1083,7 @@ const BUILTIN = [
      "Spălarea stivei de cherestea la sfârșitul uscării",
      "Evacuarea condensului",
      "Ridicarea umidității relative a aerului din camera de uscare, atunci când este necesar"
-    ],
-    "correct": 3,
-    "explain": "Țeava de umezire ridică umiditatea relativă a aerului; la SEBA, duzele de pulverizare transformă apa în ceață."
+    ]
    },
    {
     "id": "q9",
@@ -1111,9 +1095,7 @@ const BUILTIN = [
      "Dacă se rotesc numai într-un sens",
      "Dacă sunt echilibrate (să nu „bată”)",
      "Dacă turația lor depășește 1400 rpm"
-    ],
-    "correct": 2,
-    "explain": "Printre verificările dinaintea unei noi șarje: ventilatoarele trebuie să fie echilibrate, să nu „bată”."
+    ]
    },
    {
     "id": "q10",
@@ -1125,59 +1107,52 @@ const BUILTIN = [
      "6 m³/șarjă",
      "7,5 m³/șarjă",
      "20,9 m³/șarjă"
-    ],
-    "correct": 1,
-    "explain": "Tabelul 1.1: capacitatea maximă de încărcare este de 6 m³/șarjă. (7,5 m³ ar fi volumul geometric al stivei, iar 20,9 m³ volumul interior al camerei.)"
+    ]
    },
    {
     "id": "q11",
     "type": "open",
     "points": 2,
     "rows": 4,
-    "text": "Care sunt **elementele constructive** ale unei instalații de uscare?",
-    "model": "Se așteaptă: scheletul de rezistență și carcasa propriu-zisă, formată din pereți, planșeu superior și ușă; după material, instalațiile pot fi metalice, din zidărie sau din beton."
+    "text": "Care sunt **elementele constructive** ale unei instalații de uscare?"
    },
    {
     "id": "q12",
     "type": "open",
     "points": 2,
     "rows": 4,
-    "text": "Care sunt **avantajele** pe care le oferă o instalație de uscare metalică?",
-    "model": "Se așteaptă: etanșeitate foarte bună, protecție deosebită împotriva coroziunii, izolare termică și hidrofugă foarte bună, spațiu de amplasare mai redus decât la cele din zidărie, transport ușor, montaj rapid direct la beneficiar pe o platformă betonată, fără întreținere."
+    "text": "Care sunt **avantajele** pe care le oferă o instalație de uscare metalică?"
    },
    {
     "id": "q13",
     "type": "open",
     "points": 2,
     "rows": 4,
-    "text": "Care este rolul **planșeului intermediar** al instalației de uscare?",
-    "model": "Se așteaptă: desparte spațiul util de uscare (unde se află stiva) de spațiul tehnic (unde se află caloriferul, ventilatoarele etc.); la SEBA este o placă din aluminiu ondulat."
+    "text": "Care este rolul **planșeului intermediar** al instalației de uscare?"
    },
    {
     "id": "q14",
     "type": "open",
     "points": 2,
     "rows": 4,
-    "text": "Din ce materiale este alcătuită **structura tip „sandwich”** a panourilor prefabricate la o instalație de uscare metalică?",
-    "model": "Se așteaptă: două table de aluminiu de 2 mm cu un strat izolator de poliuretan (sau vată minerală) de 100 mm între ele; la exterior se poate folosi și tablă neagră de oțel, deoarece fața exterioară trebuie să reziste doar la intemperii, nu și la acizii degajați din lemn."
+    "text": "Din ce materiale este alcătuită **structura tip „sandwich”** a panourilor prefabricate la o instalație de uscare metalică?"
    },
    {
     "id": "q15",
     "type": "open",
     "points": 3,
     "rows": 7,
-    "text": "Care sunt **agregatele obligatorii** (elementele componente) ale unei instalații de uscare și care este rolul fiecăruia? Schema instalației SEBA (Fig. 1.1), cu poziția agregatelor componente, se desenează pe hârtie și se predă cu referatul.",
-    "model": "Se așteaptă: caloriferul (țevi de încălzire) — ridică și menține temperatura la valoarea de regim; țeava de umezire — ridică umiditatea relativă a aerului când e necesar; sistemul de circulație forțată (ventilatoarele) — asigură viteza aerului prin stivă (minim 1,5 m/s la foioase, 2,5 m/s la rășinoase); coșurile de aer — primenesc (desumidifică) aerul prin schimb cu exteriorul. Pe schemă (Fig. 1.1): stiva (1), țevile de calorifer (2), țeava de pulverizare (3), ventilatorul axial (4), coșurile (5), planșeul intermediar (6)."
+    "text": "Care sunt **agregatele obligatorii** (elementele componente) ale unei instalații de uscare și care este rolul fiecăruia? Schema instalației SEBA (Fig. 1.1), cu poziția agregatelor componente, se desenează pe hârtie și se predă cu referatul."
    },
    {
     "id": "q16",
     "type": "open",
     "points": 2,
     "rows": 4,
-    "text": "Ce avantaj aduce posibilitatea de **inversare a sensului aerului** prin stivă?",
-    "model": "Se așteaptă: uscare mai uniformă în cuprinsul stivei — fără inversare, partea stivei pe unde intră aerul cald se usucă mai repede decât cea pe unde iese; inversarea periodică a sensului echilibrează uscarea și duce la o umiditate finală mai uniformă."
+    "text": "Ce avantaj aduce posibilitatea de **inversare a sensului aerului** prin stivă?"
    }
-  ]
+  ],
+  "stripped": true
  },
  {
   "id": "lucrarea-2",
@@ -1187,7 +1162,7 @@ const BUILTIN = [
   "teacherEmail": "",
   "duration": "2 ore",
   "date": "",
-  "selfCheck": true,
+  "selfCheck": false,
   "objectives": [
    "Descrie caracteristicile șipcilor de stivuire.",
    "Specifice regulile de stivuire.",
@@ -1206,9 +1181,7 @@ const BUILTIN = [
      "![b](l2-fig27b)",
      "![c](l2-fig27c)",
      "![d](l2-fig27d)"
-    ],
-    "correct": 3,
-    "explain": "Pentru rășinoase cu grosimea între 31 și 60 mm, Tabelul 2.1 impune o distanță între șipci de cca. 1000 mm, iar șipcile trebuie așezate obligatoriu și la capetele stivei. Varianta d îndeplinește ambele condiții: șipci la ambele capete și din metru în metru pe lungimea de 4 m."
+    ]
    },
    {
     "id": "q2",
@@ -1220,9 +1193,7 @@ const BUILTIN = [
      "![b](l2-fig28b)",
      "![c](l2-fig28c)",
      "![d](l2-fig28d)"
-    ],
-    "correct": 3,
-    "explain": "Varianta d respectă toate regulile: stivele sunt aliniate în coloane, cu spații de cca. 100 mm între ele pe lățimea camerei și cu spații de cca. 0,5 m față de pereți pe lungimea camerei, astfel încât aerul circulă liber și uniform prin toate rândurile."
+    ]
    },
    {
     "id": "q4",
@@ -1234,9 +1205,7 @@ const BUILTIN = [
      "401...600 mm",
      "601...800 mm",
      "1000 mm"
-    ],
-    "correct": 1,
-    "explain": "Tabelul 2.1: foioase, grosime 31...60 mm → 401...600 mm."
+    ]
    },
    {
     "id": "q5",
@@ -1248,9 +1217,7 @@ const BUILTIN = [
      "0,75",
      "0,6",
      "1"
-    ],
-    "correct": 2,
-    "explain": "K_{l} = 0,9 pentru cherestea tivită, 0,75 pentru semitivită și 0,6 pentru netivită."
+    ]
    },
    {
     "id": "q6",
@@ -1262,17 +1229,14 @@ const BUILTIN = [
      "cu partea dinspre inimă în jos",
      "alternativ, o piesă în sus și una în jos",
      "nu are importanță orientarea lor"
-    ],
-    "correct": 0,
-    "explain": "Contragerea inegală după direcția radială și cea tangențială face piesa să se bombeze; așezarea cu partea dinspre inimă în sus contracarează această tendință (Fig. 2.2)."
+    ]
    },
    {
     "id": "q3",
     "type": "open",
     "points": 2,
     "rows": 5,
-    "text": "Motivați alegerea făcută la întrebarea 2 din grilă (amplasarea stivelor, Fig. 2.8): ce reguli de amplasare sunt încălcate în celelalte variante?",
-    "model": "Se așteaptă: stivele trebuie aliniate în coloane, cu spații de cca. 100 mm între ele pe lățimea camerei și cca. 0,5 m față de pereți pe lungimea camerei; stivele așezate lipit de pereți sau decalate unele față de altele obstrucționează circulația aerului și duc la scurtcircuitarea curentului de aer prin spațiile goale, deci la uscare neuniformă."
+    "text": "Motivați alegerea făcută la întrebarea 2 din grilă (amplasarea stivelor, Fig. 2.8): ce reguli de amplasare sunt încălcate în celelalte variante?"
    },
    {
     "id": "q7",
@@ -1297,12 +1261,8 @@ const BUILTIN = [
       "unit": "mm"
      }
     ],
-    "expr": "s/(ss+1.08*s)",
     "unit": "—",
-    "tolPct": 2,
-    "tolAbs": 0,
-    "dec": 3,
-    "solution": "K_{h} = s / (s_{s} + 1,08 · s) = 70 / (20 + 1,08 · 70) = 70 / 95,6."
+    "dec": 3
    },
    {
     "id": "q8",
@@ -1310,12 +1270,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Varianta A.** Calculați capacitatea de încărcare V a instalației: fag, piese de 5–6 m (K_{L} = 0,85), cherestea tivită (K_{l} = 0,9), s = 70 mm, s_{s} = 20 mm, L_{st} = 6 m, l_{st} = 1,2 m, h_{st} = 1 m, n_{st} = 6 stive.",
     "vars": [],
-    "expr": "6*1.2*1*6*0.85*0.9*(70/(20+1.08*70))",
     "unit": "m³/șarjă",
-    "tolPct": 3,
-    "tolAbs": 0,
-    "dec": 2,
-    "solution": "V_{g.st} = 6 · 1,2 · 1 = 7,2 m³; K_{h} = 0,732; K_{st} = 0,85 · 0,9 · 0,732 = 0,560; V = 7,2 · 6 · 0,560."
+    "dec": 2
    },
    {
     "id": "q9",
@@ -1323,12 +1279,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Varianta B.** Calculați capacitatea de încărcare V: stejar, toate piesele de 6 m, egale cu lungimea stivei (K_{L} = 1), cherestea netivită (K_{l} = 0,6), s = 40 mm, s_{s} = 20 mm, L_{st} = 6 m, l_{st} = 1,2 m, h_{st} = 1 m, n_{st} = 6 stive.",
     "vars": [],
-    "expr": "6*1.2*1*6*1*0.6*(40/(20+1.08*40))",
     "unit": "m³/șarjă",
-    "tolPct": 3,
-    "tolAbs": 0,
-    "dec": 2,
-    "solution": "K_{h} = 40 / (20 + 43,2) = 0,633; K_{st} = 1 · 0,6 · 0,633 = 0,380; V = 43,2 · 0,380."
+    "dec": 2
    },
    {
     "id": "q10",
@@ -1336,12 +1288,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 2a.** Pentru instalația de la Varianta A (fag, 70 mm — Tabelul 2.2), încărcată cu **vagonete** (1 h/vagonet, 6 stive), calculați capacitatea anuală de uscare P_{an}. Se consideră T = 7200 h/an.",
     "vars": [],
-    "expr": "24.199*7200/(15*24+6)",
     "unit": "m³/an",
-    "tolPct": 4,
-    "tolAbs": 0,
-    "dec": 0,
-    "solution": "D_{t} = 15 zile = 360 h; D_{î.d.} = 6 × 1 h = 6 h; Z = 366 h; P_{an} = 24,2 · 7200 / 366."
+    "dec": 0
    },
    {
     "id": "q11",
@@ -1349,14 +1297,11 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 2b.** Aceeași instalație, încărcată cu **autostivuitorul** (20 minute/stivă, 6 stive). Calculați P_{an}.",
     "vars": [],
-    "expr": "24.199*7200/(15*24+6*20/60)",
     "unit": "m³/an",
-    "tolPct": 4,
-    "tolAbs": 0,
-    "dec": 0,
-    "solution": "D_{î.d.} = 6 × 20 min = 2 h; Z = 360 + 2 = 362 h; P_{an} = 24,2 · 7200 / 362."
+    "dec": 0
    }
-  ]
+  ],
+  "stripped": true
  },
  {
   "id": "lucrarea-3",
@@ -1366,7 +1311,7 @@ const BUILTIN = [
   "teacherEmail": "",
   "duration": "2 ore",
   "date": "",
-  "selfCheck": true,
+  "selfCheck": false,
   "objectives": [
    "Identifice metodele de determinare a umidității lemnului specificate în standardele europene, precum și avantajele și dezavantajele fiecăreia.",
    "Aplice metoda cântăririi și uscării epruvetelor pentru determinarea umidității inițiale a lemnului.",
@@ -1386,9 +1331,7 @@ const BUILTIN = [
      "Metoda rezistivă",
      "Metoda capacitivă",
      "Metoda cu traductori de umiditate"
-    ],
-    "correct": 0,
-    "explain": "Metoda prin uscare și cântărire (SR EN 13183-1) este cea mai precisă și servește ca referință pentru calibrarea și verificarea celorlalte metode."
+    ]
    },
    {
     "id": "q2",
@@ -1400,9 +1343,7 @@ const BUILTIN = [
      "SR EN 13183-2:2003/AC:2003",
      "SR EN 13183-3:2005",
      "STAS 9701-88"
-    ],
-    "correct": 1,
-    "explain": "SR EN 13183-1 — uscare și cântărire; SR EN 13183-2 — metoda rezistivă; SR EN 13183-3 — metoda capacitivă."
+    ]
    },
    {
     "id": "q3",
@@ -1414,9 +1355,7 @@ const BUILTIN = [
      "103 ± 2 °C",
      "120 ± 5 °C",
      "50 ± 2 °C"
-    ],
-    "correct": 1,
-    "explain": "Uscarea se face la 103 ± 2 °C, până când diferența de masă între două cântăriri la interval de 2 h scade sub 0,1%."
+    ]
    },
    {
     "id": "q4",
@@ -1428,9 +1367,7 @@ const BUILTIN = [
      "200 mm",
      "300 mm",
      "600 mm"
-    ],
-    "correct": 2,
-    "explain": "Cel puțin 300 mm față de oricare capăt — sau la mijlocul piesei, dacă aceasta este mai scurtă de 600 mm."
+    ]
    },
    {
     "id": "q5",
@@ -1442,9 +1379,7 @@ const BUILTIN = [
      "umiditatea de saturație a fibrei (≈30%)",
      "50% umiditate",
      "umiditatea de echilibru higroscopic"
-    ],
-    "correct": 1,
-    "explain": "Peste punctul de saturație a fibrei (U_{sf} ≈ 30%) diferențele de rezistență electrică devin nesemnificative — de aici și limitarea domeniului umidometrelor rezistive."
+    ]
    },
    {
     "id": "q6",
@@ -1456,9 +1391,7 @@ const BUILTIN = [
      "densitatea specifică a materialului",
      "umiditatea aerului din încăpere",
      "grosimea șipcilor de stivuire"
-    ],
-    "correct": 1,
-    "explain": "Compensarea în funcție de temperatură este mai complicată la umidometrele capacitive decât la cele rezistive; de aceea ele compensează doar după densitate, specia fiind luată în calcul prin densitatea ei specifică."
+    ]
    },
    {
     "id": "q7",
@@ -1470,9 +1403,7 @@ const BUILTIN = [
      "2",
      "3",
      "5"
-    ],
-    "correct": 1,
-    "explain": "Tabelul 3.2: la 3, 4 sau 5 piese încercate se fac câte 2 măsurări pe piesă; la o singură piesă sau la două — câte 3; la peste 5 piese — câte una."
+    ]
    },
    {
     "id": "q8",
@@ -1484,41 +1415,35 @@ const BUILTIN = [
      "5%",
      "10%",
      "15%"
-    ],
-    "correct": 1,
-    "explain": "ΔU = U_{max} − U_{min} nu trebuie să depășească 5%, sub punctul de saturație al fibrei."
+    ]
    },
    {
     "id": "q9",
     "type": "open",
     "points": 3,
     "rows": 6,
-    "text": "Care sunt principalele metode specificate în standardele europene pentru determinarea umidității lemnului în practica uscării? Enumerați câteva dintre avantajele și dezavantajele fiecăreia.",
-    "model": "Se așteaptă cele trei metode cu standardele lor (uscare și cântărire — SR EN 13183-1; rezistivă — 13183-2; capacitivă — 13183-3). Uscare și cântărire: cea mai precisă, valabilă pe toată secțiunea și pentru orice umiditate, dar laborioasă, distructivă și cu rezultat întârziat. Rezistivă: rapidă, nedistructivă practic, compensare după specie și temperatură, dar precisă doar în domeniul ~8...24% și influențată de gradientul de umiditate la electrozii neizolați. Capacitivă: complet nedistructivă, foarte rapidă, dar cea mai puțin precisă, sensibilă la contactul cu suprafața și compensată doar după densitate."
+    "text": "Care sunt principalele metode specificate în standardele europene pentru determinarea umidității lemnului în practica uscării? Enumerați câteva dintre avantajele și dezavantajele fiecăreia."
    },
    {
     "id": "q10",
     "type": "open",
     "points": 2,
     "rows": 4,
-    "text": "Ce metodă recomandați pentru determinarea **exactă** a umidității inițiale a cherestelei înainte de uscare? Motivați și descrieți pe scurt modul de aplicare.",
-    "model": "Metoda prin uscare și cântărire, pentru că umiditatea inițială depășește de regulă punctul de saturație a fibrei, domeniu în care metodele electrice nu sunt precise. Aplicare: se alege o piesă fără defecte, dintre cele mai umede; se debitează epruveta la minimum 300 mm de capăt; se cântărește imediat (m_u); se usucă la 103 ± 2 °C până la masă constantă; se cântărește (m_0); U = (m_u − m_0)/m_0 · 100."
+    "text": "Ce metodă recomandați pentru determinarea **exactă** a umidității inițiale a cherestelei înainte de uscare? Motivați și descrieți pe scurt modul de aplicare."
    },
    {
     "id": "q11",
     "type": "open",
     "points": 2,
     "rows": 4,
-    "text": "Pentru verificarea calității uscării din punctul de vedere al uniformității conținutului final de umiditate (U_{f} = 10%), care dintre cele trei metode o recomandați? Motivați.",
-    "model": "Metoda rezistivă cu umidometru portabil: la 10% umiditate ne aflăm în domeniul de precizie maximă al metodei (8...24%), măsurarea este rapidă și practic nedistructivă, deci se pot verifica multe piese din șarjă pentru a aprecia uniformitatea. Metoda capacitivă este o alternativă și mai rapidă, dar mai puțin precisă."
+    "text": "Pentru verificarea calității uscării din punctul de vedere al uniformității conținutului final de umiditate (U_{f} = 10%), care dintre cele trei metode o recomandați? Motivați."
    },
    {
     "id": "q12",
     "type": "open",
     "points": 2,
     "rows": 4,
-    "text": "Care este rolul probei martor în procesul de uscare a cherestelei și cum se determină masa ei în stare anhidră?",
-    "model": "Proba martor permite urmărirea indirectă a scăderii umidității șarjei, fără a scoate și distruge epruvete la fiecare verificare. Se cântărește în stare inițială (m_i), umiditatea ei inițială fiind considerată egală cu U_im determinată pe epruvetele a1 și a2; masa anhidră rezultă din m_0 = 100·m_i/(100+U_im). Ulterior, din cântăriri succesive se obțin umiditățile la momente date, iar m_f = m_0(1+U_f/100) indică momentul opririi uscării."
+    "text": "Care este rolul probei martor în procesul de uscare a cherestelei și cum se determină masa ei în stare anhidră?"
    },
    {
     "id": "q13",
@@ -1543,12 +1468,8 @@ const BUILTIN = [
       "unit": "g"
      }
     ],
-    "expr": "(mu-m0)/m0*100",
     "unit": "%",
-    "tolPct": 2,
-    "tolAbs": 0,
-    "dec": 2,
-    "solution": "U = (m_{u} − m_{0}) / m_{0} · 100 = (53,43 − 48,10) / 48,10 · 100."
+    "dec": 2
    },
    {
     "id": "q14",
@@ -1556,12 +1477,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 3.** Cele trei straturi ale epruvetei au: b1 — m_{u} = 26,68 g și m_{0} = 22,00 g; b2 — 22,40 g și 17,68 g; b3 — 27,56 g și 22,64 g. Calculați căderea de umiditate pe grosimea piesei, ΔU.",
     "vars": [],
-    "expr": "(22.40-17.68)/17.68*100 - (26.68-22.00)/22.00*100",
     "unit": "%",
-    "tolPct": 5,
-    "tolAbs": 0,
-    "dec": 2,
-    "solution": "U_{b1} = 21,27%; U_{b2} = 26,70%; U_{b3} = 21,73%. ΔU = U_{max} − U_{min} = 26,70 − 21,27. Rezultatul depășește 5%, deci uscarea nu este de calitate corespunzătoare."
+    "dec": 2
    },
    {
     "id": "q15",
@@ -1569,12 +1486,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 4a.** Epruvetele au: a_{1} — masa inițială 56,08 g și masa anhidră 37,53 g; a_{2} — masa inițială 76,90 g și masa anhidră 50,00 g. Calculați umiditatea inițială medie a lotului, U_{im}.",
     "vars": [],
-    "expr": "((56.08-37.53)/37.53*100 + (76.90-50.00)/50.00*100)/2",
     "unit": "%",
-    "tolPct": 2,
-    "tolAbs": 0,
-    "dec": 2,
-    "solution": "U_{a1} = 49,43%; U_{a2} = 53,80%; U_{im} = (49,43 + 53,80) / 2."
+    "dec": 2
    },
    {
     "id": "q16",
@@ -1582,12 +1495,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 4a.** Proba martor are masa inițială m_{i} = 3,40 kg, la umiditatea medie inițială U_{im} = 51,61%. Calculați masa ei în stare anhidră, m_{0}.",
     "vars": [],
-    "expr": "100*3.40/(100+51.61)",
     "unit": "kg",
-    "tolPct": 2,
-    "tolAbs": 0,
-    "dec": 3,
-    "solution": "m_{0} = 100 · m_{i} / (100 + U_{im}) = 340 / 151,61."
+    "dec": 3
    },
    {
     "id": "q17",
@@ -1595,12 +1504,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 4b.** După 70 de ore de uscare, proba martor cântărește 2,96 kg. Știind că masa ei în stare anhidră este m_{0} = 2,243 kg, calculați umiditatea U_{70h}.",
     "vars": [],
-    "expr": "(2.96-2.243)/2.243*100",
     "unit": "%",
-    "tolPct": 3,
-    "tolAbs": 0,
-    "dec": 2,
-    "solution": "U_{70h} = (m_{70} − m_{0}) / m_{0} · 100 = (2,96 − 2,243) / 2,243 · 100."
+    "dec": 2
    },
    {
     "id": "q18",
@@ -1608,14 +1513,11 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 4c.** Pentru aceeași probă martor (m_{0} = 2,243 kg), calculați masa finală m_{f} la care trebuie oprit procesul, pentru o umiditate finală U_{f} = 10%.",
     "vars": [],
-    "expr": "2.243*(1+10/100)",
     "unit": "kg",
-    "tolPct": 2,
-    "tolAbs": 0,
-    "dec": 3,
-    "solution": "m_{f} = m_{0} · (1 + U_{f}/100) = 2,243 · 1,10."
+    "dec": 3
    }
-  ]
+  ],
+  "stripped": true
  },
  {
   "id": "lucrarea-4",
@@ -1625,7 +1527,7 @@ const BUILTIN = [
   "teacherEmail": "",
   "duration": "2 ore",
   "date": "",
-  "selfCheck": true,
+  "selfCheck": false,
   "objectives": [
    "Specifice principalii parametri de uscare și influența lor asupra duratei și calității uscării.",
    "Descrie construcția traductorilor utilizați pentru măsurarea temperaturii, umidității relative și umidității de echilibru în instalațiile de uscare a cherestelei.",
@@ -1644,9 +1546,7 @@ const BUILTIN = [
      "Umiditatea relativă a aerului",
      "Umiditatea de echilibru",
      "Presiunea atmosferică"
-    ],
-    "correct": 0,
-    "explain": "Odată cu creșterea temperaturii cresc atât viteza de evaporare a apei de la suprafața lemnului, cât și viteza de difuziune din interior — dar crește și riscul de crăpături și colorații."
+    ]
    },
    {
     "id": "q2",
@@ -1658,9 +1558,7 @@ const BUILTIN = [
      "frânare, deoarece aerul mai umed poate absorbi mai puțină umiditate din lemn",
      "accelerare numai sub punctul de saturație a fibrei",
      "nicio influență asupra duratei uscării"
-    ],
-    "correct": 1,
-    "explain": "Cu cât φ este mai mare, cu atât capacitatea aerului de a prelua umiditatea eliminată din lemn este mai mică. În schimb, regimul este mai blând și riscul de crăpături scade."
+    ]
    },
    {
     "id": "q3",
@@ -1672,9 +1570,7 @@ const BUILTIN = [
      "Termorezistențe din platină Pt100 sau Pt1000",
      "Termometre bimetalice",
      "Termometre de sticlă cu mercur"
-    ],
-    "correct": 1,
-    "explain": "Termorezistențele din platină Pt100 sau Pt1000, montate în carcase de protecție din aluminiu sau oțel inoxidabil, sunt cele mai utilizate traductoare de temperatură."
+    ]
    },
    {
     "id": "q4",
@@ -1686,9 +1582,7 @@ const BUILTIN = [
      "Aerul este umed, apropiat de saturație",
      "Temperatura aerului este ridicată",
      "Viteza aerului este prea mare"
-    ],
-    "correct": 1,
-    "explain": "Δt = t − t_{u} este o măsură a gradului de saturare cu vapori: cu cât este mai mică, cu atât aerul este mai umed. La saturație deplină, t_{u} = t."
+    ]
    },
    {
     "id": "q5",
@@ -1700,9 +1594,7 @@ const BUILTIN = [
      "1 m/s",
      "2 m/s",
      "5 m/s"
-    ],
-    "correct": 2,
-    "explain": "Tabela psihrometrică presupune o viteză a aerului de cel puțin 2 m/s în jurul tijelor aparatului."
+    ]
    },
    {
     "id": "q6",
@@ -1714,9 +1606,7 @@ const BUILTIN = [
      "temperatura și umiditatea relativă a aerului",
      "densitatea lemnului",
      "dimensiunile piesei"
-    ],
-    "correct": 1,
-    "explain": "Experimental s-a constatat că U_{e} nu depinde aproape deloc de specie, ci numai de parametrii de stare ai aerului (T și φ) — de aceea există o singură diagramă a umidității de echilibru."
+    ]
    },
    {
     "id": "q7",
@@ -1728,9 +1618,7 @@ const BUILTIN = [
      "Înainte de introducerea fiecărei noi șarje",
      "Numai când indică valori peste 20%",
      "Nu se schimbă niciodată"
-    ],
-    "correct": 1,
-    "explain": "Pentru o precizie satisfăcătoare a măsurătorii, senzorul se schimbă înainte de introducerea fiecărei noi șarje."
+    ]
    },
    {
     "id": "q8",
@@ -1742,33 +1630,28 @@ const BUILTIN = [
      "rămâne aceeași",
      "se dublează",
      "crește de patru ori"
-    ],
-    "correct": 2,
-    "explain": "R = ρ · d / (h · l): rezistența este direct proporțională cu distanța dintre electrozi."
+    ]
    },
    {
     "id": "q9",
     "type": "open",
     "points": 3,
     "rows": 6,
-    "text": "Descrieți rolul **temperaturii**, al **umidității relative** și al **vitezei aerului** în procesele de uscare a lemnului.",
-    "model": "Se așteaptă: temperatura — principalul factor de accelerare (crește viteza de evaporare la suprafață și viteza de difuziune în interior), dar cu creșterea ei crește riscul de defecte (crăpături, colorații); umiditatea relativă — factor de frânare (aerul mai umed absoarbe mai puțină umiditate), dar calitativ un aer mai umed înseamnă un regim mai blând, cu risc redus de crăpături; viteza aerului — factor de accelerare (schimbul de căldură și evaporarea de la suprafață), iar uniformitatea ei în stivă determină uniformitatea umidității finale."
+    "text": "Descrieți rolul **temperaturii**, al **umidității relative** și al **vitezei aerului** în procesele de uscare a lemnului."
    },
    {
     "id": "q10",
     "type": "open",
     "points": 2,
     "rows": 5,
-    "text": "Descrieți **principiul de măsurare al psihrometrului**.",
-    "model": "Se așteaptă: două termometre identice; termometrul uscat, cu tija liberă în curentul de aer, măsoară temperatura aerului t; termometrul umed, cu tija înfășurată în tifon umezit permanent cu apă distilată, măsoară temperatura de evaporare la saturație adiabatică t_{u} ≤ t. Diferența psihrometrică Δt = t − t_{u} arată gradul de saturare: cu cât e mai mică, cu atât aerul e mai umed. Cu t și Δt se citește φ din tabela psihrometrică (viteza aerului de cel puțin 2 m/s) sau se calculează analitic (Ecuațiile 4.1–4.3)."
+    "text": "Descrieți **principiul de măsurare al psihrometrului**."
    },
    {
     "id": "q11",
     "type": "open",
     "points": 3,
     "rows": 6,
-    "text": "Ce este **umiditatea de echilibru** și pe ce principiu funcționează **traductorul de umiditate de echilibru** din instalațiile de uscare?",
-    "model": "Se așteaptă: U_{e} este umiditatea spre care tinde lemnul menținut timp îndelungat într-un mediu cu o anumită temperatură și umiditate relativă, prin sorbție sau desorbție; nu depinde aproape deloc de specie, ci de T și φ (diagrama umidității de echilibru). Traductorul: plăcuță subțire din furnir de limba sau celuloză, foarte higroscopică, prinsă între doi electrozi din oțel inoxidabil, care ajunge aproape instantaneu la echilibru cu aerul; principiul este rezistiv — rezistența plăcuței, R = ρ · d / (h · l), variază cu umiditatea ei. Plăcuța se schimbă înaintea fiecărei șarje; la circulația reversibilă a aerului sunt necesari doi traductori."
+    "text": "Ce este **umiditatea de echilibru** și pe ce principiu funcționează **traductorul de umiditate de echilibru** din instalațiile de uscare?"
    },
    {
     "id": "q12",
@@ -1776,12 +1659,8 @@ const BUILTIN = [
     "points": 1,
     "text": "**Aplicația 1a.** Setul A de epruvete a stat 3 săptămâni în camera climatică la T = 60 °C și φ = 76%. Citiți din diagrama umidității de echilibru (Fig. 4.5) umiditatea de echilibru corespunzătoare.",
     "vars": [],
-    "expr": "12",
     "unit": "%",
-    "tolPct": 0,
-    "tolAbs": 1,
-    "dec": 0,
-    "solution": "La 60 °C, punctul φ = 76% se află pe curba U_{e} = 12% a diagramei (se acceptă 11–13%)."
+    "dec": 0
    },
    {
     "id": "q13",
@@ -1789,20 +1668,15 @@ const BUILTIN = [
     "points": 1,
     "text": "**Aplicația 1a.** Setul B de epruvete a stat 3 săptămâni în camera climatică la T = 60 °C și φ = 20%. Citiți din diagrama umidității de echilibru (Fig. 4.5) umiditatea de echilibru corespunzătoare.",
     "vars": [],
-    "expr": "4",
     "unit": "%",
-    "tolPct": 0,
-    "tolAbs": 1,
-    "dec": 0,
-    "solution": "La 60 °C, curba U_{e} = 4% trece practic prin φ = 20% (se acceptă 3–5%)."
+    "dec": 0
    },
    {
     "id": "q14",
     "type": "open",
     "points": 3,
     "rows": 6,
-    "text": "**Aplicația 1b, c.** Notați masele măsurate pentru epruvetele din setul A și din setul B (Tabelele 4.3 și 4.4), calculați conținutul de umiditate al fiecărei epruvete după trei săptămâni și comparați-l cu umiditatea de echilibru din diagramă. Comentați eventualele diferențe.",
-    "model": "Se așteaptă: pentru fiecare epruvetă U = (m_{Ue} − m_{0}) / m_{0} · 100, cu calculul arătat; valori apropiate de cele din diagramă (cca. 12% pentru setul A și cca. 4% pentru setul B). Explicații pentru diferențe: histerezisul de sorbție (umiditatea atinsă prin desorbție e mai mare decât cea atinsă prin sorbție, Fig. 4.4), timp insuficient pentru atingerea echilibrului, abateri ale parametrilor din camera climatică, erori de cântărire, particularități ale speciei."
+    "text": "**Aplicația 1b, c.** Notați masele măsurate pentru epruvetele din setul A și din setul B (Tabelele 4.3 și 4.4), calculați conținutul de umiditate al fiecărei epruvete după trei săptămâni și comparați-l cu umiditatea de echilibru din diagramă. Comentați eventualele diferențe."
    },
    {
     "id": "q15",
@@ -1810,12 +1684,8 @@ const BUILTIN = [
     "points": 1,
     "text": "**Aplicația 2a.** Psihrometrul din instalație indică temperatura termometrului uscat t = 60 °C și a termometrului umed t_{u} = 55 °C. Determinați umiditatea relativă a aerului cu ajutorul tabelei psihrometrice (Tabelul 4.1).",
     "vars": [],
-    "expr": "77",
     "unit": "%",
-    "tolPct": 0,
-    "tolAbs": 0.5,
-    "dec": 0,
-    "solution": "Δt = t − t_{u} = 60 − 55 = 5 °C; în Tabelul 4.1, pe rândul t = 60 °C și în coloana Δt = 5 °C: φ = 77%."
+    "dec": 0
    },
    {
     "id": "q16",
@@ -1823,12 +1693,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 2b.** Pentru aceleași indicații ale psihrometrului (t = 60 °C, t_{u} = 55 °C) și viteza aerului v = 1 m/s, calculați presiunea parțială a vaporilor p_{v} (Ecuațiile 4.2 și 4.3, Tabelul 4.2; p_{b} = 10^{5} N/m²).",
     "vars": [],
-    "expr": "15740-(65+6.75/1)*1e-5*1e5*(60-55)",
     "unit": "N/m²",
-    "tolPct": 1,
-    "tolAbs": 0,
-    "dec": 0,
-    "solution": "C = (65 + 6,75 / 1) · 10^{-5} = 71,75 · 10^{-5}; p'_{s}(55 °C) = 15740 N/m²; p_{v} = 15740 − 71,75 · 10^{-5} · 10^{5} · (60 − 55) = 15740 − 358,75."
+    "dec": 0
    },
    {
     "id": "q17",
@@ -1836,12 +1702,8 @@ const BUILTIN = [
     "points": 2,
     "text": "**Aplicația 2c.** Calculați umiditatea relativă a aerului prin metoda analitică (Ecuația 4.1), pentru t = 60 °C și presiunea parțială a vaporilor determinată la punctul anterior.",
     "vars": [],
-    "expr": "(15740-(65+6.75/1)*1e-5*1e5*(60-55))/19917*100",
     "unit": "%",
-    "tolPct": 1,
-    "tolAbs": 0.5,
-    "dec": 1,
-    "solution": "p_{s}(60 °C) = 19917 N/m²; φ = p_{v} / p_{s} · 100 = 15381,25 / 19917 · 100. Rezultatul este foarte apropiat de valoarea din tabela psihrometrică (77%)."
+    "dec": 1
    },
    {
     "id": "q18",
@@ -1849,12 +1711,8 @@ const BUILTIN = [
     "points": 1,
     "text": "**Aplicația 3.** Utilizând diagrama umidității de echilibru (Fig. 4.5), determinați umiditatea relativă a aerului cu temperatura T = 60 °C și umiditatea de echilibru U_{e} = 16%.",
     "vars": [],
-    "expr": "86",
     "unit": "%",
-    "tolPct": 0,
-    "tolAbs": 3,
-    "dec": 0,
-    "solution": "Curba U_{e} = 16% intersectează verticala de 60 °C la cca. 86% (se acceptă 83–89%)."
+    "dec": 0
    },
    {
     "id": "q19",
@@ -1862,15 +1720,11 @@ const BUILTIN = [
     "points": 1,
     "text": "**Aplicația 4.** Poate fi uscată până la o umiditate de echilibru de 10% o piesă menținută timp suficient de îndelungat într-o atmosferă cu T = 20 °C și φ = 40%? Pentru a răspunde, citiți din diagrama umidității de echilibru (Fig. 4.5) umiditatea de echilibru corespunzătoare acestor condiții.",
     "vars": [],
-    "expr": "8",
     "unit": "%",
-    "tolPct": 0,
-    "tolAbs": 1,
-    "dec": 0,
-    "solution": "La 20 °C și φ = 40%, punctul se află pe curba U_{e} = 8% (se acceptă 7–9%). Deci **nu**: lemnul tinde spre umiditatea de echilibru a mediului, așa că piesa nu se oprește la 10%, ci continuă să se usuce până la cca. 8%.",
-    "explain": "Deci **nu**: piesa nu se oprește la 10%, ci continuă să se usuce până la cca. 8%."
+    "dec": 0
    }
-  ]
+  ],
+  "stripped": true
  }
 ];
 
@@ -1970,8 +1824,8 @@ async function resetPin() {
     "Șterge și resetează");
   if (!ok) return;
   LS.del(K.pin); LS.del(K.keep);
-  USER_LABS = []; HIDDEN = []; S.catalog = [];
-  await persistLabs(); await Store.set(K.cat, []);
+  USER_LABS = []; HIDDEN = []; S.catalog = []; BAREM = {};
+  await persistLabs(); await Store.set(K.cat, []); await Store.set(K.barem, {});
   setUnlocked(false, false);
   rebuildLabs(); S.role = "student"; LS.set(K.role, "student"); render();
   toast("Codul și datele de profesor au fost șterse");
@@ -1979,13 +1833,23 @@ async function resetPin() {
 /* Lucrările livrate cu pagina (BUILTIN) rămân în pagină. În browser se salvează
    doar lucrările create sau modificate de profesor — acestea pot avea figuri proprii. */
 let USER_LABS = [], HIDDEN = [];
+/* Paginile publice nu conțin baremul (vezi tools/barem.py). Profesorul îl
+   încarcă o dată, ca fișier; se păstrează doar în browserul lui. */
+let BAREM = {};
+function withBarem(l) {
+  const b = l.stripped && BAREM[l.id];
+  if (!b) return l;
+  (l.questions || []).forEach(q => Object.assign(q, (b.questions || {})[q.id] || {}));
+  delete l.stripped;
+  return l;
+}
 function rebuildLabs() {
   const byId = {};
   USER_LABS.forEach(l => { if (l && l.id) byId[l.id] = l; });
   const out = [];
   BUILTIN.forEach(b => {
     if (HIDDEN.indexOf(b.id) >= 0) return;
-    out.push(byId[b.id] ? byId[b.id] : JSON.parse(JSON.stringify(b)));
+    out.push(withBarem(byId[b.id] ? byId[b.id] : JSON.parse(JSON.stringify(b))));
   });
   USER_LABS.forEach(l => { if (!BUILTIN.some(b => b.id === l.id) && HIDDEN.indexOf(l.id) < 0) out.push(l); });
   S.labs = out;
@@ -2350,6 +2214,8 @@ function renderLabList() {
     '<button type="button" class="btn" id="btnImportLab">Importă…</button>' +
     '<button type="button" class="btn primary" id="btnNewLab">Laborator nou</button></div></div>';
   if (nHidden) h += '<div class="fb note" style="margin-bottom:12px">' + nHidden + ' lucrare(i) livrate cu pagina sunt ascunse. <button type="button" class="btn tiny" id="btnRestore" style="margin-left:6px">Readu-le</button></div>';
+  const nNoKey = S.labs.filter(l => l.stripped).length;
+  if (nNoKey) h += '<div class="fb bad" style="margin-bottom:12px"><b>' + (nNoKey === 1 ? "O lucrare nu are" : nNoKey + " lucrări nu au") + " baremul în acest browser</b>, deci nu pot fi corectate automat. Pagina publică nu conține răspunsurile; încarcă fișierul de barem cu „Importă…”.</div>";
   const nDiff = S.labs.filter(l => differsFromBuiltin(l.id)).length;
   if (nDiff) h += '<div class="fb bad" style="margin-bottom:12px"><b>' + (nDiff === 1 ? "O lucrare folosește" : nDiff + " lucrări folosesc") + " o copie salvată în acest browser</b>, diferită de versiunea din pagină (mai veche sau modificată de tine). Copia se folosește și la corectarea fișelor. Vezi butonul „Folosește versiunea din pagină” de la lucrare.</div>";
   if (!S.labs.length) return h + '<div class="card"><div class="empty">Nicio lucrare. Creează prima cu „Laborator nou”.</div></div>';
@@ -2364,6 +2230,7 @@ function renderLabList() {
       (nG ? '<span class="pill">grilă · ' + nG + (nG === 1 ? " întrebare" : " întrebări") + "</span>" : "") + "<span class='pill'>" + nN + " numerice</span><span class='pill'>" + nO + " libere</span>" +
       '<span class="pill accent">' + totalPts(l) + " p</span>" +
       (l.selfCheck ? '<span class="pill good">autoevaluare pornită</span>' : '<span class="pill warn">fără autoevaluare</span>') +
+      (l.stripped ? '<span class="pill crit">fără barem</span>' : "") +
       (ownKeys(l).length ? '<span class="pill">' + ownKeys(l).length + " figuri proprii · " + imgWeight(l) + " KB</span>" : "") +
       "</div>" +
       (differsFromBuiltin(l.id) ? '<div class="fb bad" style="margin-top:10px">Se folosește copia salvată în acest browser, diferită de versiunea din pagină. ' +
@@ -2529,7 +2396,7 @@ function renderCatalog() {
       "<td class='num'>" + (r.g ? fmt(r.g.auto, r.g.auto % 1 ? 1 : 0) + "/" + r.g.autoMax : "—") + "</td>" +
       "<td class='num'><b>" + (r.max != null ? fmt(r.total, r.total % 1 ? 1 : 0) + "/" + r.max : "—") + "</b></td>" +
       "<td class='num'>" + (c.nota != null && c.nota !== "" ? '<b class="mono">' + esc(c.nota) + "</b>" : "—") + "</td>" +
-      "<td>" + (!r.full ? '<span class="pill crit">lipsește laboratorul</span>' : r.pending ? '<span class="pill warn">de corectat</span>' : '<span class="pill good">evaluat</span>') +
+      "<td>" + (!r.full ? '<span class="pill crit">lipsește laboratorul</span>' : r.full.stripped ? '<span class="pill crit">fără barem</span>' : r.pending ? '<span class="pill warn">de corectat</span>' : '<span class="pill good">evaluat</span>') +
       (c.__enc ? ' <span class="pill accent" title="Fișă primită criptată">🔒</span>' : "") + "</td>" +
       "<td style='text-align:right;white-space:nowrap'><button type='button' class='btn tiny' data-act='openSub' data-id='" + esc(c.key) + "'>Deschide</button> " +
       "<button type='button' class='btn tiny danger' data-act='delSub' data-id='" + esc(c.key) + "'>✕</button></td></tr>";
@@ -2753,7 +2620,7 @@ function renderRank() {
 }
 function renderHelp() {
   return '<div class="card doc" style="max-width:76ch">' + renderMd(
-    "## Confiden\u021bialitatea r\u0103spunsurilor\n\n\u00cen fila *Acces studen\u021bi*, butonul **Genereaz\u0103 cheile** creeaz\u0103 o pereche de chei: cheia **public\u0103** pleac\u0103 la studen\u021bi \u00een codurile QR, cheia **privat\u0103** r\u0103m\u00e2ne doar la tine. De atunci, fiecare fi\u0219\u0103 predat\u0103 este criptat\u0103 pentru tine: nici studentul care a scris-o, nici colegii lui nu o mai pot deschide, chiar dac\u0103 \u00ee\u0219i trimit codurile \u00eentre ei. \u00cen catalog, fi\u0219ele primite criptat sunt marcate cu un lac\u0103t.\n\n> **P\u0103streaz\u0103 fi\u0219ierul cheii.** La generare se descarc\u0103 automat un fi\u0219ier `cheie-profesor-XXXXXX.json`. Cheia privat\u0103 exist\u0103 doar \u00een browserul acestui calculator; dac\u0103 o pierzi, fi\u0219ele deja primite nu mai pot fi deschise de nimeni. Pune fi\u0219ierul \u00een dou\u0103 locuri sigure \u0219i import\u0103-l pe orice alt calculator pe care corectezi.\n\nStudentul deschide fi\u0219a prin codul QR, care con\u021bine \u0219i cheia. Dac\u0103 ajunge la aplica\u021bie altfel \u0219i nu are cheia, codul lui iese necriptat \u0219i aplica\u021bia \u00eei spune asta \u2014 tu \u00eel vezi \u00een catalog f\u0103r\u0103 lac\u0103t. Pe calculatoarele din laborator, deschide aplica\u021bia o dat\u0103 cu adresa care con\u021bine cheia (o g\u0103se\u0219ti sub fiecare cod QR): aplica\u021bia o re\u021bine pentru urm\u0103toarele deschideri de pe acel calculator.\n\n## Accesul la modul profesor\n\nModul profesor este \u00eenchis cu un cod pe care \u00eel alegi tu, la prima intrare. Studen\u021bii care deschid linkul v\u0103d doar fi\u0219a de laborator \u2014 comutatorul *Student / Profesor* nici nu apare la ei. Ca s\u0103 intri, apas\u0103 insigna **LAB** din col\u021bul st\u00e2nga sus \u0219i scrie codul; la ie\u0219ire, ape\u0219i lac\u0103tul din dreapta sus. Pe calculatoarele din laborator **nu bifa** „\u021aine minte pe acest calculator\u201d.\n\n> Codul \u021bine studen\u021bii departe de editor, de catalog \u0219i de note. Nu este \u00eens\u0103 o \u00eencuietoare de seif: cine se pricepe poate citi codul-surs\u0103 al paginii. Pentru lucr\u0103ri notate, apărarea real\u0103 r\u0103m\u00e2ne faptul c\u0103 fiecare student prime\u0219te alte date numerice.\n\n## Pe scurt\n\n1. **Creezi sau editezi lucrarea** \u00een fila *Editor*: antet, descriere, figuri, \u00eentreb\u0103ri gril\u0103, aplica\u021bii numerice cu date generate individual \u0219i \u00eentreb\u0103ri cu r\u0103spuns liber.\n2. **Afi\u0219ezi codul QR** al lucr\u0103rii din fila *Acces studen\u021bi*. Fiecare lucrare are propriul cod, care se actualizeaz\u0103 singur c\u00e2nd ad\u0103ugi sau sco\u021bi lucr\u0103ri.\n3. **Studentul** \u00ee\u0219i scrie numele \u0219i grupa (a\u0219a prime\u0219te propriul set de date numerice), r\u0103spunde \u0219i apas\u0103 *Finalizeaz\u0103*. Fi\u0219a se salveaz\u0103 automat pe parcurs, deci poate \u00eenchide pagina \u0219i relua mai t\u00e2rziu.\n4. **Trimiterea**: dintr-o ap\u0103sare, prin e-mail, WhatsApp sau Teams \u2014 sau, f\u0103r\u0103 semnal, ca un cod QR pe care \u00eel scanezi de pe ecranul lui.\n5. **Tu** lipe\u0219ti \u00een *Catalog* tot ce ai primit \u2014 un e-mail, o conversa\u021bie, oric\u00e2t text: aplica\u021bia g\u0103se\u0219te singur\u0103 toate codurile. Corecteaz\u0103 automat grilele \u0219i aplica\u021biile numerice; tu acorzi punctajul la r\u0103spunsurile libere.\n6. **Nota final\u0103** apare \u00een fila *Note finale*: media notelor de la lucr\u0103rile predate, cu export \u00een Excel \u0219i clasament pe grupe pentru proiec\u021bie.\n\n## Cum adaugi o lucrare nou\u0103, f\u0103r\u0103 ajutor din afar\u0103\n\n1. *Laboratoare* \u2192 **Laborator nou**.\n2. Completezi antetul \u0219i descrierea. Textul accept\u0103 titluri (`## Titlu`), liste, \u00eengro\u0219at (`**text**`), tabele cu `|`, indici `x_{i}` \u0219i exponen\u021bi `x^{2}`.\n3. **Figurile**: butonul *Figuri disponibile* \u2192 *Adaug\u0103 figuri din calculator*. Aplica\u021bia le mic\u0219oreaz\u0103 singur\u0103 \u0219i le salveaz\u0103 \u00een lucrare; le inserezi cu un clic, care copiaz\u0103 codul `![descriere](cheie)`.\n4. Adaugi \u00eentreb\u0103rile \u0219i ape\u0219i *Salveaz\u0103*. Lucrarea apare imediat \u00een list\u0103 \u0219i prime\u0219te automat propriul cod QR.\n5. Din c\u00e2nd \u00een c\u00e2nd apas\u0103 **Export\u0103 pachetul** \u2014 un singur fi\u0219ier cu toate lucr\u0103rile \u0219i figurile lor, pe care \u00eel po\u021bi reimporta oric\u00e2nd, pe orice calculator.\n\n## Aplica\u021bii numerice individuale\n\nFiecare aplica\u021bie numeric\u0103 poate avea variabile cu interval, pas \u0219i unitate de m\u0103sur\u0103. Valorile se genereaz\u0103 dintr-un *cod de date* derivat din numele \u0219i grupa studentului: sunt diferite de la student la student, dar identice la fiecare redeschidere pentru acela\u0219i student. Corectarea folose\u0219te exact valorile primite de el. Dac\u0103 pui aceea\u0219i valoare la *min* \u0219i la *max*, \u00eentrebarea devine fix\u0103, cu datele din \u00eendrumar.\n\n## R\u0103spunsurile corecte\n\nCu *autoevaluarea* pornit\u0103, studentul \u00ee\u0219i vede punctajul imediat \u2014 dar r\u0103spunsurile corecte se afl\u0103 \u00een pachetul trimis lui. Pentru lucr\u0103ri notate, oprete autoevaluarea: pachetul studentului va con\u021bine doar enun\u021burile, iar corectarea se face la tine.\n\n## Unde se p\u0103streaz\u0103 datele\n\nLucr\u0103rile livrate cu pagina vin odat\u0103 cu fi\u0219ierul. Lucr\u0103rile pe care le creezi sau le modifici tu, figurile lor \u0219i catalogul se salveaz\u0103 **\u00een browserul acestui calculator**, \u00eentr-o baz\u0103 de date local\u0103 care suport\u0103 \u0219i imagini. Nu se sincronizeaz\u0103 \u00eentre dispozitive \u0219i se pierd dac\u0103 \u0219tergi datele browserului \u2014 de aceea *Export\u0103 pachetul* \u0219i *Backup JSON* din Catalog sunt importante.\n\n## \u0218tergerea unei lucr\u0103ri\n\n*\u0218terge* scoate lucrarea din list\u0103 \u0219i o \u021bine ascuns\u0103 \u0219i dup\u0103 reînc\u0103rcarea paginii. Dac\u0103 te r\u0103zg\u00e2nde\u0219ti, \u00een capul listei apare butonul *Readu-le*.") + "</div>";
+    "## Confiden\u021bialitatea r\u0103spunsurilor\n\n\u00cen fila *Acces studen\u021bi*, butonul **Genereaz\u0103 cheile** creeaz\u0103 o pereche de chei: cheia **public\u0103** pleac\u0103 la studen\u021bi \u00een codurile QR, cheia **privat\u0103** r\u0103m\u00e2ne doar la tine. De atunci, fiecare fi\u0219\u0103 predat\u0103 este criptat\u0103 pentru tine: nici studentul care a scris-o, nici colegii lui nu o mai pot deschide, chiar dac\u0103 \u00ee\u0219i trimit codurile \u00eentre ei. \u00cen catalog, fi\u0219ele primite criptat sunt marcate cu un lac\u0103t.\n\n> **P\u0103streaz\u0103 fi\u0219ierul cheii.** La generare se descarc\u0103 automat un fi\u0219ier `cheie-profesor-XXXXXX.json`. Cheia privat\u0103 exist\u0103 doar \u00een browserul acestui calculator; dac\u0103 o pierzi, fi\u0219ele deja primite nu mai pot fi deschise de nimeni. Pune fi\u0219ierul \u00een dou\u0103 locuri sigure \u0219i import\u0103-l pe orice alt calculator pe care corectezi.\n\nStudentul deschide fi\u0219a prin codul QR, care con\u021bine \u0219i cheia. Dac\u0103 ajunge la aplica\u021bie altfel \u0219i nu are cheia, codul lui iese necriptat \u0219i aplica\u021bia \u00eei spune asta \u2014 tu \u00eel vezi \u00een catalog f\u0103r\u0103 lac\u0103t. Pe calculatoarele din laborator, deschide aplica\u021bia o dat\u0103 cu adresa care con\u021bine cheia (o g\u0103se\u0219ti sub fiecare cod QR): aplica\u021bia o re\u021bine pentru urm\u0103toarele deschideri de pe acel calculator.\n\n## Accesul la modul profesor\n\nModul profesor este \u00eenchis cu un cod pe care \u00eel alegi tu, la prima intrare. Studen\u021bii care deschid linkul v\u0103d doar fi\u0219a de laborator \u2014 comutatorul *Student / Profesor* nici nu apare la ei. Ca s\u0103 intri, apas\u0103 insigna **LAB** din col\u021bul st\u00e2nga sus \u0219i scrie codul; la ie\u0219ire, ape\u0219i lac\u0103tul din dreapta sus. Pe calculatoarele din laborator **nu bifa** „\u021aine minte pe acest calculator\u201d.\n\n> Codul \u021bine studen\u021bii departe de editor, de catalog \u0219i de note. Nu este \u00eens\u0103 o \u00eencuietoare de seif: cine se pricepe poate citi codul-surs\u0103 al paginii. Pentru lucr\u0103ri notate, apărarea real\u0103 r\u0103m\u00e2ne faptul c\u0103 fiecare student prime\u0219te alte date numerice.\n\n## Pe scurt\n\n1. **Creezi sau editezi lucrarea** \u00een fila *Editor*: antet, descriere, figuri, \u00eentreb\u0103ri gril\u0103, aplica\u021bii numerice cu date generate individual \u0219i \u00eentreb\u0103ri cu r\u0103spuns liber.\n2. **Afi\u0219ezi codul QR** al lucr\u0103rii din fila *Acces studen\u021bi*. Fiecare lucrare are propriul cod, care se actualizeaz\u0103 singur c\u00e2nd ad\u0103ugi sau sco\u021bi lucr\u0103ri.\n3. **Studentul** \u00ee\u0219i scrie numele \u0219i grupa (a\u0219a prime\u0219te propriul set de date numerice), r\u0103spunde \u0219i apas\u0103 *Finalizeaz\u0103*. Fi\u0219a se salveaz\u0103 automat pe parcurs, deci poate \u00eenchide pagina \u0219i relua mai t\u00e2rziu.\n4. **Trimiterea**: dintr-o ap\u0103sare, prin e-mail, WhatsApp sau Teams \u2014 sau, f\u0103r\u0103 semnal, ca un cod QR pe care \u00eel scanezi de pe ecranul lui.\n5. **Tu** lipe\u0219ti \u00een *Catalog* tot ce ai primit \u2014 un e-mail, o conversa\u021bie, oric\u00e2t text: aplica\u021bia g\u0103se\u0219te singur\u0103 toate codurile. Corecteaz\u0103 automat grilele \u0219i aplica\u021biile numerice; tu acorzi punctajul la r\u0103spunsurile libere.\n6. **Nota final\u0103** apare \u00een fila *Note finale*: media notelor de la lucr\u0103rile predate, cu export \u00een Excel \u0219i clasament pe grupe pentru proiec\u021bie.\n\n## Cum adaugi o lucrare nou\u0103, f\u0103r\u0103 ajutor din afar\u0103\n\n1. *Laboratoare* \u2192 **Laborator nou**.\n2. Completezi antetul \u0219i descrierea. Textul accept\u0103 titluri (`## Titlu`), liste, \u00eengro\u0219at (`**text**`), tabele cu `|`, indici `x_{i}` \u0219i exponen\u021bi `x^{2}`.\n3. **Figurile**: butonul *Figuri disponibile* \u2192 *Adaug\u0103 figuri din calculator*. Aplica\u021bia le mic\u0219oreaz\u0103 singur\u0103 \u0219i le salveaz\u0103 \u00een lucrare; le inserezi cu un clic, care copiaz\u0103 codul `![descriere](cheie)`.\n4. Adaugi \u00eentreb\u0103rile \u0219i ape\u0219i *Salveaz\u0103*. Lucrarea apare imediat \u00een list\u0103 \u0219i prime\u0219te automat propriul cod QR.\n5. Din c\u00e2nd \u00een c\u00e2nd apas\u0103 **Export\u0103 pachetul** \u2014 un singur fi\u0219ier cu toate lucr\u0103rile \u0219i figurile lor, pe care \u00eel po\u021bi reimporta oric\u00e2nd, pe orice calculator.\n\n## Aplica\u021bii numerice individuale\n\nFiecare aplica\u021bie numeric\u0103 poate avea variabile cu interval, pas \u0219i unitate de m\u0103sur\u0103. Valorile se genereaz\u0103 dintr-un *cod de date* derivat din numele \u0219i grupa studentului: sunt diferite de la student la student, dar identice la fiecare redeschidere pentru acela\u0219i student. Corectarea folose\u0219te exact valorile primite de el. Dac\u0103 pui aceea\u0219i valoare la *min* \u0219i la *max*, \u00eentrebarea devine fix\u0103, cu datele din \u00eendrumar.\n\n## R\u0103spunsurile corecte\n\nCu *autoevaluarea* pornit\u0103, studentul \u00ee\u0219i vede punctajul imediat \u2014 dar r\u0103spunsurile corecte se afl\u0103 \u00een pachetul trimis lui. Pentru lucr\u0103ri notate, oprete autoevaluarea: pachetul studentului va con\u021bine doar enun\u021burile, iar corectarea se face la tine.\n\nLucrările livrate cu pagina publică nu conțin baremul. Pe calculatorul tău, încarcă o dată fișierul de barem (`barem-lucrari.json`) din *Laboratoare* → **Importă…**: aplicația îl păstrează în acest browser și corectează cu el. Nu îl încărca pe calculatoarele din laborator și nu îl pune pe site.\n\n## Unde se p\u0103streaz\u0103 datele\n\nLucr\u0103rile livrate cu pagina vin odat\u0103 cu fi\u0219ierul. Lucr\u0103rile pe care le creezi sau le modifici tu, figurile lor \u0219i catalogul se salveaz\u0103 **\u00een browserul acestui calculator**, \u00eentr-o baz\u0103 de date local\u0103 care suport\u0103 \u0219i imagini. Nu se sincronizeaz\u0103 \u00eentre dispozitive \u0219i se pierd dac\u0103 \u0219tergi datele browserului \u2014 de aceea *Export\u0103 pachetul* \u0219i *Backup JSON* din Catalog sunt importante.\n\n## \u0218tergerea unei lucr\u0103ri\n\n*\u0218terge* scoate lucrarea din list\u0103 \u0219i o \u021bine ascuns\u0103 \u0219i dup\u0103 reînc\u0103rcarea paginii. Dac\u0103 te r\u0103zg\u00e2nde\u0219ti, \u00een capul listei apare butonul *Readu-le*.") + "</div>";
 }
 
 /* ============================ modal ============================ */
@@ -2955,6 +2822,13 @@ function isSub(o) { return o && typeof o === "object" && ((o.answers && o.labId)
 
 async function importLabText(text) {
   const o = await parseAny(text);
+  if (o && o.caietBarem && o.labs) {
+    Object.assign(BAREM, o.labs);
+    await Store.set(K.barem, BAREM);
+    rebuildLabs(); restoreDraft();
+    toast("Baremul a fost încărcat pentru " + Object.keys(o.labs).length + " lucrări");
+    return;
+  }
   const arr = Array.isArray(o) ? o : [o];
   let n = 0;
   arr.forEach(x => {
@@ -3020,6 +2894,7 @@ function openSubModal(key) {
     (r.g ? "<div style='text-align:right'><div class='mono' style='font-size:20px'>" + fmt(r.total, r.total % 1 ? 1 : 0) + "/" + r.max +
       "</div><div class='small muted'>automat: " + fmt(r.g.auto, r.g.auto % 1 ? 1 : 0) + "/" + r.g.autoMax + "</div></div>" : "") + "</div>";
 
+  if (full && full.stripped) b += '<div class="fb bad" style="margin-bottom:12px">Baremul acestei lucrări nu este încărcat în acest browser, deci punctajul automat lipsește. Încarcă fișierul de barem din fila „Laboratoare” → „Importă…”.</div>';
   if (!full) {
     b += '<div class="fb bad">Laboratorul <b>' + esc(c.labId) + "</b> nu se află în biblioteca acestui browser, deci răspunsurile nu pot fi corectate automat. Importă laboratorul complet în fila „Laboratoare”.</div>";
     b += '<div class="codebox" style="margin-top:12px;max-height:260px">' + esc(JSON.stringify(c.answers, null, 1)) + "</div>";
@@ -3436,6 +3311,7 @@ async function init() {
   USER_LABS = (await Store.get(K.labs, null)) || LS.get(K.labs, []) || [];
   HIDDEN = (await Store.get(K.hidden, null)) || LS.get(K.hidden, []) || [];
   S.catalog = (await Store.get(K.cat, null)) || LS.get(K.cat, []) || [];
+  BAREM = (await Store.get(K.barem, null)) || {};
 
   /* o singură dată: se elimină laboratoarele demonstrative din versiunile vechi */
   if (!LS.get("cl.mig2", false)) {
