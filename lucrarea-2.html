@@ -1531,6 +1531,7 @@ function renderSubmitCard(l, ready, submitted, done, nQ) {
     '<button type="button" class="btn" id="btnQR">Arată codul QR</button>' +
     '<button type="button" class="btn' + (canShare() || l.teacherEmail ? "" : " primary") + '" id="btnCopyCode">Copiază codul</button>' +
     '<button type="button" class="btn" id="btnDlCode">Descarcă fișierul</button>' +
+    '<button type="button" class="btn" id="btnLmsFile">Predare pe eLearning</button>' +
     "</div>" +
     '<details><summary class="small muted" style="cursor:pointer">Codul de predare, ca text</summary>' +
     '<div class="codebox" id="codeBox" style="margin-top:8px">' + esc(r.code) + "</div></details>" +
@@ -2392,10 +2393,22 @@ document.addEventListener("click", async (ev) => {
       '<button type="button" class="btn" data-mclose>Închide</button>');
     return;
   }
-  if (t.id === "btnDlCode") {
+  if (t.id === "btnDlCode" || t.id === "btnLmsFile") {
     const l = lab();
     const nm = (S.student.name || "student").replace(/[^\wăâîșțĂÂÎȘȚ -]/g, "").replace(/\s+/g, "_");
     saveFile(nm + "_" + (l ? l.id : "lab") + ".json", JSON.stringify(Object.assign({ code: S.result.code }, { name: S.student.name, group: S.student.group, labId: l && l.id, labTitle: l && l.title, submittedAt: S.result.submittedAt, answers: S.ans, given: (function () { const g = {}; (l.questions || []).forEach(q => { if (q.type === "num") g[q.id] = genVars(q, mySeed()); }); return g; })() }), null, 1));
+    if (t.id === "btnLmsFile") {
+      openModal("Predare pe eLearning",
+        '<p style="margin-bottom:10px">Fișierul <b class="mono">' + esc(nm + "_" + (l ? l.id : "lab") + ".json") + '</b> s-a descărcat pe acest dispozitiv (de obicei în folderul <i>Descărcări</i>).</p>' +
+        '<ol style="margin:0 0 10px 18px;line-height:1.6">' +
+        '<li>Intră pe platforma eLearning a universității și deschide cursul.</li>' +
+        '<li>Deschide tema de predare pentru <b>' + esc(l ? l.title : "această lucrare") + '</b>.</li>' +
+        '<li>Apasă <b>Adaugă predare</b> și trage fișierul în caseta de încărcare (sau alege-l din <i>Descărcări</i>).</li>' +
+        '<li>Apasă <b>Salvează modificările</b>. Dacă apare butonul <b>Trimite tema</b>, apasă-l și pe el.</li>' +
+        '</ol>' +
+        '<p class="small muted">Nu redenumi și nu deschide fișierul înainte de încărcare. Dacă nu îl găsești, apasă din nou butonul.</p>',
+        '<button type="button" class="btn primary" data-mclose>Am înțeles</button>');
+    }
     return;
   }
   if (t.id === "btnRedo") {
