@@ -278,7 +278,7 @@ hr.sep{border:0;border-top:1px solid var(--line);margin:16px 0}
 
 <script>
 "use strict";
-/*PRESET-START*/window.__CL_PRESET={"v": 1, "pub": "BJeBui_BdhnRdMtWBp2mC1MqYNvN8eIQnypMpwePE0HFDUSUEUO61zHJDYQbOznO4nXVIRUBDJgGbSyJUJokhKk", "site": "auto"};/*PRESET-END*/
+/*PRESET-START*/window.__CL_PRESET={"v": 1, "pub": "BJeBui_BdhnRdMtWBp2mC1MqYNvN8eIQnypMpwePE0HFDUSUEUO61zHJDYQbOznO4nXVIRUBDJgGbSyJUJokhKk", "site": "https://sergiugeorgescu-ai.github.io/caiet-laborator/"};/*PRESET-END*/
 /* ---- figuri livrate cu pagina (data:image/webp) ---- */
 const IMG = {{IMG}};
 /* ============================ utilitare ============================ */
@@ -1656,7 +1656,7 @@ function labLink(id) {
   const b = guessLink();
   return b ? b.split("#")[0] + "#lab=" + id + keyParam() : "";
 }
-/* Site-ul (GitHub Pages): index.html = toate lucrările, lucrari/<id>.html = doar lucrarea respectivă.
+/* Site-ul (GitHub Pages): index.html = toate lucrările, <id>.html = doar lucrarea respectivă.
    Adresa vine din setari.json („site”) sau, pe paginile site-ului („auto”), din adresa paginii. */
 function siteBase() {
   try {
@@ -1673,7 +1673,7 @@ function labUrl(l) {
   if (!l) return appLink();
   if (l.link) return l.link;
   const sb = siteBase();
-  return sb ? sb + "lucrari/" + encodeURIComponent(l.id) + ".html" : labLink(l.id);
+  return sb ? sb + encodeURIComponent(l.id) + ".html" : labLink(l.id);
 }
 function onClaude() { return /^https:\/\/([a-z0-9-]+\.)*claude\.ai\//i.test(guessLink()); }
 function appLink() {

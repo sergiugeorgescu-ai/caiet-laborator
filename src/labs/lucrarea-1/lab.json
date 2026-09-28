@@ -6,7 +6,7 @@
   "teacherEmail": "",
   "duration": "2 ore",
   "date": "",
-  "selfCheck": true,
+  "selfCheck": false,
   "objectives": [
     "Descrie construcția propriu-zisă a unei instalații de uscare: scheletul, carcasa, ușile și planșeul intermediar.",
     "Identifice elementele componente ale instalației de uscare și rolul fiecăruia.",
@@ -25,9 +25,7 @@
         "Miez din aluminiu și înveliș cu aripioare din oțel inoxidabil",
         "Miez din cupru și înveliș cu aripioare din alamă",
         "Miez din oțel carbon și înveliș din tablă zincată"
-      ],
-      "correct": 0,
-      "explain": "Miezul din oțel inoxidabil rezistă mediului alcalin al agentului termic, iar aripioarele din aluminiu rezistă acizilor din aer și transferă mai bine căldura."
+      ]
     },
     {
       "id": "q2",
@@ -39,9 +37,7 @@
         "Pentru că aluminiul rezistă mai bine în medii alcaline decât oțelul inoxidabil",
         "Pentru că permite folosirea încălzitoarelor electrice",
         "Pentru că țeava este expusă la interior unui mediu alcalin (agentul termic), iar la exterior unui mediu acid (aerul încărcat cu acizii din lemn)"
-      ],
-      "correct": 3,
-      "explain": "Aluminiul rezistă foarte bine la acizi, iar oțelul inoxidabil în medii alcaline; fiecare material e pus pe fața pe care rezistă."
+      ]
     },
     {
       "id": "q3",
@@ -53,9 +49,7 @@
         "Pe pardoseala camerei, sub stivă",
         "În secțiunea de intrare a aerului în stivă",
         "Lângă ușă, pentru acces ușor la întreținere"
-      ],
-      "correct": 2,
-      "explain": "Aerul trebuie încălzit înainte să intre în stivă. La instalațiile cu ventilatoare deasupra stivelor (ca SEBA), țevile sunt orizontale, sus, puțin deasupra planșeului intermediar."
+      ]
     },
     {
       "id": "q4",
@@ -67,9 +61,7 @@
         "1,5 m/s la foioase și 2,5 m/s la rășinoase",
         "2,5 m/s la foioase și 1,5 m/s la rășinoase",
         "5 m/s indiferent de specie"
-      ],
-      "correct": 1,
-      "explain": "Viteza aerului în stivă trebuie să fie de cel puțin 1,5 m/s la uscarea foioaselor și de cel puțin 2,5 m/s la uscarea rășinoaselor."
+      ]
     },
     {
       "id": "q5",
@@ -81,9 +73,7 @@
         "Pentru a mări umiditatea relativă a aerului",
         "Pentru a răci motoarele electrice",
         "Pentru a economisi energie, după ce la început s-a evaporat apa liberă din lemn"
-      ],
-      "correct": 3,
-      "explain": "Viteza mare este necesară la început, când se evaporă apa liberă; spre final se reduce, pentru a economisi energie."
+      ]
     },
     {
       "id": "q6",
@@ -95,9 +85,7 @@
         "Pentru a putea monta mai multe ventilatoare",
         "Pentru ca volumul de aer admis să fie egal cu cel evacuat",
         "Pentru a reduce costul instalației"
-      ],
-      "correct": 2,
-      "explain": "Aerul „utilizat” eliminat trebuie înlocuit cu o cantitate egală de aer „proaspăt”, cu umiditate relativă mai mică."
+      ]
     },
     {
       "id": "q7",
@@ -109,9 +97,7 @@
         "Nu pot atinge temperaturile de regim",
         "Nu pot fi montate în instalațiile metalice",
         "Nu pot fi reglate automat"
-      ],
-      "correct": 0,
-      "explain": "Încălzitoarele electrice sunt posibile, dar consumul de energie este foarte mare, pentru că procesele de uscare durează mult."
+      ]
     },
     {
       "id": "q8",
@@ -123,9 +109,7 @@
         "Spălarea stivei de cherestea la sfârșitul uscării",
         "Evacuarea condensului",
         "Ridicarea umidității relative a aerului din camera de uscare, atunci când este necesar"
-      ],
-      "correct": 3,
-      "explain": "Țeava de umezire ridică umiditatea relativă a aerului; la SEBA, duzele de pulverizare transformă apa în ceață."
+      ]
     },
     {
       "id": "q9",
@@ -137,9 +121,7 @@
         "Dacă se rotesc numai într-un sens",
         "Dacă sunt echilibrate (să nu „bată”)",
         "Dacă turația lor depășește 1400 rpm"
-      ],
-      "correct": 2,
-      "explain": "Printre verificările dinaintea unei noi șarje: ventilatoarele trebuie să fie echilibrate, să nu „bată”."
+      ]
     },
     {
       "id": "q10",
@@ -151,57 +133,50 @@
         "6 m³/șarjă",
         "7,5 m³/șarjă",
         "20,9 m³/șarjă"
-      ],
-      "correct": 1,
-      "explain": "Tabelul 1.1: capacitatea maximă de încărcare este de 6 m³/șarjă. (7,5 m³ ar fi volumul geometric al stivei, iar 20,9 m³ volumul interior al camerei.)"
+      ]
     },
     {
       "id": "q11",
       "type": "open",
       "points": 2,
       "rows": 4,
-      "text": "Care sunt **elementele constructive** ale unei instalații de uscare?",
-      "model": "Se așteaptă: scheletul de rezistență și carcasa propriu-zisă, formată din pereți, planșeu superior și ușă; după material, instalațiile pot fi metalice, din zidărie sau din beton."
+      "text": "Care sunt **elementele constructive** ale unei instalații de uscare?"
     },
     {
       "id": "q12",
       "type": "open",
       "points": 2,
       "rows": 4,
-      "text": "Care sunt **avantajele** pe care le oferă o instalație de uscare metalică?",
-      "model": "Se așteaptă: etanșeitate foarte bună, protecție deosebită împotriva coroziunii, izolare termică și hidrofugă foarte bună, spațiu de amplasare mai redus decât la cele din zidărie, transport ușor, montaj rapid direct la beneficiar pe o platformă betonată, fără întreținere."
+      "text": "Care sunt **avantajele** pe care le oferă o instalație de uscare metalică?"
     },
     {
       "id": "q13",
       "type": "open",
       "points": 2,
       "rows": 4,
-      "text": "Care este rolul **planșeului intermediar** al instalației de uscare?",
-      "model": "Se așteaptă: desparte spațiul util de uscare (unde se află stiva) de spațiul tehnic (unde se află caloriferul, ventilatoarele etc.); la SEBA este o placă din aluminiu ondulat."
+      "text": "Care este rolul **planșeului intermediar** al instalației de uscare?"
     },
     {
       "id": "q14",
       "type": "open",
       "points": 2,
       "rows": 4,
-      "text": "Din ce materiale este alcătuită **structura tip „sandwich”** a panourilor prefabricate la o instalație de uscare metalică?",
-      "model": "Se așteaptă: două table de aluminiu de 2 mm cu un strat izolator de poliuretan (sau vată minerală) de 100 mm între ele; la exterior se poate folosi și tablă neagră de oțel, deoarece fața exterioară trebuie să reziste doar la intemperii, nu și la acizii degajați din lemn."
+      "text": "Din ce materiale este alcătuită **structura tip „sandwich”** a panourilor prefabricate la o instalație de uscare metalică?"
     },
     {
       "id": "q15",
       "type": "open",
       "points": 3,
       "rows": 7,
-      "text": "Care sunt **agregatele obligatorii** (elementele componente) ale unei instalații de uscare și care este rolul fiecăruia? Schema instalației SEBA (Fig. 1.1), cu poziția agregatelor componente, se desenează pe hârtie și se predă cu referatul.",
-      "model": "Se așteaptă: caloriferul (țevi de încălzire) — ridică și menține temperatura la valoarea de regim; țeava de umezire — ridică umiditatea relativă a aerului când e necesar; sistemul de circulație forțată (ventilatoarele) — asigură viteza aerului prin stivă (minim 1,5 m/s la foioase, 2,5 m/s la rășinoase); coșurile de aer — primenesc (desumidifică) aerul prin schimb cu exteriorul. Pe schemă (Fig. 1.1): stiva (1), țevile de calorifer (2), țeava de pulverizare (3), ventilatorul axial (4), coșurile (5), planșeul intermediar (6)."
+      "text": "Care sunt **agregatele obligatorii** (elementele componente) ale unei instalații de uscare și care este rolul fiecăruia? Schema instalației SEBA (Fig. 1.1), cu poziția agregatelor componente, se desenează pe hârtie și se predă cu referatul."
     },
     {
       "id": "q16",
       "type": "open",
       "points": 2,
       "rows": 4,
-      "text": "Ce avantaj aduce posibilitatea de **inversare a sensului aerului** prin stivă?",
-      "model": "Se așteaptă: uscare mai uniformă în cuprinsul stivei — fără inversare, partea stivei pe unde intră aerul cald se usucă mai repede decât cea pe unde iese; inversarea periodică a sensului echilibrează uscarea și duce la o umiditate finală mai uniformă."
+      "text": "Ce avantaj aduce posibilitatea de **inversare a sensului aerului** prin stivă?"
     }
-  ]
+  ],
+  "stripped": true
 }

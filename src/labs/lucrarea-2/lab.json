@@ -6,7 +6,7 @@
   "teacherEmail": "",
   "duration": "2 ore",
   "date": "",
-  "selfCheck": true,
+  "selfCheck": false,
   "objectives": [
     "Descrie caracteristicile șipcilor de stivuire.",
     "Specifice regulile de stivuire.",
@@ -25,9 +25,7 @@
         "![b](l2-fig27b)",
         "![c](l2-fig27c)",
         "![d](l2-fig27d)"
-      ],
-      "correct": 3,
-      "explain": "Pentru rășinoase cu grosimea între 31 și 60 mm, Tabelul 2.1 impune o distanță între șipci de cca. 1000 mm, iar șipcile trebuie așezate obligatoriu și la capetele stivei. Varianta d îndeplinește ambele condiții: șipci la ambele capete și din metru în metru pe lungimea de 4 m."
+      ]
     },
     {
       "id": "q2",
@@ -39,9 +37,7 @@
         "![b](l2-fig28b)",
         "![c](l2-fig28c)",
         "![d](l2-fig28d)"
-      ],
-      "correct": 3,
-      "explain": "Varianta d respectă toate regulile: stivele sunt aliniate în coloane, cu spații de cca. 100 mm între ele pe lățimea camerei și cu spații de cca. 0,5 m față de pereți pe lungimea camerei, astfel încât aerul circulă liber și uniform prin toate rândurile."
+      ]
     },
     {
       "id": "q4",
@@ -53,9 +49,7 @@
         "401...600 mm",
         "601...800 mm",
         "1000 mm"
-      ],
-      "correct": 1,
-      "explain": "Tabelul 2.1: foioase, grosime 31...60 mm → 401...600 mm."
+      ]
     },
     {
       "id": "q5",
@@ -67,9 +61,7 @@
         "0,75",
         "0,6",
         "1"
-      ],
-      "correct": 2,
-      "explain": "K_{l} = 0,9 pentru cherestea tivită, 0,75 pentru semitivită și 0,6 pentru netivită."
+      ]
     },
     {
       "id": "q6",
@@ -81,17 +73,14 @@
         "cu partea dinspre inimă în jos",
         "alternativ, o piesă în sus și una în jos",
         "nu are importanță orientarea lor"
-      ],
-      "correct": 0,
-      "explain": "Contragerea inegală după direcția radială și cea tangențială face piesa să se bombeze; așezarea cu partea dinspre inimă în sus contracarează această tendință (Fig. 2.2)."
+      ]
     },
     {
       "id": "q3",
       "type": "open",
       "points": 2,
       "rows": 5,
-      "text": "Motivați alegerea făcută la întrebarea 2 din grilă (amplasarea stivelor, Fig. 2.8): ce reguli de amplasare sunt încălcate în celelalte variante?",
-      "model": "Se așteaptă: stivele trebuie aliniate în coloane, cu spații de cca. 100 mm între ele pe lățimea camerei și cca. 0,5 m față de pereți pe lungimea camerei; stivele așezate lipit de pereți sau decalate unele față de altele obstrucționează circulația aerului și duc la scurtcircuitarea curentului de aer prin spațiile goale, deci la uscare neuniformă."
+      "text": "Motivați alegerea făcută la întrebarea 2 din grilă (amplasarea stivelor, Fig. 2.8): ce reguli de amplasare sunt încălcate în celelalte variante?"
     },
     {
       "id": "q7",
@@ -116,12 +105,8 @@
           "unit": "mm"
         }
       ],
-      "expr": "s/(ss+1.08*s)",
       "unit": "—",
-      "tolPct": 2,
-      "tolAbs": 0,
-      "dec": 3,
-      "solution": "K_{h} = s / (s_{s} + 1,08 · s) = 70 / (20 + 1,08 · 70) = 70 / 95,6."
+      "dec": 3
     },
     {
       "id": "q8",
@@ -129,12 +114,8 @@
       "points": 2,
       "text": "**Varianta A.** Calculați capacitatea de încărcare V a instalației: fag, piese de 5–6 m (K_{L} = 0,85), cherestea tivită (K_{l} = 0,9), s = 70 mm, s_{s} = 20 mm, L_{st} = 6 m, l_{st} = 1,2 m, h_{st} = 1 m, n_{st} = 6 stive.",
       "vars": [],
-      "expr": "6*1.2*1*6*0.85*0.9*(70/(20+1.08*70))",
       "unit": "m³/șarjă",
-      "tolPct": 3,
-      "tolAbs": 0,
-      "dec": 2,
-      "solution": "V_{g.st} = 6 · 1,2 · 1 = 7,2 m³; K_{h} = 0,732; K_{st} = 0,85 · 0,9 · 0,732 = 0,560; V = 7,2 · 6 · 0,560."
+      "dec": 2
     },
     {
       "id": "q9",
@@ -142,12 +123,8 @@
       "points": 2,
       "text": "**Varianta B.** Calculați capacitatea de încărcare V: stejar, toate piesele de 6 m, egale cu lungimea stivei (K_{L} = 1), cherestea netivită (K_{l} = 0,6), s = 40 mm, s_{s} = 20 mm, L_{st} = 6 m, l_{st} = 1,2 m, h_{st} = 1 m, n_{st} = 6 stive.",
       "vars": [],
-      "expr": "6*1.2*1*6*1*0.6*(40/(20+1.08*40))",
       "unit": "m³/șarjă",
-      "tolPct": 3,
-      "tolAbs": 0,
-      "dec": 2,
-      "solution": "K_{h} = 40 / (20 + 43,2) = 0,633; K_{st} = 1 · 0,6 · 0,633 = 0,380; V = 43,2 · 0,380."
+      "dec": 2
     },
     {
       "id": "q10",
@@ -155,12 +132,8 @@
       "points": 2,
       "text": "**Aplicația 2a.** Pentru instalația de la Varianta A (fag, 70 mm — Tabelul 2.2), încărcată cu **vagonete** (1 h/vagonet, 6 stive), calculați capacitatea anuală de uscare P_{an}. Se consideră T = 7200 h/an.",
       "vars": [],
-      "expr": "24.199*7200/(15*24+6)",
       "unit": "m³/an",
-      "tolPct": 4,
-      "tolAbs": 0,
-      "dec": 0,
-      "solution": "D_{t} = 15 zile = 360 h; D_{î.d.} = 6 × 1 h = 6 h; Z = 366 h; P_{an} = 24,2 · 7200 / 366."
+      "dec": 0
     },
     {
       "id": "q11",
@@ -168,12 +141,9 @@
       "points": 2,
       "text": "**Aplicația 2b.** Aceeași instalație, încărcată cu **autostivuitorul** (20 minute/stivă, 6 stive). Calculați P_{an}.",
       "vars": [],
-      "expr": "24.199*7200/(15*24+6*20/60)",
       "unit": "m³/an",
-      "tolPct": 4,
-      "tolAbs": 0,
-      "dec": 0,
-      "solution": "D_{î.d.} = 6 × 20 min = 2 h; Z = 360 + 2 = 362 h; P_{an} = 24,2 · 7200 / 362."
+      "dec": 0
     }
-  ]
+  ],
+  "stripped": true
 }

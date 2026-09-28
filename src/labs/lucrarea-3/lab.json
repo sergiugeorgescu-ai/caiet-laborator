@@ -6,7 +6,7 @@
   "teacherEmail": "",
   "duration": "2 ore",
   "date": "",
-  "selfCheck": true,
+  "selfCheck": false,
   "objectives": [
     "Identifice metodele de determinare a umidității lemnului specificate în standardele europene, precum și avantajele și dezavantajele fiecăreia.",
     "Aplice metoda cântăririi și uscării epruvetelor pentru determinarea umidității inițiale a lemnului.",
@@ -26,9 +26,7 @@
         "Metoda rezistivă",
         "Metoda capacitivă",
         "Metoda cu traductori de umiditate"
-      ],
-      "correct": 0,
-      "explain": "Metoda prin uscare și cântărire (SR EN 13183-1) este cea mai precisă și servește ca referință pentru calibrarea și verificarea celorlalte metode."
+      ]
     },
     {
       "id": "q2",
@@ -40,9 +38,7 @@
         "SR EN 13183-2:2003/AC:2003",
         "SR EN 13183-3:2005",
         "STAS 9701-88"
-      ],
-      "correct": 1,
-      "explain": "SR EN 13183-1 — uscare și cântărire; SR EN 13183-2 — metoda rezistivă; SR EN 13183-3 — metoda capacitivă."
+      ]
     },
     {
       "id": "q3",
@@ -54,9 +50,7 @@
         "103 ± 2 °C",
         "120 ± 5 °C",
         "50 ± 2 °C"
-      ],
-      "correct": 1,
-      "explain": "Uscarea se face la 103 ± 2 °C, până când diferența de masă între două cântăriri la interval de 2 h scade sub 0,1%."
+      ]
     },
     {
       "id": "q4",
@@ -68,9 +62,7 @@
         "200 mm",
         "300 mm",
         "600 mm"
-      ],
-      "correct": 2,
-      "explain": "Cel puțin 300 mm față de oricare capăt — sau la mijlocul piesei, dacă aceasta este mai scurtă de 600 mm."
+      ]
     },
     {
       "id": "q5",
@@ -82,9 +74,7 @@
         "umiditatea de saturație a fibrei (≈30%)",
         "50% umiditate",
         "umiditatea de echilibru higroscopic"
-      ],
-      "correct": 1,
-      "explain": "Peste punctul de saturație a fibrei (U_{sf} ≈ 30%) diferențele de rezistență electrică devin nesemnificative — de aici și limitarea domeniului umidometrelor rezistive."
+      ]
     },
     {
       "id": "q6",
@@ -96,9 +86,7 @@
         "densitatea specifică a materialului",
         "umiditatea aerului din încăpere",
         "grosimea șipcilor de stivuire"
-      ],
-      "correct": 1,
-      "explain": "Compensarea în funcție de temperatură este mai complicată la umidometrele capacitive decât la cele rezistive; de aceea ele compensează doar după densitate, specia fiind luată în calcul prin densitatea ei specifică."
+      ]
     },
     {
       "id": "q7",
@@ -110,9 +98,7 @@
         "2",
         "3",
         "5"
-      ],
-      "correct": 1,
-      "explain": "Tabelul 3.2: la 3, 4 sau 5 piese încercate se fac câte 2 măsurări pe piesă; la o singură piesă sau la două — câte 3; la peste 5 piese — câte una."
+      ]
     },
     {
       "id": "q8",
@@ -124,41 +110,35 @@
         "5%",
         "10%",
         "15%"
-      ],
-      "correct": 1,
-      "explain": "ΔU = U_{max} − U_{min} nu trebuie să depășească 5%, sub punctul de saturație al fibrei."
+      ]
     },
     {
       "id": "q9",
       "type": "open",
       "points": 3,
       "rows": 6,
-      "text": "Care sunt principalele metode specificate în standardele europene pentru determinarea umidității lemnului în practica uscării? Enumerați câteva dintre avantajele și dezavantajele fiecăreia.",
-      "model": "Se așteaptă cele trei metode cu standardele lor (uscare și cântărire — SR EN 13183-1; rezistivă — 13183-2; capacitivă — 13183-3). Uscare și cântărire: cea mai precisă, valabilă pe toată secțiunea și pentru orice umiditate, dar laborioasă, distructivă și cu rezultat întârziat. Rezistivă: rapidă, nedistructivă practic, compensare după specie și temperatură, dar precisă doar în domeniul ~8...24% și influențată de gradientul de umiditate la electrozii neizolați. Capacitivă: complet nedistructivă, foarte rapidă, dar cea mai puțin precisă, sensibilă la contactul cu suprafața și compensată doar după densitate."
+      "text": "Care sunt principalele metode specificate în standardele europene pentru determinarea umidității lemnului în practica uscării? Enumerați câteva dintre avantajele și dezavantajele fiecăreia."
     },
     {
       "id": "q10",
       "type": "open",
       "points": 2,
       "rows": 4,
-      "text": "Ce metodă recomandați pentru determinarea **exactă** a umidității inițiale a cherestelei înainte de uscare? Motivați și descrieți pe scurt modul de aplicare.",
-      "model": "Metoda prin uscare și cântărire, pentru că umiditatea inițială depășește de regulă punctul de saturație a fibrei, domeniu în care metodele electrice nu sunt precise. Aplicare: se alege o piesă fără defecte, dintre cele mai umede; se debitează epruveta la minimum 300 mm de capăt; se cântărește imediat (m_u); se usucă la 103 ± 2 °C până la masă constantă; se cântărește (m_0); U = (m_u − m_0)/m_0 · 100."
+      "text": "Ce metodă recomandați pentru determinarea **exactă** a umidității inițiale a cherestelei înainte de uscare? Motivați și descrieți pe scurt modul de aplicare."
     },
     {
       "id": "q11",
       "type": "open",
       "points": 2,
       "rows": 4,
-      "text": "Pentru verificarea calității uscării din punctul de vedere al uniformității conținutului final de umiditate (U_{f} = 10%), care dintre cele trei metode o recomandați? Motivați.",
-      "model": "Metoda rezistivă cu umidometru portabil: la 10% umiditate ne aflăm în domeniul de precizie maximă al metodei (8...24%), măsurarea este rapidă și practic nedistructivă, deci se pot verifica multe piese din șarjă pentru a aprecia uniformitatea. Metoda capacitivă este o alternativă și mai rapidă, dar mai puțin precisă."
+      "text": "Pentru verificarea calității uscării din punctul de vedere al uniformității conținutului final de umiditate (U_{f} = 10%), care dintre cele trei metode o recomandați? Motivați."
     },
     {
       "id": "q12",
       "type": "open",
       "points": 2,
       "rows": 4,
-      "text": "Care este rolul probei martor în procesul de uscare a cherestelei și cum se determină masa ei în stare anhidră?",
-      "model": "Proba martor permite urmărirea indirectă a scăderii umidității șarjei, fără a scoate și distruge epruvete la fiecare verificare. Se cântărește în stare inițială (m_i), umiditatea ei inițială fiind considerată egală cu U_im determinată pe epruvetele a1 și a2; masa anhidră rezultă din m_0 = 100·m_i/(100+U_im). Ulterior, din cântăriri succesive se obțin umiditățile la momente date, iar m_f = m_0(1+U_f/100) indică momentul opririi uscării."
+      "text": "Care este rolul probei martor în procesul de uscare a cherestelei și cum se determină masa ei în stare anhidră?"
     },
     {
       "id": "q13",
@@ -183,12 +163,8 @@
           "unit": "g"
         }
       ],
-      "expr": "(mu-m0)/m0*100",
       "unit": "%",
-      "tolPct": 2,
-      "tolAbs": 0,
-      "dec": 2,
-      "solution": "U = (m_{u} − m_{0}) / m_{0} · 100 = (53,43 − 48,10) / 48,10 · 100."
+      "dec": 2
     },
     {
       "id": "q14",
@@ -196,12 +172,8 @@
       "points": 2,
       "text": "**Aplicația 3.** Cele trei straturi ale epruvetei au: b1 — m_{u} = 26,68 g și m_{0} = 22,00 g; b2 — 22,40 g și 17,68 g; b3 — 27,56 g și 22,64 g. Calculați căderea de umiditate pe grosimea piesei, ΔU.",
       "vars": [],
-      "expr": "(22.40-17.68)/17.68*100 - (26.68-22.00)/22.00*100",
       "unit": "%",
-      "tolPct": 5,
-      "tolAbs": 0,
-      "dec": 2,
-      "solution": "U_{b1} = 21,27%; U_{b2} = 26,70%; U_{b3} = 21,73%. ΔU = U_{max} − U_{min} = 26,70 − 21,27. Rezultatul depășește 5%, deci uscarea nu este de calitate corespunzătoare."
+      "dec": 2
     },
     {
       "id": "q15",
@@ -209,12 +181,8 @@
       "points": 2,
       "text": "**Aplicația 4a.** Epruvetele au: a_{1} — masa inițială 56,08 g și masa anhidră 37,53 g; a_{2} — masa inițială 76,90 g și masa anhidră 50,00 g. Calculați umiditatea inițială medie a lotului, U_{im}.",
       "vars": [],
-      "expr": "((56.08-37.53)/37.53*100 + (76.90-50.00)/50.00*100)/2",
       "unit": "%",
-      "tolPct": 2,
-      "tolAbs": 0,
-      "dec": 2,
-      "solution": "U_{a1} = 49,43%; U_{a2} = 53,80%; U_{im} = (49,43 + 53,80) / 2."
+      "dec": 2
     },
     {
       "id": "q16",
@@ -222,12 +190,8 @@
       "points": 2,
       "text": "**Aplicația 4a.** Proba martor are masa inițială m_{i} = 3,40 kg, la umiditatea medie inițială U_{im} = 51,61%. Calculați masa ei în stare anhidră, m_{0}.",
       "vars": [],
-      "expr": "100*3.40/(100+51.61)",
       "unit": "kg",
-      "tolPct": 2,
-      "tolAbs": 0,
-      "dec": 3,
-      "solution": "m_{0} = 100 · m_{i} / (100 + U_{im}) = 340 / 151,61."
+      "dec": 3
     },
     {
       "id": "q17",
@@ -235,12 +199,8 @@
       "points": 2,
       "text": "**Aplicația 4b.** După 70 de ore de uscare, proba martor cântărește 2,96 kg. Știind că masa ei în stare anhidră este m_{0} = 2,243 kg, calculați umiditatea U_{70h}.",
       "vars": [],
-      "expr": "(2.96-2.243)/2.243*100",
       "unit": "%",
-      "tolPct": 3,
-      "tolAbs": 0,
-      "dec": 2,
-      "solution": "U_{70h} = (m_{70} − m_{0}) / m_{0} · 100 = (2,96 − 2,243) / 2,243 · 100."
+      "dec": 2
     },
     {
       "id": "q18",
@@ -248,12 +208,9 @@
       "points": 2,
       "text": "**Aplicația 4c.** Pentru aceeași probă martor (m_{0} = 2,243 kg), calculați masa finală m_{f} la care trebuie oprit procesul, pentru o umiditate finală U_{f} = 10%.",
       "vars": [],
-      "expr": "2.243*(1+10/100)",
       "unit": "kg",
-      "tolPct": 2,
-      "tolAbs": 0,
-      "dec": 3,
-      "solution": "m_{f} = m_{0} · (1 + U_{f}/100) = 2,243 · 1,10."
+      "dec": 3
     }
-  ]
+  ],
+  "stripped": true
 }
