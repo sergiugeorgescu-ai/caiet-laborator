@@ -901,6 +901,8 @@ const LMS = (function () {
     },
     /* "browse" = previzualizare în Moodle: nota nu se înregistrează */
     mode() { const a = get(); if (!a) return ""; try { return String(a.LMSGetValue("cmi.core.lesson_mode") || ""); } catch (e) { return ""; } },
+    /* "no-credit" = încercarea nu contează la notă (tot previzualizare) */
+    credit() { const a = get(); if (!a) return ""; try { return String(a.LMSGetValue("cmi.core.credit") || ""); } catch (e) { return ""; } },
     finish() { const a = get(); if (!a || !started) return; try { a.LMSFinish(""); } catch (e) { } }
   };
 })();
@@ -1385,7 +1387,7 @@ function canScore(l) {
 function lmsAnswers(l, r, sub) {
   const clean = s => String(s == null ? "" : s).replace(/!\[[^\]]*\]\([^)]*\)/g, "[figură]").replace(/[*_`#]/g, "").replace(/\s+/g, " ").trim();
   const num = v => String(Number(Number(v).toPrecision(6))).replace(".", ",");
-  const out = [{ id: "Grupa", resp: clean(sub.group).slice(0, 255) }];
+  const out = [{ id: "Nume", resp: clean(sub.name).slice(0, 255) }, { id: "Grupa", resp: clean(sub.group).slice(0, 255) }];
   (l.questions || []).forEach((q, i) => {
     const id = "Intrebarea_" + (i + 1), a = (sub.answers || {})[q.id];
     const it = (r.items || []).find(x => x.id === q.id) || {};
@@ -2939,8 +2941,8 @@ async function init() {
     LMS.init();
     const who = LMS.student();
     if (who && who.guest) S.lmsGuest = true;
-    /* în previzualizare (cadrul didactic testează) numele din platformă se poate schimba */
-    else if (who && who.name && LMS.mode() === "browse") { S.lmsPreview = true; if (!S.student.name) { S.student.name = who.name; LS.set(K.stud, S.student); } }
+    /* în previzualizare sau într-un pachet de test (cadrul didactic testează) numele din platformă se poate schimba */
+    else if (who && who.name && (LMS.mode() === "browse" || LMS.credit() === "no-credit" || (window.__CL_PRESET || {}).nameFree)) { S.lmsPreview = true; if (!S.student.name) { S.student.name = who.name; LS.set(K.stud, S.student); } }
     else if (who && who.name) { S.fromLMS = true; S.student.name = who.name; LS.set(K.stud, S.student); }
   }
 
