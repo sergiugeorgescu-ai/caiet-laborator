@@ -384,6 +384,43 @@ function nativeSave(filename, text) {
     return true;
   } catch (e) { return false; }
 }
+/* arhivă ZIP simplă (fără compresie), pentru pachetul SCORM */
+const CRC_T = (function () {
+  const t = new Uint32Array(256);
+  for (let n = 0; n < 256; n++) { let c = n; for (let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; }
+  return t;
+})();
+function crc32(b) { let c = 0xFFFFFFFF; for (let i = 0; i < b.length; i++) c = CRC_T[(c ^ b[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function zipStore(files) {
+  const enc = new TextEncoder(), d = new Date();
+  const time = (d.getHours() << 11) | (d.getMinutes() << 5) | (d.getSeconds() >> 1);
+  const date = ((d.getFullYear() - 1980) << 9) | ((d.getMonth() + 1) << 5) | d.getDate();
+  const parts = [], central = [];
+  let off = 0;
+  files.forEach(f => {
+    const name = enc.encode(f.name), data = typeof f.data === "string" ? enc.encode(f.data) : f.data, crc = crc32(data);
+    const h = new DataView(new ArrayBuffer(30));
+    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint16(6, 0x0800, true);
+    h.setUint16(10, time, true); h.setUint16(12, date, true); h.setUint32(14, crc, true);
+    h.setUint32(18, data.length, true); h.setUint32(22, data.length, true); h.setUint16(26, name.length, true);
+    parts.push(new Uint8Array(h.buffer), name, data);
+    const c = new DataView(new ArrayBuffer(46));
+    c.setUint32(0, 0x02014b50, true); c.setUint16(4, 20, true); c.setUint16(6, 20, true); c.setUint16(8, 0x0800, true);
+    c.setUint16(12, time, true); c.setUint16(14, date, true); c.setUint32(16, crc, true);
+    c.setUint32(20, data.length, true); c.setUint32(24, data.length, true); c.setUint16(28, name.length, true);
+    c.setUint32(42, off, true);
+    central.push(new Uint8Array(c.buffer), name);
+    off += 30 + name.length + data.length;
+  });
+  const cdSize = central.reduce((a, p) => a + p.length, 0);
+  const e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(8, files.length, true); e.setUint16(10, files.length, true);
+  e.setUint32(12, cdSize, true); e.setUint32(16, off, true);
+  const all = parts.concat(central, [new Uint8Array(e.buffer)]);
+  const out = new Uint8Array(all.reduce((a, p) => a + p.length, 0));
+  let p = 0; all.forEach(x => { out.set(x, p); p += x.length; });
+  return out;
+}
 async function saveFile(filename, text) {
   if (DL === undefined) { try { DL = await window.claude?.use?.("downloads") ?? null; } catch (e) { DL = null; } }
   if (DL) {
@@ -829,7 +866,9 @@ const LMS = (function () {
         const raw = a.LMSGetValue("cmi.core.student_name") || "";
         const id = a.LMSGetValue("cmi.core.student_id") || "";
         const nume = String(raw).replace(/,/g, " ").replace(/\s+/g, " ").trim();
-        return nume ? { name: nume, id: String(id) } : null;
+        /* vizitator (acces în curs cu parolă): Moodle nu dă un nume real */
+        const guest = /^guest$/i.test(String(id)) || /\b(guest|vizitator|invitat)\b/i.test(nume);
+        return nume || guest ? { name: nume, id: String(id), guest: guest } : null;
       } catch (e) { return null; }
     },
     done(procent) {
@@ -844,6 +883,26 @@ const LMS = (function () {
         a.LMSCommit("");
       } catch (e) { }
     },
+    /* răspunsurile fișei, ca interacțiuni SCORM: în Moodle apar la Rapoarte → Interacțiuni */
+    answers(list) {
+      const a = get(); if (!a) return;
+      try {
+        let n = parseInt(a.LMSGetValue("cmi.interactions._count"), 10); if (!isFinite(n)) n = 0;
+        const d = new Date(), t = [d.getHours(), d.getMinutes(), d.getSeconds()].map(x => String(x).padStart(2, "0")).join(":");
+        list.forEach(x => {
+          const p = "cmi.interactions." + (n++) + ".";
+          a.LMSSetValue(p + "id", x.id);
+          a.LMSSetValue(p + "type", "fill-in");
+          a.LMSSetValue(p + "time", t);
+          a.LMSSetValue(p + "student_response", x.resp);
+          if (x.result) a.LMSSetValue(p + "result", x.result);
+        });
+      } catch (e) { }
+    },
+    /* "browse" = previzualizare în Moodle: nota nu se înregistrează */
+    mode() { const a = get(); if (!a) return ""; try { return String(a.LMSGetValue("cmi.core.lesson_mode") || ""); } catch (e) { return ""; } },
+    /* "no-credit" = încercarea nu contează la notă (tot previzualizare) */
+    credit() { const a = get(); if (!a) return ""; try { return String(a.LMSGetValue("cmi.core.credit") || ""); } catch (e) { return ""; } },
     finish() { const a = get(); if (!a || !started) return; try { a.LMSFinish(""); } catch (e) { } }
   };
 })();
@@ -1137,7 +1196,11 @@ const S = {
   openSub: null,
   rankNames: false,
   unlocked: false,
-  fromLMS: false
+  fromLMS: false,
+  lmsGuest: false,
+  lmsPreview: false,
+  teme: {},
+  noteW: null
 };
 
 /* ============================ acces profesor ============================ */
@@ -1219,7 +1282,7 @@ async function resetPin() {
     "Șterge și resetează");
   if (!ok) return;
   LS.del(K.pin); LS.del(K.keep);
-  USER_LABS = []; HIDDEN = []; S.catalog = [];
+  USER_LABS = []; HIDDEN = []; S.catalog = []; S.teme = {}; Store.set(KT, {});
   await persistLabs(); await Store.set(K.cat, []);
   setUnlocked(false, false);
   rebuildLabs(); S.role = "student"; LS.set(K.role, "student"); render();
@@ -1228,6 +1291,8 @@ async function resetPin() {
 /* Lucrările livrate cu pagina (BUILTIN) rămân în pagină. În browser se salvează
    doar lucrările create sau modificate de profesor — acestea pot avea figuri proprii. */
 let USER_LABS = [], HIDDEN = [];
+/* un pachet SCORM conține o singură lucrare: activitatea din Moodle primește nota doar pentru ea */
+const ONLY_LAB = (window.__CL_PRESET && window.__CL_PRESET.lab) || null;
 function rebuildLabs() {
   const byId = {};
   USER_LABS.forEach(l => { if (l && l.id) byId[l.id] = l; });
@@ -1237,7 +1302,7 @@ function rebuildLabs() {
     out.push(byId[b.id] ? byId[b.id] : JSON.parse(JSON.stringify(b)));
   });
   USER_LABS.forEach(l => { if (!BUILTIN.some(b => b.id === l.id) && HIDDEN.indexOf(l.id) < 0) out.push(l); });
-  S.labs = out;
+  S.labs = ONLY_LAB && out.some(l => l.id === ONLY_LAB) ? out.filter(l => l.id === ONLY_LAB) : out;
   if (!S.labId || !S.labs.some(l => l.id === S.labId)) S.labId = S.labs[0] ? S.labs[0].id : null;
 }
 let saveErr = false;
@@ -1280,6 +1345,32 @@ function autoPts(l) { return (l.questions || []).filter(q => q.type !== "open").
 function mySeed() { const l = lab(); return l ? seedFor(S.student.name, S.student.group, l.id) : 0; }
 function identOK() { return (S.student.name || "").trim().length > 2 && (S.student.group || "").trim().length > 0; }
 
+/* are pagina cheia de punctare? fără ea, Moodle primește doar „finalizat”, nu un 0 fals */
+function canScore(l) {
+  return !!(l && (l.k || (l.questions || []).some(q => q.type !== "open" && (q.correct != null || q.expr != null))));
+}
+/* Ce vede cadrul didactic în Moodle: grupa și câte un rând pe întrebare.
+   Un rând are cel mult 255 de caractere (SCORM 1.2); textele lungi continuă pe rândurile următoare. */
+function lmsAnswers(l, r, sub) {
+  const clean = s => String(s == null ? "" : s).replace(/!\[[^\]]*\]\([^)]*\)/g, "[figură]").replace(/[*_`#]/g, "").replace(/\s+/g, " ").trim();
+  const num = v => String(Number(Number(v).toPrecision(6))).replace(".", ",");
+  const out = [{ id: "Nume", resp: clean(sub.name).slice(0, 255) }, { id: "Grupa", resp: clean(sub.group).slice(0, 255) }];
+  (l.questions || []).forEach((q, i) => {
+    const id = "Intrebarea_" + (i + 1), a = (sub.answers || {})[q.id];
+    const it = (r.items || []).find(x => x.id === q.id) || {};
+    let txt;
+    if (a === undefined) txt = "(necompletat)";
+    else if (q.type === "mcq") txt = String.fromCharCode(97 + Number(a)) + ") " + clean((q.options || [])[Number(a)]);
+    else if (q.type === "num") {
+      const g = (sub.given || {})[q.id] || {}, ks = Object.keys(g);
+      txt = clean(a) + (ks.length ? " (date: " + ks.map(k => k + "=" + num(g[k])).join(", ") + ")" : "");
+    } else txt = clean(a);
+    const result = q.type === "open" ? "neutral" : it.ok === true ? "correct" : it.ok === false ? "wrong" : "neutral";
+    for (let k = 0; k < 10 && (k === 0 || k * 250 < txt.length); k++)
+      out.push({ id: k ? id + "_cont" + (k + 1) : id, resp: txt.slice(k * 250, k * 250 + 250), result: k ? "" : result });
+  });
+  return out;
+}
 function stripLab(l) {
   const c = JSON.parse(JSON.stringify(l));
   c.stripped = true;
@@ -1391,7 +1482,7 @@ function renderStudent() {
       S.labs.map(x => '<option value="' + esc(x.id) + '"' + (x.id === l.id ? " selected" : "") + ">" + esc(x.title) + "</option>").join("") + "</select></label>" : "") +
     "</div>" +
     '<div class="row">' +
-    '<label class="fld"><span>Nume și prenume' + (S.fromLMS ? " · din platformă" : "") + '</span><input type="text" id="sName" data-ident="name" value="' + esc(S.student.name) + '" placeholder="Popescu Ioana" autocomplete="name"' + (submitted || S.fromLMS ? " disabled" : "") + "></label>" +
+    '<label class="fld"><span>Nume și prenume' + (S.fromLMS ? " · din platformă" : S.lmsGuest ? " · ai intrat ca vizitator" : S.lmsPreview ? " · previzualizare, îl poți schimba" : "") + '</span><input type="text" id="sName" data-ident="name" value="' + esc(S.student.name) + '" placeholder="Popescu Ioana" autocomplete="name"' + (submitted || S.fromLMS ? " disabled" : "") + "></label>" +
     '<label class="fld" style="flex:0 1 160px"><span>Grupa</span><input type="text" id="sGroup" data-ident="group" value="' + esc(S.student.group) + '" placeholder="1234A"' + (submitted ? " disabled" : "") + "></label>" +
     "</div>" +
     identNoteHtml() + "</div>";
@@ -1531,10 +1622,12 @@ function renderSubmitCard(l, ready, submitted, done, nQ) {
     '<button type="button" class="btn" id="btnQR">Arată codul QR</button>' +
     '<button type="button" class="btn' + (canShare() || l.teacherEmail ? "" : " primary") + '" id="btnCopyCode">Copiază codul</button>' +
     '<button type="button" class="btn" id="btnDlCode">Descarcă fișierul</button>' +
+    '<button type="button" class="btn" id="btnLmsFile">Predare pe eLearning</button>' +
     "</div>" +
     '<details><summary class="small muted" style="cursor:pointer">Codul de predare, ca text</summary>' +
     '<div class="codebox" id="codeBox" style="margin-top:8px">' + esc(r.code) + "</div></details>" +
-    '<div class="row" style="margin-top:14px"><button type="button" class="btn" id="btnNewStudent">Fișă nouă pentru alt student</button>' +
+    /* cu numele din platformă, fișa e a unui singur student */
+    '<div class="row" style="margin-top:14px">' + (S.fromLMS ? "" : '<button type="button" class="btn" id="btnNewStudent">Fișă nouă pentru alt student</button>') +
     '<button type="button" class="btn ghost" id="btnRedo">Reia laboratorul (același student)</button></div>' +
     "</div>";
 }
@@ -1623,6 +1716,7 @@ function renderLabList() {
       '<button type="button" class="btn tiny" data-act="preview" data-id="' + esc(l.id) + '">Previzualizează</button>' +
       '<button type="button" class="btn tiny" data-act="labQR" data-id="' + esc(l.id) + '">Cod QR</button>' +
       '<button type="button" class="btn tiny" data-act="packStud" data-id="' + esc(l.id) + '">Pachet student</button>' +
+      '<button type="button" class="btn tiny" data-act="scorm" data-id="' + esc(l.id) + '">Pachet SCORM</button>' +
       '<button type="button" class="btn tiny" data-act="packFull" data-id="' + esc(l.id) + '">Export complet</button>' +
       '<button type="button" class="btn tiny" data-act="dup" data-id="' + esc(l.id) + '">Duplică</button>' +
       '<button type="button" class="btn tiny danger" data-act="delLab" data-id="' + esc(l.id) + '">Șterge</button>' +
@@ -1918,6 +2012,24 @@ function notaOf(c) {
   if (r.max) return { nota: 1 + 9 * r.total / r.max, propusa: true, r: r };
   return { nota: null, propusa: true, r: r };
 }
+/* Nota finală: media lucrărilor, Tema 1 și Tema 2, cu ponderile din fila „Note finale”.
+   Notele la teme se scriu de mână, pe student (nume + grupă). */
+const KT = "cl.teme", KW = "cl.noteW";
+function noteW() {
+  const w = S.noteW || {}, n = v => (typeof v === "number" && isFinite(v) && v >= 0 ? v : 1);
+  return { wL: n(w.wL), w1: n(w.w1), w2: n(w.w2) };
+}
+function temaRaw(sk, t) { const v = ((S.teme || {})[sk] || {})[t]; return v == null ? "" : String(v); }
+function temaOf(sk, t) { const x = parseNum(temaRaw(sk, t)); return isFinite(x) ? x : null; }
+function finalOf(st) {
+  const w = noteW(), parts = [[w.wL, st.labAvg], [w.w1, st.t1], [w.w2, st.t2]].filter(p => p[0] > 0);
+  if (!parts.length || parts.some(p => p[1] == null)) return null;
+  return parts.reduce((a, p) => a + p[0] * p[1], 0) / parts.reduce((a, p) => a + p[0], 0);
+}
+function finalCell(st) { return st.final != null ? '<b style="font-size:15px">' + fmt(st.final, 2) + "</b>" : "—"; }
+function updateFinals() {
+  gradebook().rows.forEach((st, i) => { const td = document.querySelector('[data-fin="' + i + '"]'); if (td) td.innerHTML = finalCell(st); });
+}
 function gradebook() {
   const order = S.labs.map(l => l.id);
   const used = [], byStud = {};
@@ -1937,7 +2049,9 @@ function gradebook() {
     const st = byStud[k];
     const notes = used.map(id => st.labs[id] ? st.labs[id].nota : null).filter(n => n != null && isFinite(n));
     st.count = notes.length;
-    st.final = notes.length ? notes.reduce((a, b) => a + b, 0) / notes.length : null;
+    st.labAvg = notes.length ? notes.reduce((a, b) => a + b, 0) / notes.length : null;
+    st.t1 = temaOf(k, "t1"); st.t2 = temaOf(k, "t2");
+    st.final = finalOf(st);
     let tot = 0, max = 0;
     used.forEach(id => { const x = st.labs[id]; if (x && x.max) { tot += x.total; max += x.max; } });
     st.pct = max ? tot / max * 100 : null;
@@ -1955,15 +2069,22 @@ function labShort(id) {
 function renderNotes() {
   const g = gradebook();
   let h = '<div class="spread" style="margin-bottom:14px"><div><h2 style="font-size:20px">Note finale</h2>' +
-    '<p class="small muted">Media aritmetică a notelor de la lucrările predate. Notele scrise cu gri sunt propuse automat din punctaj — devin definitive când le confirmi în Catalog.</p></div>' +
+    '<p class="small muted">Nota finală se calculează din media notelor de la lucrările predate, Tema 1 și Tema 2, cu ponderile de mai jos. Notele la teme le scrii direct în tabel. Notele scrise cu gri sunt propuse automat din punctaj — devin definitive când le confirmi în Catalog.</p></div>' +
     '<div class="row"><button type="button" class="btn" id="btnNotesCSV"' + (g.rows.length ? "" : " disabled") + ">Export CSV</button>" +
     '<button type="button" class="btn" id="btnRank"' + (g.rows.length ? "" : " disabled") + ">Clasament pentru proiecție</button></div></div>";
   if (!g.rows.length) return h + '<div class="card"><div class="empty"><b>Nicio fișă în catalog.</b><br>Importă fișele studenților în fila <i>Catalog</i> și situația se completează singură.</div></div>';
 
+  const w = noteW(), wf = v => String(v).replace(".", ",");
+  h += '<div class="card" style="margin-bottom:12px"><div class="row" style="gap:12px;align-items:flex-end">' +
+    [["wL", "Pondere: media lucrărilor"], ["w1", "Pondere: Tema 1"], ["w2", "Pondere: Tema 2"]].map(x =>
+      '<label class="fld" style="flex:0 1 190px"><span>' + x[1] + '</span><input type="text" inputmode="decimal" class="mono" data-w="' + x[0] + '" value="' + esc(wf(w[x[0]])) + '"></label>').join("") +
+    '</div><p class="small muted" style="margin-top:8px">Nota finală = (' + wf(w.wL) + " × media lucrărilor + " + wf(w.w1) + " × Tema 1 + " + wf(w.w2) + " × Tema 2) / " + wf(w.wL + w.w1 + w.w2) +
+    ". O pondere 0 scoate componenta din calcul. Nota finală apare când sunt trecute toate componentele.</p></div>";
+  const temaIn = (st, t) => '<td class="num"><input type="text" inputmode="decimal" class="mono" style="width:64px;padding:4px 6px;text-align:right" data-tema="' + t + '" data-sk="' + esc(st.key) + '" value="' + esc(temaRaw(st.key, t)) + '" placeholder="—" aria-label="' + (t === "t1" ? "Tema 1" : "Tema 2") + " · " + esc(st.name) + '"></td>';
   h += '<div class="card" style="padding:6px 6px 2px"><div style="overflow-x:auto"><table class="tbl"><thead><tr>' +
     "<th>Student</th><th>Grupa</th>" + g.used.map(id => '<th class="num" title="' + esc((S.labs.find(l => l.id === id) || {}).title || id) + '">' + esc(labShort(id)) + "</th>").join("") +
-    "<th class='num'>Lucrări</th><th class='num'>Nota finală</th></tr></thead><tbody>";
-  h += g.rows.map(st => {
+    "<th class='num'>Lucrări</th><th class='num'>Media lucrărilor</th><th class='num'>Tema 1</th><th class='num'>Tema 2</th><th class='num'>Nota finală</th></tr></thead><tbody>";
+  h += g.rows.map((st, i) => {
     return "<tr><td><b>" + esc(st.name) + "</b></td><td>" + esc(st.group) + "</td>" +
       g.used.map(id => {
         const x = st.labs[id];
@@ -1971,7 +2092,9 @@ function renderNotes() {
         return "<td class='num'" + (x.propusa ? " style='color:var(--ink-3)'" : "") + ">" + fmt(x.nota, 2) + (x.pending ? " *" : "") + "</td>";
       }).join("") +
       "<td class='num'>" + st.count + "/" + g.used.length + "</td>" +
-      "<td class='num'>" + (st.final != null ? '<b style="font-size:15px">' + fmt(st.final, 2) + "</b>" : "—") + "</td></tr>";
+      "<td class='num'>" + (st.labAvg != null ? fmt(st.labAvg, 2) : "—") + "</td>" +
+      temaIn(st, "t1") + temaIn(st, "t2") +
+      '<td class="num" data-fin="' + i + '">' + finalCell(st) + "</td></tr>";
   }).join("");
   h += "</tbody></table></div></div>";
   h += '<p class="small muted" style="margin-top:10px">* lucrare cu întrebări deschise încă necorectate.</p>';
@@ -1995,7 +2118,7 @@ function renderRank() {
           '<span class="who">' + esc(names ? st.name : "Student " + (i + 1)) + "</span>" +
           '<span class="barw"><i style="width:' + Math.max(3, Math.round(st.pct)) + '%"></i></span>' +
           '<span class="pctv mono">' + Math.round(st.pct) + "%</span>" +
-          '<span class="notav mono">' + (st.final != null ? fmt(st.final, 2) : "—") + "</span></div>";
+          '<span class="notav mono">' + (st.labAvg != null ? fmt(st.labAvg, 2) : "—") + "</span></div>";
       }).join("") + "</div></div>";
   }).join("");
   return b;
@@ -2106,7 +2229,7 @@ async function doSubmit() {
   r.enc = /^LAB[23]\./.test(r.code);
   S.result = r;
   saveDraft();
-  if (LMS.present()) { try { LMS.done(r.autoMax ? r.auto / r.autoMax * 100 : 0); } catch (e) { } }
+  if (LMS.present()) { try { LMS.answers(lmsAnswers(l, r, sub)); LMS.done(r.autoMax && canScore(l) ? r.auto / r.autoMax * 100 : NaN); } catch (e) { } }
   render();
   toast("Fișa a fost finalizată — trimite codul cadrului didactic");
   setTimeout(() => { const c = $("#codeBox"); if (c) c.scrollIntoView({ behavior: "smooth", block: "center" }); }, 60);
@@ -2392,10 +2515,23 @@ document.addEventListener("click", async (ev) => {
       '<button type="button" class="btn" data-mclose>Închide</button>');
     return;
   }
-  if (t.id === "btnDlCode") {
+  if (t.id === "btnDlCode" || t.id === "btnLmsFile") {
     const l = lab();
     const nm = (S.student.name || "student").replace(/[^\wăâîșțĂÂÎȘȚ -]/g, "").replace(/\s+/g, "_");
     saveFile(nm + "_" + (l ? l.id : "lab") + ".json", JSON.stringify(Object.assign({ code: S.result.code }, { name: S.student.name, group: S.student.group, labId: l && l.id, labTitle: l && l.title, submittedAt: S.result.submittedAt, answers: S.ans, given: (function () { const g = {}; (l.questions || []).forEach(q => { if (q.type === "num") g[q.id] = genVars(q, mySeed()); }); return g; })() }), null, 1));
+    if (t.id === "btnLmsFile") {
+      openModal("Predare pe eLearning",
+        (S.lmsGuest ? '<div class="fb note" style="margin:0 0 10px">Ai intrat în curs ca vizitator, deci platforma nu îți salvează nota și nu poți încărca tema. Trimite fișierul cadrului didactic așa cum ți-a cerut (de exemplu pe e-mail) sau arată-i codul QR.</div>' : "") +
+        '<p style="margin-bottom:10px">Fișierul <b class="mono">' + esc(nm + "_" + (l ? l.id : "lab") + ".json") + '</b> s-a descărcat pe acest dispozitiv (de obicei în folderul <i>Descărcări</i>).</p>' +
+        '<ol style="margin:0 0 10px 18px;line-height:1.6">' +
+        '<li>Intră pe platforma eLearning a universității și deschide cursul.</li>' +
+        '<li>Deschide tema de predare pentru <b>' + esc(l ? l.title : "această lucrare") + '</b>.</li>' +
+        '<li>Apasă <b>Adaugă predare</b> și trage fișierul în caseta de încărcare (sau alege-l din <i>Descărcări</i>).</li>' +
+        '<li>Apasă <b>Salvează modificările</b>. Dacă apare butonul <b>Trimite tema</b>, apasă-l și pe el.</li>' +
+        '</ol>' +
+        '<p class="small muted">Nu redenumi și nu deschide fișierul înainte de încărcare. Dacă nu îl găsești, apasă din nou butonul.</p>',
+        '<button type="button" class="btn primary" data-mclose>Am înțeles</button>');
+    }
     return;
   }
   if (t.id === "btnRedo") {
@@ -2499,6 +2635,7 @@ document.addEventListener("click", async (ev) => {
     resetToBuiltin(t.dataset.id); restoreDraft(); render(); toast("Se folosește versiunea din pagină"); return;
   }
   if (act === "packStud") { const l = S.labs.find(x => x.id === t.dataset.id); saveFile(l.id + "-student.json", JSON.stringify(stripLab(l), null, 1)); return; }
+  if (act === "scorm") { exportScorm(t.dataset.id); return; }
   if (act === "packFull") { const l = S.labs.find(x => x.id === t.dataset.id); saveFile(l.id + "-complet.json", JSON.stringify(l, null, 1)); return; }
   if (act === "dup") {
     const l = JSON.parse(JSON.stringify(S.labs.find(x => x.id === t.dataset.id)));
@@ -2594,13 +2731,25 @@ document.addEventListener("change", (ev) => {
   if (el.id === "linkIn") { LS.set(K.link, el.value.trim()); render(); return; }
   if (el.dataset.ident !== undefined) { LS.set(K.stud, S.student); refreshIdentity(); return; }
   if (el.type === "radio" && el.dataset.q !== undefined) { S.ans[el.dataset.q] = Number(el.value); saveDraft(); updateProgress(); return; }
+  if (el.dataset.tema && el.dataset.sk !== undefined) {
+    const v = el.value.trim();
+    if (v && !isFinite(parseNum(v))) toast("Nota la temă trebuie să fie un număr");
+    S.teme = S.teme || {};
+    S.teme[el.dataset.sk] = Object.assign({}, S.teme[el.dataset.sk], { [el.dataset.tema]: v });
+    Store.set(KT, S.teme); updateFinals(); return;
+  }
+  if (el.dataset.w) {
+    const x = parseNum(el.value);
+    S.noteW = Object.assign({}, noteW(), { [el.dataset.w]: isFinite(x) && x >= 0 ? x : 1 });
+    Store.set(KW, S.noteW); render(); return;
+  }
   if (el.id === "rankNames") { S.rankNames = el.checked; $("#modalBody").innerHTML = renderRank(); return; }
   if (S.edit && el.dataset.f === "selfCheck") { S.edit.selfCheck = el.checked; return; }
 });
 
 /* Scrie o copie a aplicației, cu cheia publică și lucrările tale incluse.
    Copia e pentru studenți: baremul lucrărilor tale este eliminat. */
-async function exportApp() {
+async function studentAppSource(extra) {
   let src = null;
   try {
     const r = await fetch(location.href, { cache: "no-store" });
@@ -2610,11 +2759,11 @@ async function exportApp() {
     openModal("Exportul nu este disponibil aici",
       '<div class="doc">' + renderMd(
         "Aplica\u021bia \u00ee\u0219i poate scrie o copie doar c\u00e2nd este deschis\u0103 **de la o adres\u0103 web** \u2014 de pe platforma eLearning sau de la o g\u0103zduire.\n\nDintr-un fi\u0219ier deschis cu dublu-click, browserul nu \u00eei d\u0103 voie s\u0103 \u00ee\u0219i citeasc\u0103 propriul con\u021binut. Urc\u0103 o dat\u0103 fi\u0219ierul pe platform\u0103, deschide-l de acolo \u0219i apas\u0103 din nou acest buton.") + "</div>");
-    return;
+    return null;
   }
   const A = "/*PRESET-START*/", B = "/*PRESET-END*/";
   const i = src.indexOf(A), j = src.indexOf(B);
-  if (j < i) { toast("Fișierul sursă nu are locul pentru setări"); return; }
+  if (j < i) { toast("Fișierul sursă nu are locul pentru setări"); return null; }
   const preset = {
     v: 1, creat: new Date().toISOString(),
     pub: pubKey(),
@@ -2622,10 +2771,53 @@ async function exportApp() {
     hidden: HIDDEN.slice(),
     labs: USER_LABS.map(l => stripLab(l))
   };
+  Object.assign(preset, extra || {});
   const js = "window.__CL_PRESET=" + JSON.stringify(preset).replace(/</g, "\\u003c").replace(/\*\//g, "*\\/") + ";";
-  const out = src.slice(0, i + A.length) + js + src.slice(j);
+  return src.slice(0, i + A.length) + js + src.slice(j);
+}
+async function exportApp() {
+  const out = await studentAppSource();
+  if (out == null) return;
   await saveFile("caiet-laborator-studenti.html", out);
   toast("Copia pentru studenți a fost creată" + (pubKey() ? " · cheia este inclusă" : " · fără cheie de criptare"));
+}
+
+/* Pachet SCORM 1.2 pentru o lucrare: copia pentru studenți, deschisă direct pe acea
+   lucrare, plus manifestul. În Moodle preia numele studentului și trimite punctajul automat în catalog. */
+async function exportScorm(id) {
+  const l = S.labs.find(x => x.id === id); if (!l) return;
+  /* lucrarea așa cum ajunge în copia pentru studenți */
+  const u = USER_LABS.find(x => x && x.id === id), inCopy = u ? stripLab(u) : BUILTIN.find(x => x.id === id);
+  const scored = canScore(inCopy);
+  const html = await studentAppSource({ lab: l.id });
+  if (html == null) return;
+  const x = s => String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+  const ident = "caiet-" + String(l.id).replace(/[^A-Za-z0-9_-]/g, "_");
+  const manifest = '<?xml version="1.0" encoding="UTF-8"?>\n' +
+    '<manifest identifier="' + ident + '" version="1.0" xmlns="http://www.imsproject.org/xsd/imscp_rootv1p1p2" xmlns:adlcp="http://www.adlnet.org/xsd/adlcp_rootv1p2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.imsproject.org/xsd/imscp_rootv1p1p2 imscp_rootv1p1p2.xsd http://www.adlnet.org/xsd/adlcp_rootv1p2 adlcp_rootv1p2.xsd">\n' +
+    ' <metadata><schema>ADL SCORM</schema><schemaversion>1.2</schemaversion></metadata>\n' +
+    ' <organizations default="org1"><organization identifier="org1"><title>' + x(l.title) + '</title>\n' +
+    '  <item identifier="item1" identifierref="res1" isvisible="true"><title>' + x(l.title) + '</title></item>\n' +
+    ' </organization></organizations>\n' +
+    ' <resources><resource identifier="res1" type="webcontent" adlcp:scormtype="sco" href="index.html"><file href="index.html"/></resource></resources>\n' +
+    '</manifest>\n';
+  const zip = zipStore([{ name: "imsmanifest.xml", data: manifest }, { name: "index.html", data: html }]);
+  const fn = "scorm-" + l.id + ".zip";
+  if (!nativeSave(fn, zip)) { toast("Descărcarea nu e disponibilă aici"); return; }
+  toast("Fișier descărcat: " + fn);
+  openModal("Pachet SCORM pentru eLearning",
+    '<p style="margin-bottom:10px">Arhiva <b class="mono">' + esc(fn) + '</b> conține lucrarea <b>' + esc(l.title) + '</b>' + (pubKey() ? ", cu cheia ta de criptare" : "") + '. Nu o dezarhiva.</p>' +
+    '<ol style="margin:0 0 10px 18px;line-height:1.6">' +
+    '<li>În cursul de pe eLearning, activează editarea și alege <b>Adaugă o activitate sau resursă → Pachet SCORM</b>.</li>' +
+    '<li>Dă-i un nume și trage arhiva în caseta <b>Pachet</b>.</li>' +
+    '<li>La <b>Notă</b>: metoda de notare <b>Cea mai mare notă</b>, nota maximă <b>100</b>. Dacă vrei o singură predare, pune <b>Număr de încercări: 1</b>.</li>' +
+    '<li>Apasă <b>Salvează și afișează</b>.</li>' +
+    '</ol>' +
+    '<p class="small muted">Studentul intră din Moodle, cu numele preluat din platformă. ' +
+    (scored ? "La predare, punctajul automat (grila și calculele, ca procent) ajunge în catalogul cursului. Întrebările libere le corectezi tu și modifici nota în catalog; " : "La predare, Moodle marchează activitatea ca finalizată; nota o treci tu în catalog după corectare. ") +
+    'Pentru corectare, studentul îți trimite și fișierul („Predare pe eLearning”). Ce a completat fiecare student vezi și în Moodle, la <b>Rapoarte → Interacțiuni</b>.</p>' +
+    (scored ? "" : '<div class="fb note" style="margin-top:10px">Copia pentru studenți a acestei lucrări nu conține cheia de punctare, așa că Moodle nu va primi un punctaj automat.</div>'),
+    '<button type="button" class="btn primary" data-mclose>Am înțeles</button>');
 }
 
 /* pachetul complet: toate lucrările, cu figurile lor proprii */
@@ -2638,12 +2830,12 @@ function exportNotesCSV() {
   const head = ["Nume", "Grupa"].concat(g.used.map(id => {
     const l = S.labs.find(x => x.id === id);
     return l ? (l.course || l.title) : id;
-  })).concat(["Lucrari predate", "Nota finala"]);
+  })).concat(["Lucrari predate", "Media lucrarilor", "Tema 1", "Tema 2", "Nota finala"]);
   const rows = [head];
   g.rows.forEach(st => {
     rows.push([st.name, st.group]
       .concat(g.used.map(id => st.labs[id] && st.labs[id].nota != null ? fmt(st.labs[id].nota, 2) : ""))
-      .concat([st.count, st.final != null ? fmt(st.final, 2) : ""]));
+      .concat([st.count, st.labAvg != null ? fmt(st.labAvg, 2) : "", st.t1 != null ? fmt(st.t1, 2) : "", st.t2 != null ? fmt(st.t2, 2) : "", st.final != null ? fmt(st.final, 2) : ""]));
   });
   saveFile("note-finale-" + todayISO() + ".csv", toCSV(rows));
 }
@@ -2685,6 +2877,8 @@ async function init() {
   USER_LABS = (await Store.get(K.labs, null)) || LS.get(K.labs, []) || [];
   HIDDEN = (await Store.get(K.hidden, null)) || LS.get(K.hidden, []) || [];
   S.catalog = (await Store.get(K.cat, null)) || LS.get(K.cat, []) || [];
+  S.teme = (await Store.get(KT, null)) || {};
+  S.noteW = (await Store.get(KW, null)) || null;
 
   /* o singură dată: se elimină laboratoarele demonstrative din versiunile vechi */
   if (!LS.get("cl.mig2", false)) {
@@ -2713,7 +2907,10 @@ async function init() {
   if (LMS.present()) {
     LMS.init();
     const who = LMS.student();
-    if (who && who.name) { S.fromLMS = true; S.student.name = who.name; LS.set(K.stud, S.student); }
+    if (who && who.guest) S.lmsGuest = true;
+    /* în previzualizare sau într-un pachet de test (cadrul didactic testează) numele din platformă se poate schimba */
+    else if (who && who.name && (LMS.mode() === "browse" || LMS.credit() === "no-credit" || (window.__CL_PRESET || {}).nameFree)) { S.lmsPreview = true; if (!S.student.name) { S.student.name = who.name; LS.set(K.stud, S.student); } }
+    else if (who && who.name) { S.fromLMS = true; S.student.name = who.name; LS.set(K.stud, S.student); }
   }
 
   adoptKeyFromHash();
@@ -2728,6 +2925,7 @@ async function init() {
   try { if (/(^|[#&])prof(esor)?(&|$)/.test(location.hash || "") && !S.unlocked) openGate(); } catch (e) { }
 }
 init();
+window.addEventListener("pagehide", () => LMS.finish());
 window.addEventListener("hashchange", () => {
   adoptKeyFromHash();
   const want = hashLab();
