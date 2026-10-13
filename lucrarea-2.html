@@ -883,6 +883,8 @@ const LMS = (function () {
         a.LMSCommit("");
       } catch (e) { }
     },
+    /* "browse" = previzualizare în Moodle: nota nu se înregistrează */
+    mode() { const a = get(); if (!a) return ""; try { return String(a.LMSGetValue("cmi.core.lesson_mode") || ""); } catch (e) { return ""; } },
     finish() { const a = get(); if (!a || !started) return; try { a.LMSFinish(""); } catch (e) { } }
   };
 })();
@@ -1178,6 +1180,7 @@ const S = {
   unlocked: false,
   fromLMS: false,
   lmsGuest: false,
+  lmsPreview: false,
   teme: {},
   noteW: null
 };
@@ -1439,7 +1442,7 @@ function renderStudent() {
       S.labs.map(x => '<option value="' + esc(x.id) + '"' + (x.id === l.id ? " selected" : "") + ">" + esc(x.title) + "</option>").join("") + "</select></label>" : "") +
     "</div>" +
     '<div class="row">' +
-    '<label class="fld"><span>Nume și prenume' + (S.fromLMS ? " · din platformă" : S.lmsGuest ? " · ai intrat ca vizitator" : "") + '</span><input type="text" id="sName" data-ident="name" value="' + esc(S.student.name) + '" placeholder="Popescu Ioana" autocomplete="name"' + (submitted || S.fromLMS ? " disabled" : "") + "></label>" +
+    '<label class="fld"><span>Nume și prenume' + (S.fromLMS ? " · din platformă" : S.lmsGuest ? " · ai intrat ca vizitator" : S.lmsPreview ? " · previzualizare, îl poți schimba" : "") + '</span><input type="text" id="sName" data-ident="name" value="' + esc(S.student.name) + '" placeholder="Popescu Ioana" autocomplete="name"' + (submitted || S.fromLMS ? " disabled" : "") + "></label>" +
     '<label class="fld" style="flex:0 1 160px"><span>Grupa</span><input type="text" id="sGroup" data-ident="group" value="' + esc(S.student.group) + '" placeholder="1234A"' + (submitted ? " disabled" : "") + "></label>" +
     "</div>" +
     identNoteHtml() + "</div>";
@@ -1583,7 +1586,8 @@ function renderSubmitCard(l, ready, submitted, done, nQ) {
     "</div>" +
     '<details><summary class="small muted" style="cursor:pointer">Codul de predare, ca text</summary>' +
     '<div class="codebox" id="codeBox" style="margin-top:8px">' + esc(r.code) + "</div></details>" +
-    '<div class="row" style="margin-top:14px"><button type="button" class="btn" id="btnNewStudent">Fișă nouă pentru alt student</button>' +
+    /* cu numele din platformă, fișa e a unui singur student */
+    '<div class="row" style="margin-top:14px">' + (S.fromLMS ? "" : '<button type="button" class="btn" id="btnNewStudent">Fișă nouă pentru alt student</button>') +
     '<button type="button" class="btn ghost" id="btnRedo">Reia laboratorul (același student)</button></div>' +
     "</div>";
 }
@@ -2864,6 +2868,8 @@ async function init() {
     LMS.init();
     const who = LMS.student();
     if (who && who.guest) S.lmsGuest = true;
+    /* în previzualizare (cadrul didactic testează) numele din platformă se poate schimba */
+    else if (who && who.name && LMS.mode() === "browse") { S.lmsPreview = true; if (!S.student.name) { S.student.name = who.name; LS.set(K.stud, S.student); } }
     else if (who && who.name) { S.fromLMS = true; S.student.name = who.name; LS.set(K.stud, S.student); }
   }
 
